@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Imscommunicator-dev] SIPp-IMS registration error
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/imscommunicator-dev/2009-June/index.html" >
+   <LINK REL="made" HREF="mailto:imscommunicator-dev%40lists.berlios.de?Subject=Re%3A%20%5BImscommunicator-dev%5D%20SIPp-IMS%20registration%20error&In-Reply-To=%3C910585.83065.qm%40web58306.mail.re3.yahoo.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000101.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Imscommunicator-dev] SIPp-IMS registration error</H1>
+    <B>mosbah agil</B> 
+    <A HREF="mailto:imscommunicator-dev%40lists.berlios.de?Subject=Re%3A%20%5BImscommunicator-dev%5D%20SIPp-IMS%20registration%20error&In-Reply-To=%3C910585.83065.qm%40web58306.mail.re3.yahoo.com%3E"
+       TITLE="[Imscommunicator-dev] SIPp-IMS registration error">mmaass79 at yahoo.com
+       </A><BR>
+    <I>Thu Jun 18 11:29:45 CEST 2009</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000101.html">[Imscommunicator-dev] SIPp-IMS registration error
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#100">[ date ]</a>
+              <a href="thread.html#100">[ thread ]</a>
+              <a href="subject.html#100">[ subject ]</a>
+              <a href="author.html#100">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi
+
+we try to register using SIPP using this command
+
+
+<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">qwerty at IMScore2</A>:/$ sudo sipp -sf /home/qwerty/hii1xml/reg-bob-hii1.xml 192.168.100.14:4060 -i 192.168.100.22 -p 7777 -m 1
+
+&#160;but we have the following errors in the FHSS and SIPp, if any one have help, please help me.
+Regards
+Mosbah.
+
+
+in the fhss the following error appear 
+
+
+2009-06-18 11:59:12,580 DEBUG de.fhg.fokus.hss.main.Task - execute Processing UAR!
+2009-06-18 11:59:12,646 DEBUG de.fhg.fokus.hss.main.Task - execute Processing MAR!
+2009-06-18 11:59:12,776 DEBUG de.fhg.fokus.hss.cx.op.MAR - generateAuthVector Auth-Scheme is Digest-AKA
+2009-06-18 11:59:12,777 DEBUG de.fhg.fokus.hss.auth.DigestAKA - getAuthenticationVector Authentication-Scheme: AKAv1!
+2009-06-18 11:59:12,895 DEBUG de.fhg.fokus.hss.main.Task - execute Processing UAR!
+2009-06-18 11:59:12,987 DEBUG de.fhg.fokus.hss.main.Task - execute Processing MAR!
+2009-06-18 11:59:13,015 DEBUG de.fhg.fokus.hss.cx.op.MAR - generateAuthVector Auth-Scheme is Digest-AKA
+2009-06-18 11:59:13,017 DEBUG de.fhg.fokus.hss.auth.DigestAKA - getAuthenticationVector Authentication-Scheme: AKAv1!
+
+
+*********************************************************
+in the SIPp the following error appear
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+
+2009-06-18 10:59:23: Aborting call on
+unexpected message for Call-ID '<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">1-8272 at 192.168.100.22</A>': while
+expecting '200' response, received 'SIP/2.0 401 Unauthorized -
+Challenging the UE 
+
+Via: SIP/2.0/UDP
+192.168.100.22:7777;rport=7777;branch=z9hG4bK-8272-1-2 
+
+From: &quot;alice&quot;
+&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">alice at hii2-ims.test</A>&gt;;tag=1 
+
+To: &quot;alice&quot;
+&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">alice at hii2-ims.test</A>&gt;;tag=d06116319426125fe9069e4ac62d5a83-d0d3
+
+Call-ID: reg///<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">1-8272 at 192.168.100.22</A> 
+
+CSeq: 2 REGISTER 
+
+Path: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">term at 192.168.100.14</A>:4060;lr&gt;
+
+Service-Route:
+&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">orig at scscf.hii2-ims.test</A>:6060;lr&gt; 
+
+Allow: INVITE, ACK, CANCEL, OPTIONS,
+BYE, REFER, SUBSCRIBE, NOTIFY, MESSAGE, INFO 
+
+Server: Sip EXpress router (2.1.0-dev1
+OpenIMSCore (i386/linux)) 
+
+Content-Length: 0 
+
+Warning: 392 192.168.100.14:6060 &quot;Noisy
+feedback tells:  pid=11626 req_src_ip=192.168.100.14
+req_src_port=5060 in_uri=sip:scscf.hii2-ims.test:6060
+out_uri=sip:scscf.hii2-ims.test:6060 via_cnt==3&quot; 
+
+WWW-Authenticate: Digest
+realm=&quot;hii2-ims.test&quot;,
+nonce=&quot;txqurE1G/tnzIJd6A1DfLhq1hDX94wAA07LddsxfT8A=&quot;,
+qop=&quot;auth&quot;, algorithm=AKAv1-MD5
+
+
+
+
+      
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/imscommunicator-dev/attachments/20090618/81937033/attachment.html">https://lists.berlios.de/pipermail/imscommunicator-dev/attachments/20090618/81937033/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000101.html">[Imscommunicator-dev] SIPp-IMS registration error
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#100">[ date ]</a>
+              <a href="thread.html#100">[ thread ]</a>
+              <a href="subject.html#100">[ subject ]</a>
+              <a href="author.html#100">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">More information about the Imscommunicator-dev
+mailing list</a><br>
+</body></html>

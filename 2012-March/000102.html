@@ -1,0 +1,231 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> No subject
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/imscommunicator-dev/2012-March/index.html" >
+   <LINK REL="made" HREF="mailto:imscommunicator-dev%40lists.berlios.de?Subject=Re%3A%20No%20subject&In-Reply-To=%3Cmailman.1.1331734046.3439.imscommunicator-dev%40lists.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000081.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>No subject</H1>
+    <B></B> 
+    <A HREF="mailto:imscommunicator-dev%40lists.berlios.de?Subject=Re%3A%20No%20subject&In-Reply-To=%3Cmailman.1.1331734046.3439.imscommunicator-dev%40lists.berlios.de%3E"
+       TITLE="No subject">
+       </A><BR>
+    <I>Wed Mar 14 15:07:25 CET 2012</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000081.html">No subject
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#102">[ date ]</a>
+              <a href="thread.html#102">[ thread ]</a>
+              <a href="subject.html#102">[ subject ]</a>
+              <a href="author.html#102">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>s there any exception thrown, or an ERROR lablled log?=20
+
+
+Thanks and Regards=20
+
+Aayush Bhatnagar=20
+Rancore Technologies=20
+
+
+----- Original Message -----=20
+From: &quot;mosbah agil&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">mmaass79 at yahoo.com</A>&gt;=20
+To: &quot;imscom ims&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">imscommunicator-dev at lists.berlios.de</A>&gt;=20
+Cc: &quot;SIPp mailing list&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">sipp-users at lists.sourceforge.net</A>&gt;=20
+Sent: Thursday, June 18, 2009 2:59:45 PM GMT +05:30 Chennai, Kolkata, Mumba=
+i, New Delhi=20
+Subject: [Imscommunicator-dev] SIPp-IMS registration error=20
+
+Hi=20
+
+we try to register using SIPP using this command=20
+
+
+<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">qwerty at IMScore2</A>:/$ sudo sipp -sf /home/qwerty/hii1xml/reg-bob-hii1.xml 192.=
+168.100.14:4060 -i 192.168.100.22 -p 7777 -m 1=20
+
+=C2=A0but we have the following errors in the FHSS and SIPp, if any one hav=
+e help, please help me.=20
+Regards=20
+Mosbah.=20
+
+
+in the fhss the following error appear=20
+
+
+2009-06-18 11:59:12,580 DEBUG de.fhg.fokus.hss.main.Task - execute Processi=
+ng UAR!=20
+2009-06-18 11:59:12,646 DEBUG de.fhg.fokus.hss.main.Task - execute Processi=
+ng MAR!=20
+2009-06-18 11:59:12,776 DEBUG de.fhg.fokus.hss.cx.op.MAR - generateAuthVect=
+or Auth-Scheme is Digest-AKA=20
+2009-06-18 11:59:12,777 DEBUG de.fhg.fokus.hss.auth.DigestAKA - getAuthenti=
+cationVector Authentication-Scheme: AKAv1!=20
+2009-06-18 11:59:12,895 DEBUG de.fhg.fokus.hss.main.Task - execute Processi=
+ng UAR!=20
+2009-06-18 11:59:12,987 DEBUG de.fhg.fokus.hss.main.Task - execute Processi=
+ng MAR!=20
+2009-06-18 11:59:13,015 DEBUG de.fhg.fokus.hss.cx.op.MAR - generateAuthVect=
+or Auth-Scheme is Digest-AKA=20
+2009-06-18 11:59:13,017 DEBUG de.fhg.fokus.hss.auth.DigestAKA - getAuthenti=
+cationVector Authentication-Scheme: AKAv1!=20
+
+
+*********************************************************=20
+in the SIPp the following error appear=20
+
+
+
+
+
+2009-06-18 10:59:23: Aborting call on unexpected message for Call-ID '1-827=
+<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">2 at 192.168.100.22</A>': while expecting '200' response, received 'SIP/2.0 401 Un=
+authorized - Challenging the UE=20
+
+Via: SIP/2.0/UDP 192.168.100.22:7777;rport=3D7777;branch=3Dz9hG4bK-8272-1-2=
+=20
+
+From: &quot;alice&quot; &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">alice at hii2-ims.test</A>&gt;;tag=3D1=20
+
+To: &quot;alice&quot; &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">alice at hii2-ims.test</A>&gt;;tag=3Dd06116319426125fe9069e4ac62d5a8=
+3-d0d3=20
+
+Call-ID: reg///<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">1-8272 at 192.168.100.22</A>=20
+
+CSeq: 2 REGISTER=20
+
+Path: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">term at 192.168.100.14</A>:4060;lr&gt;=20
+
+Service-Route: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">orig at scscf.hii2-ims.test</A>:6060;lr&gt;=20
+
+Allow: INVITE, ACK, CANCEL, OPTIONS, BYE, REFER, SUBSCRIBE, NOTIFY, MESSAGE=
+, INFO=20
+
+Server: Sip EXpress router (2.1.0-dev1 OpenIMSCore (i386/linux))=20
+
+Content-Length: 0=20
+
+Warning: 392 192.168.100.14:6060 &quot;Noisy feedback tells: pid=3D11626 req_src=
+_ip=3D192.168.100.14 req_src_port=3D5060 in_uri=3Dsip:scscf.hii2-ims.test:6=
+060 out_uri=3Dsip:scscf.hii2-ims.test:6060 via_cnt=3D=3D3&quot;=20
+
+WWW-Authenticate: Digest realm=3D&quot;hii2-ims.test&quot;, nonce=3D&quot;txqurE1G/tnzIJd6=
+A1DfLhq1hDX94wAA07LddsxfT8A=3D&quot;, qop=3D&quot;auth&quot;, algorithm=3DAKAv1-MD5=20
+
+
+_______________________________________________ Imscommunicator-dev mailing=
+ list <A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">Imscommunicator-dev at lists.berlios.de</A> <A HREF="https://lists.berlios.de/mailman=">https://lists.berlios.de/mailman=</A>
+/listinfo/imscommunicator-dev
+------=_Part_36781_7988714.1245317701716
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+&lt;html&gt;&lt;head&gt;&lt;style type=3D'text/css'&gt;p { margin: 0; }&lt;/style&gt;&lt;style type=3D=
+'text/css'&gt;body { font-family: 'Courier'; font-size: 10pt; color: #000066}&lt;=
+/style&gt;&lt;/head&gt;&lt;body&gt;&lt;P&gt;From the HSS log, does not seem there is any error. =
+Its just a debug log. Is there any exception thrown, or an ERROR lablled lo=
+g?&lt;/P&gt;
+&lt;P&gt;&lt;BR&gt;Thanks and Regards&lt;BR&gt;&lt;BR&gt;Aayush Bhatnagar&lt;BR&gt;Rancore Technologies&lt;B=
+R&gt;&lt;BR&gt;&lt;BR&gt;----- Original Message -----&lt;BR&gt;From: &quot;mosbah agil&quot; &lt;mmaass79@=
+yahoo.com&gt;&lt;BR&gt;To: &quot;imscom ims&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">imscommunicator-dev at lists.berlios.de</A>&amp;=
+gt;&lt;BR&gt;Cc: &quot;SIPp mailing list&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">sipp-users at lists.sourceforge.net</A>&gt;&lt;BR&gt;=
+Sent: Thursday, June 18, 2009 2:59:45 PM GMT +05:30 Chennai, Kolkata, Mumba=
+i, New Delhi&lt;BR&gt;Subject: [Imscommunicator-dev] SIPp-IMS registration error&lt;=
+BR&gt;&lt;BR&gt;&lt;/P&gt;
+&lt;TABLE cellSpacing=3D0 cellPadding=3D0 border=3D0&gt;
+&lt;TBODY&gt;
+&lt;TR&gt;
+&lt;TD vAlign=3Dtop&gt;Hi&lt;BR&gt;&lt;BR&gt;we try to register using SIPP using this command=
+&lt;BR&gt;&lt;BR&gt;&lt;BR&gt;<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">qwerty at IMScore2</A>:/$ sudo sipp -sf /home/qwerty/hii1xml/reg-bob-h=
+ii1.xml 192.168.100.14:4060 -i 192.168.100.22 -p 7777 -m 1&lt;BR&gt;&lt;BR&gt;&nbsp;but=
+ we have the following errors in the FHSS and SIPp, if any one have help, p=
+lease help me.&lt;BR&gt;Regards&lt;BR&gt;Mosbah.&lt;BR&gt;&lt;BR&gt;&lt;BR&gt;in the fhss the following e=
+rror appear &lt;BR&gt;&lt;BR&gt;&lt;BR&gt;2009-06-18 11:59:12,580 DEBUG de.fhg.fokus.hss.main=
+.Task - execute Processing UAR!&lt;BR&gt;2009-06-18 11:59:12,646 DEBUG de.fhg.fok=
+us.hss.main.Task - execute Processing MAR!&lt;BR&gt;2009-06-18 11:59:12,776 DEBUG=
+ de.fhg.fokus.hss.cx.op.MAR - generateAuthVector Auth-Scheme is Digest-AKA&lt;=
+BR&gt;2009-06-18 11:59:12,777 DEBUG de.fhg.fokus.hss.auth.DigestAKA - getAuthe=
+nticationVector Authentication-Scheme: AKAv1!&lt;BR&gt;2009-06-18 11:59:12,895 DE=
+BUG de.fhg.fokus.hss.main.Task - execute Processing UAR!&lt;BR&gt;2009-06-18 11:5=
+9:12,987 DEBUG de.fhg.fokus.hss.main.Task - execute Processing MAR!&lt;BR&gt;2009=
+-06-18 11:59:13,015 DEBUG de.fhg.fokus.hss.cx.op.MAR - generateAuthVector A=
+uth-Scheme is Digest-AKA&lt;BR&gt;2009-06-18 11:59:13,017 DEBUG de.fhg.fokus.hss.=
+auth.DigestAKA - getAuthenticationVector Authentication-Scheme: AKAv1!&lt;BR&gt;&lt;=
+BR&gt;&lt;BR&gt;*********************************************************&lt;BR&gt;in the =
+SIPp the following error appear&lt;BR&gt;&lt;BR&gt;&lt;BR&gt;&lt;BR&gt;
+&lt;STYLE&gt;
+=09&lt;!--
+=09=<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">09 at page</A> { size: 8.5in 11in; margin: 0.79in }
+=09=09P { margin-bottom: 0.08in }
+=09--&gt;
+=09&lt;/STYLE&gt;
+
+&lt;P style=3D&quot;MARGIN-BOTTOM: 0in&quot;&gt;2009-06-18 10:59:23: Aborting call on unexp=
+ected message for Call-ID '<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">1-8272 at 192.168.100.22</A>': while expecting '200' re=
+sponse, received 'SIP/2.0 401 Unauthorized - Challenging the UE &lt;/P&gt;
+&lt;P style=3D&quot;MARGIN-BOTTOM: 0in&quot;&gt;Via: SIP/2.0/UDP 192.168.100.22:7777;rport=
+=3D7777;branch=3Dz9hG4bK-8272-1-2 &lt;/P&gt;
+&lt;P style=3D&quot;MARGIN-BOTTOM: 0in&quot;&gt;From: &quot;alice&quot; &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">alice at hii2-ims.test</A>&amp;g=
+t;;tag=3D1 &lt;/P&gt;
+&lt;P style=3D&quot;MARGIN-BOTTOM: 0in&quot;&gt;To: &quot;alice&quot; &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">alice at hii2-ims.test</A>&gt;=
+;tag=3Dd06116319426125fe9069e4ac62d5a83-d0d3 &lt;/P&gt;
+&lt;P style=3D&quot;MARGIN-BOTTOM: 0in&quot;&gt;Call-ID: reg///<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">1-8272 at 192.168.100.22</A> &lt;/P&gt;
+&lt;P style=3D&quot;MARGIN-BOTTOM: 0in&quot;&gt;CSeq: 2 REGISTER &lt;/P&gt;
+&lt;P style=3D&quot;MARGIN-BOTTOM: 0in&quot;&gt;Path: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">term at 192.168.100.14</A>:4060;lr&amp;g=
+t; &lt;/P&gt;
+&lt;P style=3D&quot;MARGIN-BOTTOM: 0in&quot;&gt;Service-Route: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">orig at scscf.hii2-ims.</A>=
+test:6060;lr&gt; &lt;/P&gt;
+&lt;P style=3D&quot;MARGIN-BOTTOM: 0in&quot;&gt;Allow: INVITE, ACK, CANCEL, OPTIONS, BYE, R=
+EFER, SUBSCRIBE, NOTIFY, MESSAGE, INFO &lt;/P&gt;
+&lt;P style=3D&quot;MARGIN-BOTTOM: 0in&quot;&gt;Server: Sip EXpress router (2.1.0-dev1 Open=
+IMSCore (i386/linux)) &lt;/P&gt;
+&lt;P style=3D&quot;MARGIN-BOTTOM: 0in&quot;&gt;Content-Length: 0 &lt;/P&gt;
+&lt;P style=3D&quot;MARGIN-BOTTOM: 0in&quot;&gt;Warning: 392 192.168.100.14:6060 &quot;Noisy fee=
+dback tells: pid=3D11626 req_src_ip=3D192.168.100.14 req_src_port=3D5060 in=
+_uri=3Dsip:scscf.hii2-ims.test:6060 out_uri=3Dsip:scscf.hii2-ims.test:6060 =
+via_cnt=3D=3D3&quot; &lt;/P&gt;
+&lt;P style=3D&quot;MARGIN-BOTTOM: 0in&quot;&gt;WWW-Authenticate: Digest realm=3D&quot;hii2-ims.=
+test&quot;, nonce=3D&quot;txqurE1G/tnzIJd6A1DfLhq1hDX94wAA07LddsxfT8A=3D&quot;, qop=3D&quot;aut=
+h&quot;, algorithm=3DAKAv1-MD5&lt;/P&gt;&lt;BR&gt;&lt;/TD&gt;&lt;/TR&gt;&lt;/TBODY&gt;&lt;/TABLE&gt;&lt;BR&gt;&lt;BR&gt;________=
+_______________________________________ Imscommunicator-dev mailing list Im=
+<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">scommunicator-dev at lists.berlios.de</A> <A HREF="https://lists.berlios.de/mailman/listinf=">https://lists.berlios.de/mailman/listinf=</A>
+o/imscommunicator-dev &lt;/body&gt;&lt;/html&gt;
+------=_Part_36781_7988714.1245317701716--
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000081.html">No subject
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#102">[ date ]</a>
+              <a href="thread.html#102">[ thread ]</a>
+              <a href="subject.html#102">[ subject ]</a>
+              <a href="author.html#102">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">More information about the Imscommunicator-dev
+mailing list</a><br>
+</body></html>

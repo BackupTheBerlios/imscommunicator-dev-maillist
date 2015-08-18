@@ -1,0 +1,29 @@
+From mnadeem8327 at gmail.com  Thu Dec  5 07:43:39 2013
+From: mnadeem8327 at gmail.com (Muhammad Nadeem)
+Date: Wed, 4 Dec 2013 22:43:39 -0800
+Subject: [Imscommunicator-dev] Unable to register a user with IMS test bed
+Message-ID: <CAHyPXM7H_7+=oCfVcwy_5wHozBUxtMjWDnWsnZcyZxj1mwgCHA@mail.gmail.com>
+
+Hi everybody...
+I am stuck in Registering a user with OPEN-IMS server since last 2,3 weeks.
+I have googled a lot to solve the problem,but unfortunately did not
+succeeded.
+I face different problems on different times.
+Could anyone please send me, the Configuration file.
+Here is my environment details.
+IMS server IP:PORT = 10.17.6.2 :4060
+user = sip:nadeem at open-ims.test
+password= nadeem
+
+Client computer IP= 10.17.6.65
+
+Thanks in advance
+
+-- 
+Best Regards
+Muhammad Nadeem
+Muhammad Ali Jinnah University
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/imscommunicator-dev/attachments/20131204/ed41e724/attachment.html>
+

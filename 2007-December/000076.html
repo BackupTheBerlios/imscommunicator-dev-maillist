@@ -1,0 +1,223 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Imscommunicator-dev] r88 - in trunk:	ims-communicator/src/net/java/sip/communicator/media	ims-communicator/src/net/java/sip/communicator/sip	ims-communicator/src/net/java/sip/communicator/sip/reg	ims-communicator/src/net/java/sip/communicator/sip/security releases
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/imscommunicator-dev/2007-December/index.html" >
+   <LINK REL="made" HREF="mailto:imscommunicator-dev%40lists.berlios.de?Subject=Re%3A%20%5BImscommunicator-dev%5D%20r88%20-%20in%20trunk%3A%0A%09ims-communicator/src/net/java/sip/communicator/media%0A%09ims-communicator/src/net/java/sip/communicator/sip%0A%09ims-communicator/src/net/java/sip/communicator/sip/reg%0A%09ims-communicator/src/net/java/sip/communicator/sip/security%20releases&In-Reply-To=%3C200712051706.lB5H663K019454%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000075.html">
+   <LINK REL="Next"  HREF="000078.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Imscommunicator-dev] r88 - in trunk:	ims-communicator/src/net/java/sip/communicator/media	ims-communicator/src/net/java/sip/communicator/sip	ims-communicator/src/net/java/sip/communicator/sip/reg	ims-communicator/src/net/java/sip/communicator/sip/security releases</H1>
+    <B>jmfreitas at mail.berlios.de</B> 
+    <A HREF="mailto:imscommunicator-dev%40lists.berlios.de?Subject=Re%3A%20%5BImscommunicator-dev%5D%20r88%20-%20in%20trunk%3A%0A%09ims-communicator/src/net/java/sip/communicator/media%0A%09ims-communicator/src/net/java/sip/communicator/sip%0A%09ims-communicator/src/net/java/sip/communicator/sip/reg%0A%09ims-communicator/src/net/java/sip/communicator/sip/security%20releases&In-Reply-To=%3C200712051706.lB5H663K019454%40sheep.berlios.de%3E"
+       TITLE="[Imscommunicator-dev] r88 - in trunk:	ims-communicator/src/net/java/sip/communicator/media	ims-communicator/src/net/java/sip/communicator/sip	ims-communicator/src/net/java/sip/communicator/sip/reg	ims-communicator/src/net/java/sip/communicator/sip/security releases">jmfreitas at mail.berlios.de
+       </A><BR>
+    <I>Wed Dec  5 18:06:06 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000075.html">[Imscommunicator-dev] r87 - trunk/releases
+</A></li>
+        <LI>Next message: <A HREF="000078.html">[Imscommunicator-dev] r89 - in trunk: ims-communicator	ims-communicator/src/net/java/sip/communicator	ims-communicator/src/net/java/sip/communicator/sip	ims-communicator/src/net/java/sip/communicator/sip/reg	ims-communicator/src/net/java/sip/communicator/sip/security releases
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#76">[ date ]</a>
+              <a href="thread.html#76">[ thread ]</a>
+              <a href="subject.html#76">[ subject ]</a>
+              <a href="author.html#76">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: jmfreitas
+Date: 2007-12-05 17:59:53 +0100 (Wed, 05 Dec 2007)
+New Revision: 88
+
+Modified:
+   trunk/ims-communicator/src/net/java/sip/communicator/media/MediaManager.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/CallProcessing.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/SipManager.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/reg/RegEventSubscription.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/security/Base64.java
+   trunk/releases/ims-communicator-linux.zip
+   trunk/releases/ims-communicator-windows.zip
+Log:
+- SDP origin username (RFC 2327)
+- one-way media tx/rx
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/media/MediaManager.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/media/MediaManager.java	2007-12-05 12:04:48 UTC (rev 87)
++++ trunk/ims-communicator/src/net/java/sip/communicator/media/MediaManager.java	2007-12-05 16:59:53 UTC (rev 88)
+@@ -451,6 +451,18 @@
+                 }
+                 atLeastOneTransmitterStarted = true;
+             }
++            
++            // issued by Miguel Freitas //
++            // support one-way media tx/rx
++            
++            startReceiver(mediaTypes, remoteAddresses);
++            startTransmitter(
++                remoteAddresses,
++                ports,
++                formatSets);
++            
++            // original code
++            /*
+             if (!atLeastOneTransmitterStarted) {
+                 console.error(
+                     &quot;Apparently all media descriptions failed to initialise!\n&quot; +
+@@ -466,6 +478,9 @@
+                     ports,
+                     formatSets);
+             }
++            */
++            // else //
++            
+         }
+         finally {
+             console.logExit();
+@@ -960,8 +975,12 @@
+                 //spaces in the user name mess everything up.
+                 //bug report - Alessandro Melzi
+                 // issued by Miguel Freitas //
++                String username = Utils.getProperty(&quot;net.java.sip.communicator.sip.USER_NAME&quot;);
++                if (username == null || username.equals(&quot;&quot;)) {
++                	username = &quot;-&quot;;
++                }
+                 Origin o = sdpFactory.createOrigin(
+-                        Utils.getProperty(&quot;net.java.sip.communicator.sip.USER_NAME&quot;).replace(' ', '_'),
++                        username.replace(' ', '_'),
+                         0, 0, &quot;IN&quot;,
+                         addrType, publicIpAddress.getHostAddress());
+                 /*
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/CallProcessing.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/CallProcessing.java	2007-12-05 12:04:48 UTC (rev 87)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/CallProcessing.java	2007-12-05 16:59:53 UTC (rev 88)
+@@ -4623,11 +4623,11 @@
+             }
+             
+ 
+-            // Security Agreement
+-        	String secMechanism =
+-        		Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.SECURITY_AGREEMENT&quot;);
++            // Security Agreement (IPSec)
++            String useIPSec = 
++            	Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.USE_IPSEC&quot;);
+         	
+-        	if (secMechanism != null &amp;&amp; secMechanism != &quot;&quot;)
++        	if (useIPSec != null &amp;&amp; useIPSec.equalsIgnoreCase(&quot;true&quot;))
+         	{
+ 	            // Proxy-Require: sec-agree
+ 	            ProxyRequireHeader proxyRequire = null;
+@@ -4669,8 +4669,8 @@
+ 
+             SupportedList supportedList = new SupportedList();
+             SupportedHeader supportedHeader;
+-            String imsClient = Utils.getProperty
+-            					(&quot;net.java.sip.communicator.sip.ims.IMS_CLIENT&quot;);
++            String imsClient = 
++            	Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.IMS_CLIENT&quot;);
+             
+             if (imsClient != null || imsClient.equalsIgnoreCase(&quot;true&quot;))
+             {
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/SipManager.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/SipManager.java	2007-12-05 12:04:48 UTC (rev 87)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/SipManager.java	2007-12-05 16:59:53 UTC (rev 88)
+@@ -107,7 +107,7 @@
+ {
+ 	
+ 	//  issued by Miguel Freitas
+-	static private String IMSCommUserAgent = &quot;IMS-Communicator 071204&quot;;
++	static private String IMSCommUserAgent = &quot;IMS-Communicator 071205&quot;;
+ 	// end //
+ 	
+ 	
+@@ -2640,7 +2640,7 @@
+                 if (method.equals(Request.INVITE)) {
+                     callProcessing.processNotFound(clientTransaction, response);
+                 }
+-                if (method.equals(Request.SUBSCRIBE)) {
++                else if (method.equals(Request.SUBSCRIBE)) {
+                     watcher.processNotFound(clientTransaction, response);
+                 }
+                 else {
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/reg/RegEventSubscription.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/reg/RegEventSubscription.java	2007-12-05 12:04:48 UTC (rev 87)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/reg/RegEventSubscription.java	2007-12-05 16:59:53 UTC (rev 88)
+@@ -610,8 +610,13 @@
+ 	                		System.out.println(&quot;Registration terminated by the network for &quot; + aor);
+ 	                		
+                 			sipManCallback.fireUnregistered(aor);
+-                			sipManCallback.fireCommunicationsError(
+-                                new CommunicationsException(&quot;Registration terminated by the network for &quot; + aor, null));
++                			Console.showDetailedMsg(
++                	                &quot;Registration terminated by the network!\n&quot;
++                					+ &quot;URI &quot; + aor + &quot; de-registered.&quot;,
++                					notification.toString());
++                			
++                			//sipManCallback.fireCommunicationsError(
++                            //    new CommunicationsException(&quot;Registration terminated by the network for &quot; + aor, null));
+                 		}
+                 	}
+                 }
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/security/Base64.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/security/Base64.java	2007-12-05 12:04:48 UTC (rev 87)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/security/Base64.java	2007-12-05 16:59:53 UTC (rev 88)
+@@ -2,7 +2,7 @@
+ 
+ 
+ /********************************************************************************************************************
+-* $Id: Base64.java,v 1.1 2007/02/14 16:55:22 miguel Exp $
++* $Id: Base64.java,v 1.2 2007/12/05 09:56:04 miguel Exp $
+ *
+ * Copyright (c) 2000-2002 by Russell Gold
+ *
+
+Modified: trunk/releases/ims-communicator-linux.zip
+===================================================================
+(Binary files differ)
+
+Modified: trunk/releases/ims-communicator-windows.zip
+===================================================================
+(Binary files differ)
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000075.html">[Imscommunicator-dev] r87 - trunk/releases
+</A></li>
+	<LI>Next message: <A HREF="000078.html">[Imscommunicator-dev] r89 - in trunk: ims-communicator	ims-communicator/src/net/java/sip/communicator	ims-communicator/src/net/java/sip/communicator/sip	ims-communicator/src/net/java/sip/communicator/sip/reg	ims-communicator/src/net/java/sip/communicator/sip/security releases
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#76">[ date ]</a>
+              <a href="thread.html#76">[ thread ]</a>
+              <a href="subject.html#76">[ subject ]</a>
+              <a href="author.html#76">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">More information about the Imscommunicator-dev
+mailing list</a><br>
+</body></html>

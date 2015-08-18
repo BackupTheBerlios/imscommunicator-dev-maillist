@@ -1,0 +1,577 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Imscommunicator-dev] r92 - in trunk/ims-communicator: .	src/net/java/sip/communicator src/net/java/sip/communicator/gui	src/net/java/sip/communicator/media	src/net/java/sip/communicator/plugin/addressselector	src/net/java/sip/communicator/plugin/setup	src/net/java/sip/communicator/sip	src/net/java/sip/communicator/sip/reg	src/net/java/sip/communicator/sip/simple
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/imscommunicator-dev/2008-July/index.html" >
+   <LINK REL="made" HREF="mailto:imscommunicator-dev%40lists.berlios.de?Subject=Re%3A%20%5BImscommunicator-dev%5D%20r92%20-%20in%20trunk/ims-communicator%3A%20.%0A%09src/net/java/sip/communicator%20src/net/java/sip/communicator/gui%0A%09src/net/java/sip/communicator/media%0A%09src/net/java/sip/communicator/plugin/addressselector%0A%09src/net/java/sip/communicator/plugin/setup%0A%09src/net/java/sip/communicator/sip%0A%09src/net/java/sip/communicator/sip/reg%0A%09src/net/java/sip/communicator/sip/simple&In-Reply-To=%3C200807081123.m68BNVHZ029073%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000090.html">
+   <LINK REL="Next"  HREF="000092.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Imscommunicator-dev] r92 - in trunk/ims-communicator: .	src/net/java/sip/communicator src/net/java/sip/communicator/gui	src/net/java/sip/communicator/media	src/net/java/sip/communicator/plugin/addressselector	src/net/java/sip/communicator/plugin/setup	src/net/java/sip/communicator/sip	src/net/java/sip/communicator/sip/reg	src/net/java/sip/communicator/sip/simple</H1>
+    <B>jmfreitas at mail.berlios.de</B> 
+    <A HREF="mailto:imscommunicator-dev%40lists.berlios.de?Subject=Re%3A%20%5BImscommunicator-dev%5D%20r92%20-%20in%20trunk/ims-communicator%3A%20.%0A%09src/net/java/sip/communicator%20src/net/java/sip/communicator/gui%0A%09src/net/java/sip/communicator/media%0A%09src/net/java/sip/communicator/plugin/addressselector%0A%09src/net/java/sip/communicator/plugin/setup%0A%09src/net/java/sip/communicator/sip%0A%09src/net/java/sip/communicator/sip/reg%0A%09src/net/java/sip/communicator/sip/simple&In-Reply-To=%3C200807081123.m68BNVHZ029073%40sheep.berlios.de%3E"
+       TITLE="[Imscommunicator-dev] r92 - in trunk/ims-communicator: .	src/net/java/sip/communicator src/net/java/sip/communicator/gui	src/net/java/sip/communicator/media	src/net/java/sip/communicator/plugin/addressselector	src/net/java/sip/communicator/plugin/setup	src/net/java/sip/communicator/sip	src/net/java/sip/communicator/sip/reg	src/net/java/sip/communicator/sip/simple">jmfreitas at mail.berlios.de
+       </A><BR>
+    <I>Tue Jul  8 13:23:31 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000090.html">[Imscommunicator-dev] Error : Could not initialize rtp manager!
+</A></li>
+        <LI>Next message: <A HREF="000092.html">[Imscommunicator-dev] r93 - trunk/releases
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#91">[ date ]</a>
+              <a href="thread.html#91">[ thread ]</a>
+              <a href="subject.html#91">[ subject ]</a>
+              <a href="author.html#91">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: jmfreitas
+Date: 2008-07-08 13:22:57 +0200 (Tue, 08 Jul 2008)
+New Revision: 92
+
+Modified:
+   trunk/ims-communicator/ims-communicator.xml
+   trunk/ims-communicator/src/net/java/sip/communicator/MobilityProcessing.java
+   trunk/ims-communicator/src/net/java/sip/communicator/SipCommunicator.java
+   trunk/ims-communicator/src/net/java/sip/communicator/gui/ContactsComboBoxModel.java
+   trunk/ims-communicator/src/net/java/sip/communicator/gui/GuiManager.java
+   trunk/ims-communicator/src/net/java/sip/communicator/media/AVTransmitter.java
+   trunk/ims-communicator/src/net/java/sip/communicator/media/MediaManager.java
+   trunk/ims-communicator/src/net/java/sip/communicator/plugin/addressselector/NetworkAddressSelector.java
+   trunk/ims-communicator/src/net/java/sip/communicator/plugin/setup/AddressSelectionPage.java
+   trunk/ims-communicator/src/net/java/sip/communicator/plugin/setup/IdentityPage.java
+   trunk/ims-communicator/src/net/java/sip/communicator/plugin/setup/MediaDetectionPage.java
+   trunk/ims-communicator/src/net/java/sip/communicator/plugin/setup/ServerInformationPage.java
+   trunk/ims-communicator/src/net/java/sip/communicator/plugin/setup/SummaryPage.java
+   trunk/ims-communicator/src/net/java/sip/communicator/plugin/setup/WelcomePage.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/CallProcessing.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/SipManager.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/TransferProcessing.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/reg/XmlRegInfoFactory.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/simple/ContactListController.java
+Log:
+- compability with java 6.0 improved (import of class Console)
+- Issue identified by Franz Edler: 200 OK to PRACK might not have contact header... for the UPDATE, get it from the dialog information.
+- IPv6 contact - contribution from jmggv (TID)
+
+Modified: trunk/ims-communicator/ims-communicator.xml
+===================================================================
+--- trunk/ims-communicator/ims-communicator.xml	2008-06-18 14:14:01 UTC (rev 91)
++++ trunk/ims-communicator/ims-communicator.xml	2008-07-08 11:22:57 UTC (rev 92)
+@@ -94,8 +94,13 @@
+                 &lt;MIN_EXP_TIME value=&quot;60&quot;/&gt;
+                 &lt;LAST_SELECTED_OPEN_STATUS value=&quot;busy&quot;/&gt;
+             &lt;/simple&gt;
+-        &lt;EXCESSIVE_URI_CHARACTERS value=&quot;( )&quot;/&gt;
+-&lt;/sip&gt;
++            
++        	&lt;EXCESSIVE_URI_CHARACTERS value=&quot;( )&quot;/&gt;
++        	
++        	&lt;!-- value in seconds. If not empty, include the following headers in the initial invite --&gt;
++        	&lt;MIN_SE value=&quot;&quot;/&gt;
++        	&lt;SESSION_EXPIRES value=&quot;&quot;/&gt;
++		&lt;/sip&gt;
+         
+         &lt;gui&gt;
+             &lt;AUTH_WIN_TITLE value=&quot;SIP Authentication!&quot;/&gt;
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/MobilityProcessing.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/MobilityProcessing.java	2008-06-18 14:14:01 UTC (rev 91)
++++ trunk/ims-communicator/src/net/java/sip/communicator/MobilityProcessing.java	2008-07-08 11:22:57 UTC (rev 92)
+@@ -23,7 +23,8 @@
+ import java.net.*;
+ import java.util.*;
+ 
+-import net.java.sip.communicator.common.*;
++import net.java.sip.communicator.common.Console;
++import net.java.sip.communicator.common.Utils;
+ import net.java.sip.communicator.gui.*;
+ import net.java.sip.communicator.media.*;
+ import net.java.sip.communicator.sip.*;
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/SipCommunicator.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/SipCommunicator.java	2008-06-18 14:14:01 UTC (rev 91)
++++ trunk/ims-communicator/src/net/java/sip/communicator/SipCommunicator.java	2008-07-08 11:22:57 UTC (rev 92)
+@@ -65,7 +65,10 @@
+ import java.net.*;
+ import java.util.*;
+ import java.awt.*;
+-import net.java.sip.communicator.common.*;
++import net.java.sip.communicator.common.Console;
++import net.java.sip.communicator.common.Utils;
++import net.java.sip.communicator.common.NetworkAddressManager;
++import net.java.sip.communicator.common.PropertiesDepot;
+ import net.java.sip.communicator.gui.*;
+ import net.java.sip.communicator.gui.event.*;
+ import net.java.sip.communicator.media.*;
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/gui/ContactsComboBoxModel.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/gui/ContactsComboBoxModel.java	2008-06-18 14:14:01 UTC (rev 91)
++++ trunk/ims-communicator/src/net/java/sip/communicator/gui/ContactsComboBoxModel.java	2008-07-08 11:22:57 UTC (rev 92)
+@@ -60,7 +60,8 @@
+ import java.io.*;
+ 
+ import javax.swing.*;
+-import net.java.sip.communicator.common.*;
++import net.java.sip.communicator.common.Console;
++import net.java.sip.communicator.common.Utils;
+ 
+ /**
+  * &lt;p&gt;Title: SIP COMMUNICATOR-1.1&lt;/p&gt;
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/gui/GuiManager.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/gui/GuiManager.java	2008-06-18 14:14:01 UTC (rev 91)
++++ trunk/ims-communicator/src/net/java/sip/communicator/gui/GuiManager.java	2008-07-08 11:22:57 UTC (rev 92)
+@@ -63,7 +63,8 @@
+ 
+ import javax.swing.*;
+ 
+-import net.java.sip.communicator.common.*;
++import net.java.sip.communicator.common.Console;
++import net.java.sip.communicator.common.Utils;
+ import net.java.sip.communicator.gui.event.*;
+ 
+ import java.awt.SystemColor;
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/media/AVTransmitter.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/media/AVTransmitter.java	2008-06-18 14:14:01 UTC (rev 91)
++++ trunk/ims-communicator/src/net/java/sip/communicator/media/AVTransmitter.java	2008-07-08 11:22:57 UTC (rev 92)
+@@ -79,7 +79,7 @@
+ import javax.media.rtp.*;
+ import javax.media.rtp.rtcp.*;
+ import java.awt.*;
+-import net.java.sip.communicator.common.*;
++import net.java.sip.communicator.common.Console;
+ 
+ class AVTransmitter
+ {
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/media/MediaManager.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/media/MediaManager.java	2008-06-18 14:14:01 UTC (rev 91)
++++ trunk/ims-communicator/src/net/java/sip/communicator/media/MediaManager.java	2008-07-08 11:22:57 UTC (rev 92)
+@@ -67,7 +67,8 @@
+ import javax.media.protocol.*;
+ import javax.sdp.*;
+ 
+-import net.java.sip.communicator.common.*;
++import net.java.sip.communicator.common.Console;
++import net.java.sip.communicator.common.Utils;
+ import net.java.sip.communicator.media.event.*;
+ import net.java.sip.communicator.media.event.MediaEvent;
+ import net.java.sip.communicator.common.NetworkAddressManager;
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/plugin/addressselector/NetworkAddressSelector.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/plugin/addressselector/NetworkAddressSelector.java	2008-06-18 14:14:01 UTC (rev 91)
++++ trunk/ims-communicator/src/net/java/sip/communicator/plugin/addressselector/NetworkAddressSelector.java	2008-07-08 11:22:57 UTC (rev 92)
+@@ -5,7 +5,9 @@
+ import javax.swing.*;
+ import java.io.*;
+ import javax.swing.tree.*;
+-import net.java.sip.communicator.common.*;
++import net.java.sip.communicator.common.Console;
++import net.java.sip.communicator.common.Utils;
++import net.java.sip.communicator.common.NetworkAddressManager;
+ import java.awt.Component;
+ import javax.swing.event.*;
+ 
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/plugin/setup/AddressSelectionPage.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/plugin/setup/AddressSelectionPage.java	2008-06-18 14:14:01 UTC (rev 91)
++++ trunk/ims-communicator/src/net/java/sip/communicator/plugin/setup/AddressSelectionPage.java	2008-07-08 11:22:57 UTC (rev 92)
+@@ -62,7 +62,7 @@
+ import javax.swing.*;
+ import net.java.sip.communicator.plugin.addressselector.*;
+ import java.io.*;
+-import net.java.sip.communicator.common.*;
++import net.java.sip.communicator.common.Console;
+ import javax.swing.border.*;
+ import javax.swing.text.html.*;
+ import java.awt.event.*;
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/plugin/setup/IdentityPage.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/plugin/setup/IdentityPage.java	2008-06-18 14:14:01 UTC (rev 91)
++++ trunk/ims-communicator/src/net/java/sip/communicator/plugin/setup/IdentityPage.java	2008-07-08 11:22:57 UTC (rev 92)
+@@ -59,7 +59,9 @@
+ 
+ import javax.swing.text.html.*;
+ import java.io.*;
+-import net.java.sip.communicator.common.*;
++import net.java.sip.communicator.common.Console;
++import net.java.sip.communicator.common.Utils;
++import net.java.sip.communicator.common.PropertiesDepot;
+ import java.awt.*;
+ import javax.swing.*;
+ import javax.swing.border.*;
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/plugin/setup/MediaDetectionPage.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/plugin/setup/MediaDetectionPage.java	2008-06-18 14:14:01 UTC (rev 91)
++++ trunk/ims-communicator/src/net/java/sip/communicator/plugin/setup/MediaDetectionPage.java	2008-07-08 11:22:57 UTC (rev 92)
+@@ -60,7 +60,7 @@
+ 
+ import javax.swing.text.html.*;
+ import java.io.*;
+-import net.java.sip.communicator.common.*;
++import net.java.sip.communicator.common.Console;
+ import java.awt.*;
+ import javax.swing.*;
+ import javax.swing.border.*;
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/plugin/setup/ServerInformationPage.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/plugin/setup/ServerInformationPage.java	2008-06-18 14:14:01 UTC (rev 91)
++++ trunk/ims-communicator/src/net/java/sip/communicator/plugin/setup/ServerInformationPage.java	2008-07-08 11:22:57 UTC (rev 92)
+@@ -1,7 +1,8 @@
+ package net.java.sip.communicator.plugin.setup;
+ 
+ import java.io.*;
+-import net.java.sip.communicator.common.*;
++import net.java.sip.communicator.common.Console;
++import net.java.sip.communicator.common.Utils;
+ import java.awt.*;
+ import javax.swing.*;
+ import javax.swing.border.*;
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/plugin/setup/SummaryPage.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/plugin/setup/SummaryPage.java	2008-06-18 14:14:01 UTC (rev 91)
++++ trunk/ims-communicator/src/net/java/sip/communicator/plugin/setup/SummaryPage.java	2008-07-08 11:22:57 UTC (rev 92)
+@@ -60,7 +60,7 @@
+ 
+ import javax.swing.text.html.*;
+ import java.io.*;
+-import net.java.sip.communicator.common.*;
++import net.java.sip.communicator.common.Console;
+ import java.awt.*;
+ import javax.swing.*;
+ import javax.swing.border.*;
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/plugin/setup/WelcomePage.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/plugin/setup/WelcomePage.java	2008-06-18 14:14:01 UTC (rev 91)
++++ trunk/ims-communicator/src/net/java/sip/communicator/plugin/setup/WelcomePage.java	2008-07-08 11:22:57 UTC (rev 92)
+@@ -62,7 +62,7 @@
+ import javax.swing.*;
+ import javax.swing.text.html.*;
+ import java.io.*;
+-import net.java.sip.communicator.common.*;
++import net.java.sip.communicator.common.Console;
+ import java.util.*;
+ 
+ /**
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/CallProcessing.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/CallProcessing.java	2008-06-18 14:14:01 UTC (rev 91)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/CallProcessing.java	2008-07-08 11:22:57 UTC (rev 92)
+@@ -67,6 +67,7 @@
+ import gov.nist.javax.sip.header.RecordRouteList;
+ import gov.nist.javax.sip.header.RequireList;
+ import gov.nist.javax.sip.header.ims.*;
++//import gov.nist.javax.sip.header.extensions.*;
+ import gov.nist.javax.sip.header.SupportedList;
+ import gov.nist.javax.sip.message.SIPRequest;
+ import gov.nist.javax.sip.stack.SIPDialog;
+@@ -1910,16 +1911,29 @@
+ 	       
+ 	        
+ 	        // Request-URI = Contact header of response
+-	        ContactHeader contact = 
+-	        	(ContactHeader) response.getHeader(ContactHeader.NAME);
+-	        update.setRequestURI(contact.getAddress().getURI());
++	        // Issue identified by Franz Edler: 200 OK might not have contact header...
++	        // get contact from dialog information
++	        try {
++	        	ContactHeader contact = 
++	        		(ContactHeader) response.getHeader(ContactHeader.NAME);
++	        	if(contact == null)
++	        	{
++	        		contact = (ContactHeader) clientTransaction.getDialog().getFirstTransaction()
++	        			.getRequest().getHeader(ContactHeader.NAME);
++	        	}
++	        	update.setRequestURI(contact.getAddress().getURI());
++	        }
++	        catch (Exception ex)
++	        {
++	        	console.error(&quot;Error setting the Request-URI! (based on the Contact header) &quot;, ex);
++	            sipManCallback.fireCommunicationsError( new CommunicationsException(
++	                    &quot;Error setting the Request-URI! (based on the Contact header)&quot;, ex));
++	        }
+ 	        
+-	        
+-	        
+ 
+             // add Contact header
+             try {
+-            	contact = sipManCallback.getContactHeader();
++            	ContactHeader contact = sipManCallback.getContactHeader();
+             	update.addHeader(contact);
+             }
+             catch (CommunicationsException ex)
+@@ -1930,8 +1944,6 @@
+ 	                    &quot;Error creating Contact header! &quot;, ex));
+             }
+             
+-	        
+-
+             // P-Access-Network-Info header
+             try {
+             	PAccessNetworkInfoHeader accessNetworkInfoHeader = 
+@@ -1972,8 +1984,6 @@
+             }
+             update.addHeader(allowHeader);
+             
+-            
+-	        
+             // Security Agreement
+             // Require: sec-agree
+             RequireHeader require;
+@@ -2046,8 +2056,6 @@
+             if( console.isDebugEnabled() )
+ 				console.debug(&quot;\n--&gt; Session Description AFTER generating precondition desciption: \n&quot; + sessDescr.toString());
+           
+-            
+-
+ 	        
+ 	        // Content
+ 	        ContentTypeHeader contentTypeHeader = null;
+@@ -2080,11 +2088,7 @@
+ 	        // update call (Preconditions Local Table may have changed when creating SDP)	        
+ 	        call.setPreconditionsLocalTable(precondLocalTable);
+             
+-	        
+ 
+-	        	        
+-	        
+-
+ 	        // create a new transaction
+ 	        ClientTransaction updateTransaction;
+             try {
+@@ -2115,8 +2119,10 @@
+                     &quot;Failed to send a UPDATE request! &quot;, ex);
+             }
+             
+-	        
+     	}        
++    	catch (Exception ex){
++    		throw new CommunicationsException(&quot;Failed to send a UPDATE request! &quot;, ex);
++    	}
+     	finally
+         {
+             console.logExit();
+@@ -2124,10 +2130,7 @@
+     	
+     }
+     
+-    
+-    
+-
+-    
++        
+     /**
+      * &lt;p&gt;Process an UPDATE request received. &lt;/p&gt;
+      *
+@@ -4428,8 +4431,8 @@
+             //   space    = &lt;US-ASCII coded character 20 hexadecimal&gt;
+             //   delims   = &quot;&lt;&quot; | &quot;&gt;&quot; | &quot;#&quot; | &quot;%&quot; | &lt;&quot;&gt;
+             
+-            // end //
+             
++            // end //
+             
+             
+             
+@@ -4739,6 +4742,43 @@
+ 	        if (userAgentHeader != null)
+ 	        	invite.setHeader(userAgentHeader);
+             
++	        
++	        
++	        // by configuration, include headers Min-SE and Session-Expires in the initial invite
++            // feature requested by P.Salvado
++            String minSE = Utils.getProperty(&quot;net.java.sip.communicator.sip.MIN_SE&quot;);
++            String sessionExp = Utils.getProperty(&quot;net.java.sip.communicator.sip.SESSION_EXPIRES&quot;);
++            if (minSE != null &amp;&amp; minSE.length() &gt; 0)
++            {
++            	try {
++            		Integer.parseInt(minSE);
++            		Header minSEHeader = 
++            			sipManCallback.headerFactory.createHeader(&quot;Min-SE&quot;, minSE);
++            		invite.addHeader(minSEHeader);
++            	}
++            	catch (ParseException ex) {
++            		console.error(&quot;Exception creating the header Min-SE: &quot;, ex);
++            	}
++            	catch (NumberFormatException ex) {
++            		console.error(&quot;Exception parsing the MIN_SE parameter: &quot;, ex);
++            	}
++            }
++            if (sessionExp != null &amp;&amp; sessionExp.length() &gt; 0)
++            {
++            	try {
++            		Integer.parseInt(sessionExp);
++            		Header sessionExpHeader = 
++            			sipManCallback.headerFactory.createHeader(&quot;Session-Expires&quot;, sessionExp);
++            		invite.addHeader(sessionExpHeader);
++            	}
++            	catch (ParseException ex) {
++            		console.error(&quot;Exception creating the header Session-Expires: &quot;, ex);
++            	}
++            	catch (NumberFormatException ex) {
++            		console.error(&quot;Exception parsing the SESSION_EXPIRES parameter: &quot;, ex);
++            	}
++            }
++	        
+             // end //
+             
+             
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/SipManager.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/SipManager.java	2008-06-18 14:14:01 UTC (rev 91)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/SipManager.java	2008-07-08 11:22:57 UTC (rev 92)
+@@ -107,7 +107,7 @@
+ {
+ 	
+ 	//  issued by Miguel Freitas
+-	static private String IMSCommUserAgent = &quot;IMS-Communicator 071211&quot;;
++	static private String IMSCommUserAgent = &quot;IMS-Communicator 080708&quot;;
+ 	// end //
+ 	
+ 	
+@@ -1565,9 +1565,23 @@
+ 
+                 SipURI contactURI;
+                 if (useLocalHostAddress) {
+-
+-                    contactURI = (SipURI) addressFactory.createSipURI(null,
+-                        publicIpAddress.getAddress().getHostAddress());
++                	
++                	// IPv6
++                	// contribution from jmggv (TID)
++                	
++                	//contactURI = (SipURI) addressFactory.createSipURI(null,
++                    //        publicIpAddress.getAddress().getHostAddress());
++                	
++                	String ip_address;
++                	
++                	ip_address=Utils.getProperty(&quot;javax.sip.IP_ADDRESS&quot;).split(&quot;%&quot;)[0];
++                	
++                	if (ip_address==null)
++                		ip_address=publicIpAddress.getAddress().getHostAddress();
++                	
++                    contactURI = (SipURI) addressFactory.createSipURI(null,ip_address);
++                    //\jmggv 
++                    
+                 }
+                 else {
+                     contactURI = (SipURI) addressFactory.createURI(
+@@ -2605,7 +2619,8 @@
+             }
+             
+             
+-             // issued by Miguel Freitas (IT) PT-Inovacao //
++            // issued by Miguel Freitas (IT) PT-Inovacao //
++            // SESSION PROGRESS
+             else if (response.getStatusCode() == Response.SESSION_PROGRESS)
+             {
+                 if (method.equals(Request.INVITE))
+@@ -2860,10 +2875,11 @@
+                 fireUnknownMessageReceived(response);
+             }
+             else if (response.getStatusCode() == Response.SERVICE_UNAVAILABLE) {
+-                /** @todo add proper request handling */
+             	
+             	// issued by Miguel Freitas //
+-            	if (method.equals(Request.INVITE)) {
++            	if (method.equals(Request.INVITE)
++            			|| method.equals(Request.UPDATE)
++            			|| method.equals(Request.PRACK)) {
+                     callProcessing.processServiceUnavailable(clientTransaction, response);
+                 }
+             	// end //
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/TransferProcessing.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/TransferProcessing.java	2008-06-18 14:14:01 UTC (rev 91)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/TransferProcessing.java	2008-07-08 11:22:57 UTC (rev 92)
+@@ -70,6 +70,7 @@
+ 
+ // issued by Miguel Freitas
+ import gov.nist.javax.sip.header.ims.ReferredByHeader;
++//import gov.nist.javax.sip.header.extensions.ReferredByHeader;
+ import gov.nist.javax.sip.header.HeaderFactoryImpl;
+ // end //
+ 
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/reg/XmlRegInfoFactory.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/reg/XmlRegInfoFactory.java	2008-06-18 14:14:01 UTC (rev 91)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/reg/XmlRegInfoFactory.java	2008-07-08 11:22:57 UTC (rev 92)
+@@ -26,7 +26,7 @@
+ import net.java.sip.communicator.gui.config.xml.*;
+ import java.io.*;
+ import net.java.sip.communicator.sip.*;
+-import net.java.sip.communicator.common.*;
++import net.java.sip.communicator.common.Console;
+ //import org.xml.sax.*;
+ 
+ /**
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/simple/ContactListController.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/simple/ContactListController.java	2008-06-18 14:14:01 UTC (rev 91)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/simple/ContactListController.java	2008-07-08 11:22:57 UTC (rev 92)
+@@ -62,7 +62,7 @@
+ 
+ import javax.swing.*;
+ 
+-import net.java.sip.communicator.common.*;
++import net.java.sip.communicator.common.Console;
+ import net.java.sip.communicator.sip.*;
+ import net.java.sip.communicator.sip.simple.event.*;
+ import net.java.sip.communicator.sip.simple.storage.*;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000090.html">[Imscommunicator-dev] Error : Could not initialize rtp manager!
+</A></li>
+	<LI>Next message: <A HREF="000092.html">[Imscommunicator-dev] r93 - trunk/releases
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#91">[ date ]</a>
+              <a href="thread.html#91">[ thread ]</a>
+              <a href="subject.html#91">[ subject ]</a>
+              <a href="author.html#91">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">More information about the Imscommunicator-dev
+mailing list</a><br>
+</body></html>

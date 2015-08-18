@@ -1,0 +1,3349 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Imscommunicator-dev] r79 - in trunk/ims-communicator: .	src/net/java/sip/communicator src/net/java/sip/communicator/gui	src/net/java/sip/communicator/gui/config/xml	src/net/java/sip/communicator/media	src/net/java/sip/communicator/sip	src/net/java/sip/communicator/sip/reg	src/net/java/sip/communicator/sip/security
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/imscommunicator-dev/2007-November/index.html" >
+   <LINK REL="made" HREF="mailto:imscommunicator-dev%40lists.berlios.de?Subject=Re%3A%20%5BImscommunicator-dev%5D%20r79%20-%20in%20trunk/ims-communicator%3A%20.%0A%09src/net/java/sip/communicator%20src/net/java/sip/communicator/gui%0A%09src/net/java/sip/communicator/gui/config/xml%0A%09src/net/java/sip/communicator/media%0A%09src/net/java/sip/communicator/sip%0A%09src/net/java/sip/communicator/sip/reg%0A%09src/net/java/sip/communicator/sip/security&In-Reply-To=%3C200711301454.lAUEstCn026122%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000063.html">
+   <LINK REL="Next"  HREF="000065.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Imscommunicator-dev] r79 - in trunk/ims-communicator: .	src/net/java/sip/communicator src/net/java/sip/communicator/gui	src/net/java/sip/communicator/gui/config/xml	src/net/java/sip/communicator/media	src/net/java/sip/communicator/sip	src/net/java/sip/communicator/sip/reg	src/net/java/sip/communicator/sip/security</H1>
+    <B>jmfreitas at mail.berlios.de</B> 
+    <A HREF="mailto:imscommunicator-dev%40lists.berlios.de?Subject=Re%3A%20%5BImscommunicator-dev%5D%20r79%20-%20in%20trunk/ims-communicator%3A%20.%0A%09src/net/java/sip/communicator%20src/net/java/sip/communicator/gui%0A%09src/net/java/sip/communicator/gui/config/xml%0A%09src/net/java/sip/communicator/media%0A%09src/net/java/sip/communicator/sip%0A%09src/net/java/sip/communicator/sip/reg%0A%09src/net/java/sip/communicator/sip/security&In-Reply-To=%3C200711301454.lAUEstCn026122%40sheep.berlios.de%3E"
+       TITLE="[Imscommunicator-dev] r79 - in trunk/ims-communicator: .	src/net/java/sip/communicator src/net/java/sip/communicator/gui	src/net/java/sip/communicator/gui/config/xml	src/net/java/sip/communicator/media	src/net/java/sip/communicator/sip	src/net/java/sip/communicator/sip/reg	src/net/java/sip/communicator/sip/security">jmfreitas at mail.berlios.de
+       </A><BR>
+    <I>Fri Nov 30 15:54:55 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000063.html">[Imscommunicator-dev] r78 - trunk/lib
+</A></li>
+        <LI>Next message: <A HREF="000065.html">[Imscommunicator-dev] r80 - trunk/releases
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#64">[ date ]</a>
+              <a href="thread.html#64">[ thread ]</a>
+              <a href="subject.html#64">[ subject ]</a>
+              <a href="author.html#64">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: jmfreitas
+Date: 2007-11-30 15:54:32 +0100 (Fri, 30 Nov 2007)
+New Revision: 79
+
+Added:
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/security/AKAIPSecSACache.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/security/AKARESCache.java
+Modified:
+   trunk/ims-communicator/build.xml
+   trunk/ims-communicator/ims-communicator.xml
+   trunk/ims-communicator/src/net/java/sip/communicator/SipCommunicator.java
+   trunk/ims-communicator/src/net/java/sip/communicator/gui/GuiManager.java
+   trunk/ims-communicator/src/net/java/sip/communicator/gui/config/xml/gui-config.xml
+   trunk/ims-communicator/src/net/java/sip/communicator/media/MediaManager.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/CallProcessing.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/RegisterProcessing.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/SipManager.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/reg/RegEventSubscription.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/security/AKADigest.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/security/MessageDigestAlgorithm.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/security/Rijndael32Bit.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/security/SipSecurityManager.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/security/UserCredentials.java
+Log:
+ims-communicator major update
+
+Modified: trunk/ims-communicator/build.xml
+===================================================================
+--- trunk/ims-communicator/build.xml	2007-11-30 14:52:58 UTC (rev 78)
++++ trunk/ims-communicator/build.xml	2007-11-30 14:54:32 UTC (rev 79)
+@@ -2,7 +2,7 @@
+ &lt;project basedir=&quot;.&quot; default=&quot;rebuild&quot; name=&quot;ims-communicator&quot;&gt;
+ 
+ &lt;!-- CHECK User should modify the following path --&gt;
+-    &lt;property name=&quot;jdk.home&quot; value=&quot;C:\Programas\Java\jdk1.5.0_09&quot;/&gt;
++	&lt;property name=&quot;jdk.home&quot; value=&quot;${env.JAVA_HOME}&quot;/&gt;
+ 	&lt;!--property name=&quot;jdk.home&quot; value=&quot;/usr/local/jdk1.5.0_09/&quot;/--&gt;
+     &lt;!--property name=&quot;user.home&quot; value=&quot;/home/admin/workspace/ims-communicator&quot;/--&gt;
+ 	&lt;property name=&quot;user.home&quot; value=&quot;.&quot;/&gt;
+
+Modified: trunk/ims-communicator/ims-communicator.xml
+===================================================================
+--- trunk/ims-communicator/ims-communicator.xml	2007-11-30 14:52:58 UTC (rev 78)
++++ trunk/ims-communicator/ims-communicator.xml	2007-11-30 14:54:32 UTC (rev 79)
+@@ -32,9 +32,9 @@
+             &lt;VIDEO_PORT value=&quot;&quot;/&gt;
+         &lt;/media&gt;
+         &lt;sip&gt;
+-            &lt;PUBLIC_ADDRESS value=&quot;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">bob at ptinovacao.pt</A>&quot;/&gt;
++            &lt;PUBLIC_ADDRESS value=&quot;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">bob at open-ims.test</A>&quot;/&gt;
+             &lt;TRANSPORT value=&quot;&quot;/&gt;
+-            &lt;REGISTRAR_ADDRESS value=&quot;ptinovacao.pt&quot;/&gt;
++            &lt;REGISTRAR_ADDRESS value=&quot;open-ims.test&quot;/&gt;
+             &lt;USER_NAME value=&quot;bob&quot;/&gt;
+             &lt;STACK_PATH value=&quot;gov.nist&quot;/&gt;
+             &lt;PREFERRED_LOCAL_PORT value=&quot;5060&quot;/&gt;
+@@ -43,8 +43,8 @@
+             &lt;REGISTRATIONS_EXPIRATION value=&quot;3600&quot;/&gt;
+             &lt;REGISTRAR_PORT value=&quot;5060&quot;/&gt;
+             &lt;FAIL_CALLS_ON_DEST_USER_MISMATCH value=&quot;false&quot;/&gt;
+-            &lt;DEFAULT_DOMAIN_NAME value=&quot;ptinovacao.pt&quot;/&gt; 
+-            &lt;DEFAULT_AUTHENTICATION_REALM value=&quot;ptinovacao.pt&quot;/&gt; 
++            &lt;DEFAULT_DOMAIN_NAME value=&quot;open-ims.test&quot;/&gt; 
++            &lt;DEFAULT_AUTHENTICATION_REALM value=&quot;open-ims.test&quot;/&gt; 
+             &lt;WAIT_UNREGISTGRATION_FOR value=&quot;1100&quot;/&gt;
+             &lt;SAME_USER_EVERYWHERE value=&quot;true&quot;/&gt;
+             &lt;ACCEPT_EARLY_MEDIA value=&quot;true&quot;/&gt;
+@@ -53,8 +53,8 @@
+ 
+             &lt;ims&gt;
+                 &lt;IMS_CLIENT value=&quot;true&quot;/&gt;
+-                &lt;PRIVATE_ADDRESS value=&quot;<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">bob at ptinovacao.pt</A>&quot;/&gt;
+-                &lt;PREFERRED_ADDRESS value=&quot;<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">bob at ptinovacao.pt</A>&quot;/&gt;
++                &lt;PRIVATE_ADDRESS value=&quot;<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">bob at open-ims.test</A>&quot;/&gt;
++                &lt;PREFERRED_ADDRESS value=&quot;<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">bob at open-ims.test</A>&quot;/&gt;
+                 &lt;PREFERRED_DISPLAY_NAME value=&quot;&quot;/&gt;
+                 &lt;ACCEPT_REFER_WITHOUT_SESSION_ON value=&quot;true&quot;/&gt;
+                 &lt;REFER_TIMEOUT value=&quot;60000&quot;/&gt;
+@@ -68,22 +68,21 @@
+                 &lt;PCSCF_DYNAMIC_DISCOVERY value=&quot;false&quot;/&gt;
+               
+                 &lt;sec&gt;
+-	                &lt;PRIVACY value=&quot;&quot;/&gt;
+-	                &lt;AUTH_ALGORITHM value=&quot;&quot;/&gt;
+-	                &lt;!-- operator ID : 16 bytes (32 hex char) --&gt;
+-	                &lt;OPERATOR_ID value=&quot;00000000000000000000000000000000&quot;/&gt;
+-	                &lt;!-- if SECURITY_AGREEMENT value is empty, Security-Client header is not sent and IPSec not setup --&gt;
+-	                &lt;!--SECURITY_AGREEMENT value=&quot;ipsec-3gpp&quot;/--&gt;
+-	                &lt;SECURITY_AGREEMENT value=&quot;&quot;/&gt;
++	                &lt;PRIVACY_PARAMS value=&quot;&quot;/&gt;
++					&lt;USE_IPSEC value=&quot;false&quot;/&gt;
++					&lt;!-- supported values are &quot;AKAv1-MD5&quot; and &quot;MD5&quot; /--&gt;
++	                &lt;AUTH_ALGORITHM value=&quot;AKAv1-MD5&quot;/&gt;
++	                &lt;SECURITY_AGREEMENT value=&quot;ipsec-3gpp&quot;/&gt;
+ 	                &lt;SECURITY_ALGORITHM value=&quot;hmac-sha-1-96&quot;/&gt;
+ 	                &lt;SECURITY_ENCRYPT_ALG value=&quot;&quot;/&gt;
+-	                &lt;SECURITY_SPI_C value=&quot;10002&quot;/&gt;
+-	                &lt;SECURITY_SPI_S value=&quot;10004&quot;/&gt;
+-	                &lt;!-- if SECURITY_PORT_C empty, port-c parameter is filled with PREFERRED_LOCAL_PORT--&gt;
+-	                &lt;SECURITY_PORT_C value=&quot;&quot;/&gt;
+-	                &lt;SECURITY_PORT_S value=&quot;5064&quot;/&gt;
+-	                
++					&lt;!-- operator ID : 16 bytes (32 hex char) --&gt;
++	                &lt;OPERATOR_ID value=&quot;00000000000000000000000000000000&quot;/&gt;
++	                &lt;!-- if local port is != 5060/5061, local port is used for IPSec SA --&gt;
++					&lt;PROTECT_PREFERRED_LOCAL_PORT value=&quot;true&quot;/&gt;
+                     &lt;REJECT_MALFORMED_NONCE value=&quot;false&quot;/&gt;
++                    
++                    &lt;!-- 16 bytes (32 hex char) --&gt;
++                    &lt;SHARED_SECRET value=&quot;&quot;/&gt;
+                 &lt;/sec&gt;
+             &lt;/ims&gt;
+             
+@@ -126,27 +125,27 @@
+         &lt;/common&gt;
+ 
+ 
+-&lt;!--
+-    net.java.sip.communicator.sipphone.IS_RUNNING_SIPPHONE=false
+-    net.java.sip.communicator.sipphone.MY_SIPPHONE_URL=<A HREF="http://my.sipphone.com">http://my.sipphone.com</A>
++&lt;!--
++    net.java.sip.communicator.sipphone.IS_RUNNING_SIPPHONE=false
++    net.java.sip.communicator.sipphone.MY_SIPPHONE_URL=<A HREF="http://my.sipphone.com">http://my.sipphone.com</A>
+ --&gt;
+         &lt;sipphone&gt;
+             &lt;IS_RUNNING_SIPPHONE value=&quot;false&quot;/&gt;
+             &lt;MY_SIPPHONE_URL value=&quot;<A HREF="http://my.sipphone.com">http://my.sipphone.com</A>&quot;/&gt;
+         &lt;USER_NAME_EXAMPLE value=&quot;testes1&quot;/&gt;
+ &lt;/sipphone&gt;
+-&lt;!--
+-net.java.sip.communicator.gui.AUTH_WIN_TITLE=SIP Authentication!
+-net.java.sip.communicator.gui.AUTHENTICATION_PROMPT=Please enter login name and password for the specified realm:
+-net.java.sip.communicator.gui.USER_NAME_LABEL=SIPphone Number:
+-net.java.sip.communicator.sipphone.USER_NAME_EXAMPLE=Example: 1-747-555-1212
+-net.java.sip.communicator.gui.PASSWORD_LABEL=Password:
++&lt;!--
++net.java.sip.communicator.gui.AUTH_WIN_TITLE=SIP Authentication!
++net.java.sip.communicator.gui.AUTHENTICATION_PROMPT=Please enter login name and password for the specified realm:
++net.java.sip.communicator.gui.USER_NAME_LABEL=SIPphone Number:
++net.java.sip.communicator.sipphone.USER_NAME_EXAMPLE=Example: 1-747-555-1212
++net.java.sip.communicator.gui.PASSWORD_LABEL=Password:
+ --&gt;
+ 
+-&lt;!--
+-    net.java.sip.communicator.STUN_SERVER_ADDRESS=stun01.sipphone.com
+-    net.java.sip.communicator.STUN_SERVER_PORT=3478
+-    net.java.sip.communicator.VOICE_MAIL_ADDRESS=17475551212
++&lt;!--
++    net.java.sip.communicator.STUN_SERVER_ADDRESS=stun01.sipphone.com
++    net.java.sip.communicator.STUN_SERVER_PORT=3478
++    net.java.sip.communicator.VOICE_MAIL_ADDRESS=17475551212
+ --&gt;
+         &lt;!--STUN_SERVER_ADDRESS value=&quot;stun01.sipphone.com&quot;/--&gt;
+         &lt;!--STUN_SERVER_PORT value=&quot;3478&quot;/--&gt;
+@@ -160,7 +159,10 @@
+         &lt;javax&gt;
+             &lt;sip&gt;
+                 &lt;SERVER_LOG value=&quot;log/ims-communicator.stack.log&quot;/&gt;
+-                &lt;TRACE_LEVEL value=&quot;16&quot;/&gt;
++                &lt;DEBUG_LOG value=&quot;log/ims-communicator.debug.log&quot;/&gt;
++                &lt;BAD_MESSAGE_LOG value=&quot;log/ims-communicator.ignored.log&quot;/&gt;
++				&lt;!-- TRACE_LEVEL: 16 for stack log..  or 32 for both stack and debug log/--&gt;
++                &lt;TRACE_LEVEL value=&quot;32&quot;/&gt;
+             &lt;/sip&gt;
+         &lt;/javax&gt;
+     &lt;/nist&gt;
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/SipCommunicator.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/SipCommunicator.java	2007-11-30 14:52:58 UTC (rev 78)
++++ trunk/ims-communicator/src/net/java/sip/communicator/SipCommunicator.java	2007-11-30 14:54:32 UTC (rev 79)
+@@ -165,16 +165,7 @@
+         try {
+             console.logEntry();
+ 
+-            //run setup wizard if launching for the first time
+-            if(   PropertiesDepot.getProperty(&quot;net.java.sip.communicator.FIRST_LAUNCH&quot;)==null
+-               || !PropertiesDepot.getProperty(&quot;net.java.sip.communicator.FIRST_LAUNCH&quot;).equalsIgnoreCase(&quot;false&quot;)
+-               )
+-            {
+-	             SetupWizard.start();
+-	             PropertiesDepot.setProperty(&quot;net.java.sip.communicator.FIRST_LAUNCH&quot;, &quot;false&quot;);
+-	             PropertiesDepot.storeProperties();
+-            }
+-  
++
+             
+             // issued by Miguel Freitas //
+             /*
+@@ -207,6 +198,40 @@
+             
+             NetworkAddressManager.start();
+ 
++            
++
++            
++            // issued by Miguel Freitas //
++            // force first launch if network interfaces are different
++            String stackIPAddr 
++            	= Utils.getProperty(&quot;javax.sip.IP_ADDRESS&quot;);
++            String prefIPAddr 
++        		= Utils.getProperty(&quot;net.java.sip.communicator.common.PREFERRED_NETWORK_ADDRESS&quot;);
++            if (stackIPAddr != null &amp;&amp; prefIPAddr != null)
++            {
++            	if (!stackIPAddr.equalsIgnoreCase(prefIPAddr))
++            	{
++            		PropertiesDepot.setProperty(&quot;net.java.sip.communicator.FIRST_LAUNCH&quot;, &quot;true&quot;);
++            		PropertiesDepot.storeProperties();
++            	}
++            }
++            // end //
++            
++            
++            //run setup wizard if launching for the first time
++            if(   PropertiesDepot.getProperty(&quot;net.java.sip.communicator.FIRST_LAUNCH&quot;)==null
++               || !PropertiesDepot.getProperty(&quot;net.java.sip.communicator.FIRST_LAUNCH&quot;).equalsIgnoreCase(&quot;false&quot;)
++               )
++            {
++	             SetupWizard.start();
++	             PropertiesDepot.setProperty(&quot;net.java.sip.communicator.FIRST_LAUNCH&quot;, &quot;false&quot;);
++	             PropertiesDepot.storeProperties();
++            }
++  
++            
++            
++            
++            
+             try {
+                 mediaManager.start();
+             }
+@@ -1250,10 +1275,23 @@
+         try{
+             console.logEntry();
+ 
+-            guiManager.requestAuthentication(realm,
++            // issued by Miguel Freitas //
++            String isIMS = 
++        		Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.IMS_CLIENT&quot;);
++        	if (isIMS != null &amp;&amp; isIMS.equalsIgnoreCase(&quot;true&quot;))
++        	{
++        		guiManager.requestAuthentication(realm,
++                        defaultValues.getUserPrvtIdentity(),
++                        defaultValues.getPassword());
++        	}
++        	// end //
++        	else
++        	{
++        		guiManager.requestAuthentication(realm,
+                                              defaultValues.getUserName(),
+                                              defaultValues.getPassword());
+-
++        	}
++        	
+             UserCredentials credentials = new UserCredentials();
+ 
+             
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/gui/GuiManager.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/gui/GuiManager.java	2007-11-30 14:52:58 UTC (rev 78)
++++ trunk/ims-communicator/src/net/java/sip/communicator/gui/GuiManager.java	2007-11-30 14:54:32 UTC (rev 79)
+@@ -1002,18 +1002,35 @@
+                                       String userName,
+                                       char[] password)
+     {
+-        if (authenticationSplash != null)
++    	if (authenticationSplash != null)
+             authenticationSplash.dispose();
+-        authenticationSplash = new AuthenticationSplash(phoneFrame, true);
+-        if(userName != null)
++    	authenticationSplash = new AuthenticationSplash(phoneFrame, true);
++    	if(userName != null)
+             authenticationSplash.userNameTextField.setText(userName);
+-        if(password != null)
+-            authenticationSplash.passwordTextField.setText(new String(password));
++
++    	
++    	// issued by Miguel Freitas //
++        // use shared secret configured on the xml or string inserted by the user 
++    	String sharedSecret = 
++    		Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.SHARED_SECRET&quot;);
++    	if (sharedSecret != null &amp;&amp; sharedSecret.length() &gt; 0)
++    	{
++    		console.debug(&quot;Authentication Splash: Using password from xml (SHARED_SECRET).&quot;);	        
++	        authenticationSplash.passwordTextField.setEnabled(false);
++	        authenticationSplash.passwordTextField.setText(sharedSecret);
++    	}
++    	// end //
++    	else
++    	{
++	        if(password != null)
++	            authenticationSplash.passwordTextField.setText(new String(password));
++    	}
++    	
++    	
+         //Set a relevant realm value
+         //Bug report by Steven Lass (sltemp at comcast.net)
+         if(realm != null)
+             authenticationSplash.realmValueLabel.setText(new String(realm));
+-
+         
+         //authenticationSplash.show();
+         authenticationSplash.setVisible(true);
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/gui/config/xml/gui-config.xml
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/gui/config/xml/gui-config.xml	2007-11-30 14:52:58 UTC (rev 78)
++++ trunk/ims-communicator/src/net/java/sip/communicator/gui/config/xml/gui-config.xml	2007-11-30 14:54:32 UTC (rev 79)
+@@ -524,6 +524,12 @@
+ 					logging.
+ 					]]&gt;&lt;/description&gt;
+             &lt;/property&gt;
++            &lt;property name=&quot;gov.nist.javax.sip.DEBUG_LOG&quot;&gt;
++                &lt;labelname&gt;Debug log&lt;/labelname&gt;
++                &lt;description&gt;&lt;![CDATA[
++					The name of the file where the stack should store its debug messages.
++					]]&gt;&lt;/description&gt;
++            &lt;/property&gt;
+             &lt;property name=&quot;gov.nist.javax.sip.SERVER_LOG&quot;&gt;
+                 &lt;labelname&gt;Server log&lt;/labelname&gt;
+                 &lt;description&gt;&lt;![CDATA[
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/media/MediaManager.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/media/MediaManager.java	2007-11-30 14:52:58 UTC (rev 78)
++++ trunk/ims-communicator/src/net/java/sip/communicator/media/MediaManager.java	2007-11-30 14:54:32 UTC (rev 79)
+@@ -763,9 +763,15 @@
+                 //FIN CAMBIO
+                 
+                 
+-                InetAddress publicIpAddress = publicAudioAddress.getAddress();
++                // issued by Miguel Freitas //
++                // check config file for media IP address
++                /* InetAddress publicIpAddress = publicAudioAddress.getAddress(); */
++                InetAddress publicIpAddress = getLocalHost();
++                if (publicIpAddress == null)
++                	publicIpAddress = publicAudioAddress.getAddress();
+                 String addrType = publicIpAddress instanceof Inet6Address ?
+-                    &quot;IP6&quot; : &quot;IP4&quot;;
++                        &quot;IP6&quot; : &quot;IP4&quot;;
++                // end //
+ 
+                 //spaces in the user name mess everything up.
+                 // issued by Miguel Freitas //
+@@ -942,10 +948,15 @@
+                 
+                 //End Modified FIN CAMBIO
+                 
+-                InetAddress publicIpAddress = publicAudioAddress.getAddress();
++                // issued by Miguel Freitas
++                /* InetAddress publicIpAddress = publicAudioAddress.getAddress(); */
++                InetAddress publicIpAddress = getLocalHost();
++                if (publicIpAddress == null)
++                	publicIpAddress = publicAudioAddress.getAddress();
+                 String addrType = publicIpAddress instanceof Inet6Address ?
+-                    &quot;IP6&quot; : &quot;IP4&quot;;
+-
++                        &quot;IP6&quot; : &quot;IP4&quot;;
++                // end //
++                
+                 //spaces in the user name mess everything up.
+                 //bug report - Alessandro Melzi
+                 // issued by Miguel Freitas //
+@@ -1130,6 +1141,24 @@
+     // end //
+     
+     
++    // issued by Migual Freitas
++    /**
++     * Gets the IP Address for media (from config file).
++     */
++    String getMediaIPAddr()
++    {
++    	try {
++            console.logEntry();
++            String mediaIP = Utils.getProperty(
++                &quot;net.java.sip.communicator.media.IP_ADDRESS&quot;);
++            return mediaIP;
++        }
++        finally {
++            console.logExit();
++        }
++    }
++    // end //
++    
+     String getAudioPort()
+     {
+         try {
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/CallProcessing.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/CallProcessing.java	2007-11-30 14:52:58 UTC (rev 78)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/CallProcessing.java	2007-11-30 14:54:32 UTC (rev 79)
+@@ -1792,7 +1792,7 @@
+             // Security-Verify
+             String realm = 
+             	Utils.getProperty(&quot;net.java.sip.communicator.sip.DEFAULT_DOMAIN_NAME&quot;);
+-            SecurityVerifyList secList = sipManCallback.getSecurityServer(realm);
++            SecurityVerifyList secList = sipManCallback.sipSecurityManager.getSecurityServer(realm);
+             if (secList != null &amp;&amp; !secList.isEmpty())
+             	prack.addHeader(secList);
+             else
+@@ -2007,7 +2007,7 @@
+             // Security-Verify header
+             String realm = 
+             	Utils.getProperty(&quot;net.java.sip.communicator.sip.DEFAULT_DOMAIN_NAME&quot;);
+-            SecurityVerifyList secVerify = sipManCallback.getSecurityServer(realm);
++            SecurityVerifyList secVerify = sipManCallback.sipSecurityManager.getSecurityServer(realm);
+             if (secVerify != null)
+             	update.addHeader(secVerify);
+ 	        
+@@ -4000,6 +4000,22 @@
+             		((CallIdHeader) ok.getHeader(CallIdHeader.NAME)).getCallId());
+             //FIN CAMBIO
+             
++            
++            // issued by Miguel Freitas
++            // show message when BYE has Reason header
++            ReasonHeader reason = (ReasonHeader)byeRequest.getHeader(ReasonHeader.NAME);
++            if (reason != null)
++            {
++            	String message = &quot;&quot;;
++            	message = message.concat( (reason.getProtocol()!=null) ? reason.getProtocol() : &quot;&quot; );
++            	message = message.concat(String.valueOf(reason.getCause()));
++            	message = message.concat( (reason.getText()!=null) ? reason.getText() : &quot;&quot; );
++            	            	
++                sipManCallback.fireCallRejectedRemotely(message, byeRequest);
++            	
++            }
++            // end //
++            
+         }
+         finally
+         {
+@@ -4588,7 +4604,7 @@
+            
+             // Privacy - get property
+             String privacyToken = 
+-            	Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.PRIVACY&quot;);
++            	Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.PRIVACY_PARAMS&quot;);
+             if (privacyToken != null &amp;&amp; privacyToken.length() &gt; 0)
+             {
+             	PrivacyHeader privacy;
+@@ -4627,7 +4643,7 @@
+ 	            // Security-Verify
+ 	            String realm = 
+ 	            	Utils.getProperty(&quot;net.java.sip.communicator.sip.DEFAULT_DOMAIN_NAME&quot;);
+-	            SecurityVerifyList secList = sipManCallback.getSecurityServer(realm);
++	            SecurityVerifyList secList = sipManCallback.sipSecurityManager.getSecurityServer(realm);
+ 	            if (secList != null &amp;&amp; !secList.isEmpty())
+ 	            	invite.addHeader(secList);
+ 	            else
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/RegisterProcessing.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/RegisterProcessing.java	2007-11-30 14:52:58 UTC (rev 78)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/RegisterProcessing.java	2007-11-30 14:54:32 UTC (rev 79)
+@@ -212,6 +212,20 @@
+ 	         	waitingUnregister = false;
+ 	            sipManCallback.fireUnregistered(address.toString());
+ 	            isRegistered = false;
++	            
++	            // issued by Miguel Freitas
++	            // flush IPSec SA
++	            if (isUAIMS != null &amp;&amp; isUAIMS.equalsIgnoreCase(&quot;true&quot;))
++	            {
++	            	String useIPSec = 
++	                	Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.USE_IPSEC&quot;);
++	            	if (useIPSec != null &amp;&amp; useIPSec.equalsIgnoreCase(&quot;true&quot;))
++	            	{
++	            		sipManCallback.sipSecurityManager.flushSA();
++	            	}
++	            }
++	            // end //
++	            
+ 	        }
+ 	        else {
+ 	            isRegistered = true;
+@@ -299,7 +313,10 @@
+     {
+         try {
+             console.logEntry();
+-            isRegistered = true;
++            // issued by Miguel Freitas //
++            // changed to &quot;true&quot;
++            isRegistered = false;
++            // end //
+             FromHeader fromHeader =
+                 ( (FromHeader) request.getHeader(FromHeader.NAME));
+             Address address = fromHeader.getAddress();
+@@ -316,7 +333,10 @@
+     {
+         try {
+             console.logEntry();
+-            isRegistered = true;
++            // issued by Miguel Freitas //
++            // commented
++            //isRegistered = false;
++            // end //
+             FromHeader fromHeader =
+                 ( (FromHeader) response.getHeader(FromHeader.NAME));
+             Address address = fromHeader.getAddress();
+@@ -361,6 +381,7 @@
+ 
+             
+             retryTran.sendRequest();
++            
+             return;
+         }
+         catch (SipSecurityException exc) {
+@@ -552,7 +573,7 @@
+ 			
+ 			// Privacy header
+             PrivacyHeader privacyHeader = null;
+-            String privacy = Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.PRIVACY&quot;);
++            String privacy = Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.PRIVACY_PARAMS&quot;);
+             if (privacy != null &amp;&amp; privacy.length()&gt;0)
+             {
+             	privacyHeader = headerFactory.createPrivacyHeader(privacy);
+@@ -566,11 +587,14 @@
+ 	        if (isIMSClient != null &amp;&amp; isIMSClient.equalsIgnoreCase(&quot;true&quot;))
+ 	        {
+ 	            // Security Agreement
++	        	String useIPSec = 
++	        		Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.USE_IPSEC&quot;);
+ 	        	String secMechanism =
+ 	        		Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.SECURITY_AGREEMENT&quot;);
+ 	        	
+-	        	if (secMechanism != null &amp;&amp; secMechanism != &quot;&quot;)
++	        	if (useIPSec != null &amp;&amp; useIPSec.equalsIgnoreCase(&quot;true&quot;))
+ 	        	{
++	        		console.debug(&quot;Establish Security Agreement for the Register.&quot;);
+ 	        		
+ 		            // Require: sec-agree
+ 		            RequireHeader require = null;
+@@ -602,11 +626,11 @@
+ 		            
+ 		            // Security-Client
+ 		            SecurityClientHeader secClient = null;
+-		            secClient = sipManCallback.getSecurityClientHeader();
++		            secClient = sipManCallback.sipSecurityManager.getSecurityClientHeader();
+ 		             
+ 		            if (secClient != null)
+ 		            	request.addHeader(secClient);
+-	        	} 
++	        	}
+ 	            
+             
+             	// Authorization header, with empty nonce and response
+@@ -666,7 +690,7 @@
+ 	            		request.setHeader(auth);
+ 	            	
+ 	            		String realm = auth.getRealm();
+-	            		SecurityVerifyList secVerify = sipManCallback.getSecurityServer(realm);
++	            		SecurityVerifyList secVerify = sipManCallback.sipSecurityManager.getSecurityServer(realm);
+ 	            		if (secVerify != null)
+ 	            			request.setHeader(secVerify);
+ 	            	}
+@@ -859,7 +883,7 @@
+             // add Security-Verify header
+             SecurityVerifyList secVerify = null; 
+             if (realm != null)
+-            	secVerify = sipManCallback.getSecurityServer(realm);
++            	secVerify = sipManCallback.sipSecurityManager.getSecurityServer(realm);
+             if (secVerify != null)
+             	unregisterRequest.addHeader(secVerify);
+             
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/SipManager.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/SipManager.java	2007-11-30 14:52:58 UTC (rev 78)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/SipManager.java	2007-11-30 14:54:32 UTC (rev 79)
+@@ -107,7 +107,7 @@
+ {
+ 	
+ 	//  issued by Miguel Freitas
+-	static private String IMSCommUserAgent = &quot;IMS-Communicator 070605&quot;;
++	static private String IMSCommUserAgent = &quot;IMS-Communicator 071120&quot;;
+ 	// end //
+ 	
+ 	
+@@ -149,13 +149,13 @@
+     /**
+      * The sipStack instance that handles SIP communications.
+      */
+-    SipStack sipStack;
++    public SipStack sipStack;
+ 
+     /**
+      * The default (and currently the only) SIP listening point of the
+      * application.
+      */
+-    ListeningPoint listeningPoint;
++    public ListeningPoint listeningPoint;
+ 
+     /**
+      * The JAIN SIP SipProvider instance.
+@@ -203,9 +203,7 @@
+     protected ArrayList listeners = new ArrayList();
+ 
+     // UA-IMS - Miguel Freitas (IT) PT-Inovacao //
+-    // Security-Agree - pre-build SecurityClient header
+-    protected SecurityClientHeader securityClientHeader = null;
+-    
++
+     // prebuild User-Agent header 
+     protected UserAgentHeader userAgentHeader = null;
+     // end //
+@@ -284,175 +282,7 @@
+     //FIN CAMBIO
+ 
+     
+-
+-    /** UA-IMS - Miguel Freitas (IT) PT-Inovacao 
+-     *
+-     * Security Agree
+-     *  - Security-Server header list received (to include on Security-Verify)
+-     */
+-    private Hashtable securityServer = new Hashtable();
+-       
+-    public void setSecurityServer(String realm, ListIterator secServer)
+-    {
+-    	if (realm == null)
+-    	{
+-    		// TODO
+-    		return;
+-    	}
+-    	
+-    	if (secServer != null &amp;&amp; secServer.hasNext())
+-    	{
+-    		if( console.isDebugEnabled() )
+-                console.debug(&quot;setting Security-Server for domain &lt;&quot; + realm + &quot;&gt; - &quot; 
+-                		+ secServer.toString());
+-    		
+-    		SecurityVerifyList secVerifyList = new SecurityVerifyList();
+-
+-	    	while (secServer.hasNext())
+-	    	{
+-	    		SecurityServer security = (SecurityServer) secServer.next();
+-	    		
+-	    		try
+-	    		{
+-		    		Iterator parameters = security.getParameterNames();
+-		    		HeaderFactoryImpl headerFactoryImpl = 
+-		    			(HeaderFactoryImpl) headerFactory;
+-		    		SecurityVerifyHeader secVerify = headerFactoryImpl.createSecurityVerifyHeader();
+-		    		secVerify.setSecurityMechanism(security.getSecurityMechanism());
+-		    		while (parameters.hasNext())
+-		    		{
+-		    			String paramName = (String)parameters.next();
+-		    			secVerify.setParameter(paramName,security.getParameter(paramName));
+-		    		}
+-		    		secVerifyList.add(secVerify);
+-		    		
+-	    		}
+-	    		catch (Exception ex)
+-	    		{
+-	    			System.out.println(ex + &quot; - setSecurityServer()&quot;);
+-	    		}
+-
+-	    	}
+-
+-	    	securityServer.put(realm, secVerifyList);
+-    	}
+-    	else
+-    		if( console.isDebugEnabled() )
+-                console.debug(&quot;Security-Server is null!&quot;);
+-    }
+-
+-    public SecurityVerifyList getSecurityServer(String realm)
+-    {
+-    	if (securityServer.containsKey(realm))
+-    		return (SecurityVerifyList)securityServer.get(realm);
+-    	else
+-    		return null;
+-    }
+-
+-    public void resetSecurityServer(String realm)
+-    {
+-    	if (securityServer.containsKey(realm)){
+-    		securityServer.remove(realm);
+-		}
+-    }
+- 
+-    // end //
+     
+-    
+-    
+-
+-    /** UA-IMS - Miguel Freitas (IT) PT-Inovacao
+-     * 
+-     * Security-Agree
+-     * net.java.sip.communicator.sip.ims.sec.SECURITY_AGREEMENT (sec-mechanism)
+-     * net.java.sip.communicator.sip.ims.sec.SECURITY_ALGORITHM
+-     * if security-mechanism == &quot;ipsec-3gpp&quot;
+-     *    net.java.sip.communicator.sip.ims.sec.SECURITY_ENCRYPT_ALG
+-     *    net.java.sip.communicator.sip.ims.sec.SECURITY_SPI_C
+-     *    net.java.sip.communicator.sip.ims.sec.SECURITY_SPI_S
+-     *    net.java.sip.communicator.sip.ims.sec.SECURITY_PORT_C
+-     *    net.java.sip.communicator.sip.ims.sec.SECURITY_PORT_S
+-     * 
+-     */
+-    public SecurityClientHeader getSecurityClientHeader()
+-    {
+-    	try {
+-            console.logEntry();
+-            
+-            if (securityClientHeader != null) {
+-                return securityClientHeader;
+-            }
+-            
+-            // else, create header if SECURITY_AGREEMENT exists and isn't empty
+-            String secMech = 
+-            	Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.SECURITY_AGREEMENT&quot;);
+-            if (secMech != null &amp;&amp; secMech.length() != 0)
+-            {   
+-            	String str = null;
+-            	HeaderFactoryImpl headerFactoryImpl = (HeaderFactoryImpl) headerFactory;
+-            	try {
+-            		securityClientHeader = headerFactoryImpl.createSecurityClientHeader();
+-            		securityClientHeader.setSecurityMechanism(secMech);
+-
+-            		str = Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.SECURITY_ALGORITHM&quot;);
+-            		securityClientHeader.setAlgorithm( (str!=null) ? str : &quot;hmac-md5-96&quot; );
+-            		
+-            	}
+-            	catch (ParseException ex)
+-            	{
+-            		console.error(&quot;Exception creating Security-Client header : &quot; + ex);
+-            	}
+-            	
+-            	
+-            	if (secMech.equalsIgnoreCase(&quot;ipsec-3gpp&quot;))
+-                {
+-            		try {
+-	                	str = Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.SECURITY_ENCRYPT_ALG&quot;);
+-	                	securityClientHeader.setEncryptionAlgorithm( (str!=null) ? str : &quot;null&quot;);
+-            		} catch (ParseException ex) {}
+-
+-                	try {
+-	                	str = Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.SECURITY_SPI_C&quot;);
+-	                	securityClientHeader.setSPIClient( (str!=null) ? Integer.parseInt(str) : 0);
+-                	} catch (InvalidArgumentException ex){}
+-                	
+-                	try {
+-	                	str = Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.SECURITY_SPI_S&quot;);
+-	                	securityClientHeader.setSPIServer( (str!=null) ? Integer.parseInt(str) : 0);
+-                	} catch (InvalidArgumentException ex){}
+-                	
+-                	try {
+-                		str = Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.SECURITY_PORT_C&quot;);
+-                		if (str == null || str.length() == 0)
+-                		{
+-                			//PropertiesDepot.setProperty(&quot;net.java.sip.communicator.sip.ims.sec.SECURITY_PORT_C&quot;, 
+-                			//	Integer.toString(this.localPort));
+-                			//PropertiesDepot.storeProperties();
+-                			securityClientHeader.setPortClient(this.localPort);
+-                		}
+-                		else
+-                			securityClientHeader.setPortClient(Integer.parseInt(str));
+-                		
+-                	} catch (InvalidArgumentException ex){}
+-                	
+-                	try {
+-                		str = Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.SECURITY_PORT_S&quot;);
+-                		securityClientHeader.setPortServer( (str!=null) ? Integer.parseInt(str) : 0);
+-                	} catch (InvalidArgumentException ex){}
+-                	
+-                }
+-            	
+-            }
+-               
+-            return securityClientHeader;
+-            
+-        }
+-        finally {
+-            console.logExit();
+-        }
+-    }
+-    
+-    
+     /**
+      * Get the prebuilt User Agent Header.
+      * 
+@@ -485,6 +315,12 @@
+     }
+     
+     
++    
++    public String getTransport()
++    {
++    	return this.transport;
++    }
++    
+     // end //
+     
+     
+@@ -589,15 +425,9 @@
+                         }
+                         //End modified
+                         
+-                        
+-                        
+                         listeningPoint = sipStack.createListeningPoint(localPort,
+                             transport);
+                         
+-                        
+-                        
+-                        
+-                        
+                     }
+                     catch (InvalidArgumentException ex) {
+                         //choose another port between 1024 and 65000
+@@ -673,9 +503,9 @@
+             isStarted = true;
+         	
+             
+-            /** UA-IMS - Miguel Freita (IT) PT-Inovacao */
++            /** UA-IMS - Miguel Freitas (IT) PT-Inovacao */
+             // Security-Agree - security mechanisms supported by the client
+-        	securityClientHeader = null;
++        	sipSecurityManager.resetSecurityClient();
+             
+             /* end */
+             
+@@ -1183,12 +1013,18 @@
+ 
+             UserCredentials defaultCredentials = new UserCredentials();
+ 
+-            //avoid nullpointer exceptions
++    		//avoid nullpointer exceptions
+             String uName = Utils.getProperty(
+                 &quot;net.java.sip.communicator.sip.USER_NAME&quot;);
+             defaultCredentials.setUserName(uName == null? &quot;&quot; : uName);
+             defaultCredentials.setPassword(new char[0]);
+ 
++            // issued by Miguel Freitas //
++            String privateID = Utils.getProperty(
++            	&quot;net.java.sip.communicator.sip.ims.PRIVATE_ADDRESS&quot;);
++            defaultCredentials.setUserPrvtIdentity(privateID == null? &quot;&quot; : privateID);
++            // end //
++            
+             String realm = Utils.getProperty(
+                 &quot;net.java.sip.communicator.sip.DEFAULT_AUTHENTICATION_REALM&quot;);
+             realm = realm == null ? &quot;&quot; : realm;
+@@ -1202,6 +1038,7 @@
+             	console.debug(&quot;Authentication process canceled...&quot;);
+             	return;
+             }
++            
+             // end //
+             
+             
+@@ -1214,6 +1051,7 @@
+             
+             // commented by Miguel Freitas
+             //register(initialCredentials.getUserName());
++            
+             // use the public user identity for the register process
+             register();
+             
+@@ -1248,6 +1086,7 @@
+             initialCredentials.setUserName(uName);
+             //Si se usase contrasea habra que haber guardado la contrasea de usuario durante el registro inicial
+             //de manera cifrada y ahora recuperarla 
++            
+             initialCredentials.setPassword(new char[0]);
+ 
+             //Debera tenerse en cuenta el servidor de registrar para la autenticacin
+@@ -2014,12 +1853,32 @@
+                 console.debug(&quot;registrar transport=&quot; + registrarTransport);
+                 // Added by mranga
+             }
++            // issued by Miguel Freitas
+             String serverLog = Utils.getProperty
++            	(&quot;gov.nist.javax.sip.SERVER_LOG&quot;);
++            String debugLog = Utils.getProperty
++        		(&quot;gov.nist.javax.sip.DEBUG_LOG&quot;);
++	        if (serverLog != null) {
++	        	if (debugLog == null) {
++	        		Utils.setProperty
++	                	(&quot;gov.nist.javax.sip.TRACE_LEVEL&quot;, &quot;16&quot;);
++	        	}
++	        	else {
++	        		Utils.setProperty
++	                	(&quot;gov.nist.javax.sip.TRACE_LEVEL&quot;, &quot;32&quot;);
++	        		if (console.isDebugEnabled()) {
++	                    console.debug(&quot;debug log=&quot; + debugLog);
++	                }
++	        	}
++	        }
++            /*String serverLog = Utils.getProperty
+                 (&quot;gov.nist.javax.sip.SERVER_LOG&quot;);
+             if (serverLog != null) {
+                 Utils.setProperty
+                     (&quot;gov.nist.javax.sip.TRACE_LEVEL&quot;, &quot;16&quot;);
+-            }
++            } */
++            // end //
++	        
+             if (console.isDebugEnabled()) {
+                 console.debug(&quot;server log=&quot; + serverLog);
+             }
+@@ -2195,7 +2054,7 @@
+             
+             // UA-IMS - Miguel Freitas (IT) PT-Inovacao
+             callProcessing.resetServiceRoute(address);
+-            this.resetSecurityServer(address);
++            sipSecurityManager.resetSecurityServer(address);
+             // end
+             
+             
+@@ -2279,7 +2138,7 @@
+             if (console.isDebugEnabled()) {
+                 console.debug(&quot;call rejected. reason=&quot;
+                               + reason
+-                              + &quot;\ninvite message=&quot; + invite);
++                              + &quot;\nSIP message=&quot; + invite);
+             }
+             CallRejectedEvent evt = new CallRejectedEvent(reason, invite);
+             for (int i = listeners.size() - 1; i &gt;= 0; i--) {
+@@ -2312,6 +2171,8 @@
+         }
+     } //error occurred
+ 
++   
++    
+ //============================= SIP LISTENER METHODS ==============================
+     public void processRequest(RequestEvent requestReceivedEvent)
+     {
+@@ -2349,7 +2210,7 @@
+                     return;
+                 }
+                 catch (TransactionUnavailableException ex) {
+-                    /**
++                    /*
+                     fireCommunicationsError(
+                         new CommunicationsException(
+                         &quot;Failed to create a new server&quot;
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/reg/RegEventSubscription.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/reg/RegEventSubscription.java	2007-11-30 14:52:58 UTC (rev 78)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/reg/RegEventSubscription.java	2007-11-30 14:54:32 UTC (rev 79)
+@@ -333,7 +333,7 @@
+             HeaderFactoryImpl headerFactoryImpl = 
+             	(HeaderFactoryImpl) sipManCallback.headerFactory;
+             String privacyToken = 
+-            	Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.PRIVACY&quot;);
++            	Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.PRIVACY_PARAMS&quot;);
+             if (privacyToken != null &amp;&amp; privacyToken.length() &gt; 0)
+             {
+             	PrivacyHeader privacy = headerFactoryImpl.createPrivacyHeader(privacyToken);
+@@ -341,41 +341,48 @@
+             }
+             
+             
+-            // Require: sec-agree
+-            RequireHeader require = null;
+-            try {
+-            	require = sipManCallback.headerFactory.createRequireHeader(&quot;sec-agree&quot;);
+-            	subscribe.addHeader(require);
+-            }
+-            catch (ParseException ex)
+-            {
+-            	console.error(
+-                        &quot;ParseException creating Require header!&quot;, ex);
+-            }
+-            // Proxy-Require: sec-agree
+-            ProxyRequireHeader proxyRequire = null;
+-            try {
+-            	proxyRequire = sipManCallback.headerFactory.createProxyRequireHeader(&quot;sec-agree&quot;);
+-            	subscribe.addHeader(proxyRequire);
+-            }
+-            catch (ParseException ex)
+-            {
+-            	console.error(
+-                        &quot;ParseException creating Proxy-Require header!&quot;, ex);
+-            }
+-        
+-            // Security-Verify
+-            String realm = 
+-            	Utils.getProperty(&quot;net.java.sip.communicator.sip.DEFAULT_DOMAIN_NAME&quot;);
+-            SecurityVerifyList secList = sipManCallback.getSecurityServer(realm);
+-            if (secList != null &amp;&amp; !secList.isEmpty())
+-            	subscribe.addHeader(secList);
+-            else
+-            	System.out.println(&quot;-&gt;sendSubscription() - Security-Verify is null for realm &quot; + realm);
++            String useIPSec = 
++        		Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.USE_IPSEC&quot;);
++        	
++        	if (useIPSec != null &amp;&amp; useIPSec.equalsIgnoreCase(&quot;true&quot;))
++        	{
++	            // Require: sec-agree
++	            RequireHeader require = null;
++	            try {
++	            	require = sipManCallback.headerFactory.createRequireHeader(&quot;sec-agree&quot;);
++	            	subscribe.addHeader(require);
++	            }
++	            catch (ParseException ex)
++	            {
++	            	console.error(
++	                        &quot;ParseException creating Require header!&quot;, ex);
++	            }
++	            // Proxy-Require: sec-agree
++	            ProxyRequireHeader proxyRequire = null;
++	            try {
++	            	proxyRequire = sipManCallback.headerFactory.createProxyRequireHeader(&quot;sec-agree&quot;);
++	            	subscribe.addHeader(proxyRequire);
++	            }
++	            catch (ParseException ex)
++	            {
++	            	console.error(
++	                        &quot;ParseException creating Proxy-Require header!&quot;, ex);
++	            }
++	        
++	            // Security-Verify
++	            String realm = 
++	            	Utils.getProperty(&quot;net.java.sip.communicator.sip.DEFAULT_DOMAIN_NAME&quot;);
++	            SecurityVerifyList secList = sipManCallback.sipSecurityManager.getSecurityServer(realm);
++	            if (secList != null &amp;&amp; !secList.isEmpty())
++	            	subscribe.addHeader(secList);
++	            else
++	            	System.out.println(&quot;-&gt;sendSubscription() - Security-Verify is null for realm &quot; + realm);
++        	}
+             
+             
+             
+             
++            
+             // Accept header
+             AcceptHeader acceptHeader = null;
+             try {
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/security/AKADigest.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/security/AKADigest.java	2007-11-30 14:52:58 UTC (rev 78)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/security/AKADigest.java	2007-11-30 14:54:32 UTC (rev 79)
+@@ -22,7 +22,15 @@
+ 
+ package net.java.sip.communicator.sip.security;
+ 
++import gov.nist.javax.sip.header.ims.SecurityClientHeader;
++import gov.nist.javax.sip.header.ims.SecurityClientList;
++import gov.nist.javax.sip.header.ims.SecurityServerHeader;
++import gov.nist.javax.sip.header.ims.SecurityServerList;
++import gov.nist.javax.sip.header.ims.SecurityVerifyHeader;
++import gov.nist.javax.sip.header.ims.SecurityVerifyList;
++
+ import java.security.*;
++import java.util.Iterator;
+ 
+ import net.java.sip.communicator.common.Console;
+ import net.java.sip.communicator.common.PropertiesDepot;
+@@ -44,7 +52,7 @@
+ {
+     private static Console console = Console.getConsole(AKADigest.class);
+ 
+-    public static AKARES akaRes = null;
++    //public static AKARES akaRes = null;
+     
+     public static final int RANDLEN = 16;	// 128 bits
+     public static final int AUTNLEN = 16;	// 128 bits
+@@ -57,20 +65,24 @@
+     public static final int RESLEN	= 8;	// 64 bits
+     
+     
+-    static public AKARES getAKARES(byte[] sharedSecret,
+-    		String nonce64,
+-    		byte[] clientSQN)
++	private static byte[] opc = null;
++	private static byte[] sharedSecret16 = null;
++	
++	
++    
++    static protected AKARES calculateAKARES(AKARES akaRes, byte[] sharedSecret,
++    		String nonce64) throws SipSecurityException
+     {
+     	try {
+     		console.logEntry();
+ 	    
+-	    	if (sharedSecret == null || nonce64 == null || clientSQN == null)
++	    	if (sharedSecret == null || nonce64 == null)
+ 	    	{
+ 	    		throw new NullPointerException(
+ 	    				&quot;Null parameter in AKADigest.getAKARES()&quot;);
+ 	    	}
+ 	    	
+-	    	akaRes = new AKARES();
++	    	//akaRes = new AKARES();
+             
+ 	    	// -&gt; nonce is in Base64 -&gt; decode it!
+ 	    	String nonce = null;
+@@ -129,18 +141,10 @@
+ 	    	console.debug(&quot;autnBytes length = &quot; + autnBytes.length);
+ 
+ 	    	
+-	        // TODO: determine server SQN (based on the AUTN received)
+-	        
+-	        // TODO: check server SQN (received)
+-	        // if within expected range (== to client SQN), generate RES
+-	        // if not, produce AUTS using shared secret K and client SQN
+-	        
+-
+-	    	
+ 	    	// Rijndael
+ 
+             // set sharedSecret to 16 bytes
+-            byte[] sharedSecret16 = new byte[16];
++            sharedSecret16 = new byte[16];
+             int keyLen = sharedSecret.length;
+             for (int i = 0; i&lt;keyLen &amp;&amp; i&lt;KLEN; i++)
+             	sharedSecret16[i] = sharedSecret[i];
+@@ -181,7 +185,7 @@
+             		+ &quot; (&quot;+operator16.length+&quot;bytes)&quot;);
+ 
+             
+-	    	byte[] opc = null;
++	    	opc = null;
+ 	    	try {
+ 	    		opc = Milenage.computeOpC(sharedSecret16, operator16);
+ 	    		
+@@ -192,11 +196,52 @@
+ 	    	catch (Exception ex)
+ 	    	{
+ 	    		console.error(&quot;Exception generating the OpC for Rijndael : &quot; + ex);
+-	    		throw new SecurityException(&quot;Exception generating the OpC for Rijndael : &quot; + ex);
++	    		throw new SipSecurityException(&quot;Exception generating the OpC for Rijndael : &quot; + ex);
+ 	    	}
+ 	    	
+ 	    	
+-	        // TODO: generate RES :
++	    	
++
++	    	// authenticate network
++	    	if (!networkAuthenticated(randBytes, autnBytes)) 
++	    	{
++	    		console.debug(&quot;Network was not authenticated! TODO: send &lt;User Authentication Reject&gt;&quot;);
++	    		// TODO: handle network authentication error!
++	    		// send &quot;User Authentication Reject&quot;
++	    		
++	    	}
++	    	else
++	    	{
++	    		console.debug(&quot;Network is authenticated. Proceeding with secure registration...&quot;);
++	    		
++	    	}
++	    	
++	    	
++	    	// TODO: check server SQN (received)
++	    	// determine server SQN (based on the AUTN received)
++	        // if within expected range (== to client SQN), generate RES
++	        // if not, produce AUTS using shared secret K and client SQN
++	        if (!sqnVerified(randBytes, autnBytes))
++	        {
++	        	console.debug(&quot;SQN not in the correct range! TODO: send &lt;synchronisation failure&gt;&quot;);
++	        	// TODO: send &lt;synchronisation failure&gt;
++	        	
++	        	// TODO: calculate AUTS
++	        	akaRes.setAUTS(new String(&quot;dummy&quot;).getBytes());
++	        	
++	        }
++	        else
++	        {
++	        	//console.debug(&quot;SQN in the correct range. Proceeding with secure registration...&quot;);
++	        	akaRes.setAUTS(null);
++	        }
++
++	    	
++	    	
++	    	
++	    	
++	    	
++	        // generate RES
+ 	        // if AUTS != null, RES is generated with RAND and empty shared secret K (&quot;&quot;)
+ 	        // else, RES is generated with RAND and shared secret K
+ 	        
+@@ -216,17 +261,34 @@
+ 	    					+ MessageDigestAlgorithm.toHexString(password));
+ 	    			
+ 	    			// possible point of break !
+-	    			//akaRes.setAKARES(new String(password,&quot;UTF-8&quot;));
++	    			//akaRes.setAKARES(new String(password,&quot;UTF-8&quot;));							
+ 	    			
+ 	    			akaRes.setAKARES(password);
++	    			
++	    			
++	    			// IK = f4K(RAND)
++	    			byte[] ikBytes = Milenage.f4(sharedSecret16, randBytes, opc);
++	    			akaRes.setIK(ikBytes);
++	    			console.debug(&quot;IK hex = &quot; 
++	    					+ MessageDigestAlgorithm.toHexString(ikBytes));
++	    			
++
++	    			// CK = f3K(RAND)
++	    			// only if EALG != null ??
++	    			byte[] ckBytes = Milenage.f3(sharedSecret16, randBytes, opc);
++	    			akaRes.setCK(ckBytes);
++	    			console.debug(&quot;CK hex = &quot; 
++	    					+ MessageDigestAlgorithm.toHexString(ckBytes));
++	    	        
+ 	    		}
+ 	    		catch (Exception ex)
+ 	    		{
+ 	    			console.error(&quot;Exception generating the AKA RES!&quot;);
+-		    		throw new SecurityException(&quot;Exception generating the AKA RES! : &quot; + ex);
++		    		throw new SipSecurityException(&quot;Exception generating the AKA RES! : &quot; + ex);
+ 	    		}
+ 	    	}
+ 	    	else {
++	    		// TODO: in case AUTS != null, generate new SQN
+ 	    		console.debug(&quot;akaRes.getAUTS() != null -&gt; TODO: generate new SQN !&quot;);
+ 	    	}
+ 	    	
+@@ -244,32 +306,197 @@
+     
+     
+     
++    
++
+     /**
+-     * class representing the result of the AKA algorithm
++     * Authenticate network (verify nonce).
+      */
++    private static boolean networkAuthenticated(byte[] randBytes, byte[] autnBytes)
++    	throws SipSecurityException
++    {
++    	try {
++    		console.logEntry();
++	    	// TS 33.201
++	    	// verify MAC = XMAC (locally calculated)
++	        // SQN derived from AUTN is within the correct range 
++	
++	    	// AK = f5K(RAND)
++	    	// SQN = (SQN xor AK) xor AK
++	    	// XMAC = f1K (SQN || RAND || AMF)
++	    	
++	    	
++	    	// AUTN = SQN xor AK || AMF || MAC
++	    	// SQN xor AK (first 6 bytes)
++	        // AMF (following 2 bytes)
++	    	// MAC (following 8 bytes)
++	    	byte[] sqnXorAkBytes = new byte[SQNLEN];
++	    	byte[] amfBytes = new byte[AMFLEN];
++	    	byte[] macBytes = new byte[MACLEN];
++	    	try {
++		    	int k = 0;
++		    	for (int i = 0; i&lt;SQNLEN; i++, k++)
++		    		sqnXorAkBytes[i] = autnBytes[k];
++		    	for (int i = 0; i&lt;AMFLEN; i++, k++)
++		    		amfBytes[i] = autnBytes[k];
++		    	for (int i = 0; i&lt;MACLEN; i++, k++)
++		    		macBytes[i] = autnBytes[k];
++	    	}
++	    	catch (Exception ex) {
++	    		
++	    	}
++	    	
++	    	// XMAC = f1K (SQN || RAND || AMF)
++	    	byte[] sqnBytes = sqnXorAkBytes;
++	    	try {
++	    		// AK = f5K(RAND)
++				byte[] akBytes = Milenage.f5(sharedSecret16, randBytes, opc);
++				// SQN = (SQN xor AK) xor AK
++				sqnBytes = xorArray( xorArray(sqnBytes,akBytes), akBytes );
++				
++				byte[] xmacBytes = Milenage.f1(sharedSecret16, randBytes, opc, sqnBytes, amfBytes);
++				
++				// MAC == XMAC?
++				if (xmacBytes == macBytes)
++					return true;
++				
++				
++			} catch (Exception ex) {
++				console.error(&quot;Exception authenticating the network!&quot;);
++	    		throw new SipSecurityException(&quot;Exception authenticating the network! : &quot; + ex);
++			}
++	    	
++	    	return false;
++    	}
++    	finally {
++    		console.logExit();
++    	}
++    }
++    
++    
++    /**
++     * Verify if SQN is in the correct range.
++     * @param randBytes
++     * @param autnBytes
++     * @return true if SQN is in the correct range.
++     * @throws SipSecurityException
++     */
++    private static boolean sqnVerified(byte[] randBytes, byte[] autnBytes)
++    	throws SipSecurityException
++    {
++    	try {
++    		console.logEntry();
++    		
++	    	// TODO: Verify SQN
++	    	console.debug(&quot;TODO: Verify SQN...&quot;);
++	    	
++	    	return true;
++		}
++    	finally {
++    		console.logExit();
++    	}
++    }
++    
++    
++    
++    /**
++     * 
++     * @param a
++     * @param b
++     * @return
++     * @throws IllegalArgumentException
++     */
++    public static byte[] xorArray(byte[] a, byte[] b) throws IllegalArgumentException
++    {
++       if(b.length &lt; a.length) 
++    	   throw new IllegalArgumentException(&quot;length of byte[] b must be &gt;= byte[] a&quot;);
++       byte[] c = new byte[a.length];
++       for(int i = 0; i &lt; a.length; i++)
++       {
++          c[i] = (byte)(a[i] ^ b[i]);
++       }
++       return c;
++    }
++
++
++    
++    
++    /**
++     * class representing the result of the AKA algorithm.
++     * TODO: deal with SQN (TS 33.201).
++     */
+     static protected class AKARES
+     {
+     	private byte[] password = null;
+-    	private byte[] AUTS = null;
++    	private byte[] auts = null;
+     	
++    	// TODO: follow TS33.102 to deal with SQN
++        private String sqn = null;
++        
++        // TS 33.201 - USIM shall store original CK, IK until the next successful execution of AKA
++        private byte[] IK = null;
++        private byte[] CK = null;
++        
++    	
+     	public AKARES() {
++    		initSQN();
+     	}
+     	
+     	public void setAKARES(byte[] pass) {
+-    		password = pass;
++    		this.password = pass;
+     	}
+     	
+     	public void setAUTS(byte[] auts) {
+-    		AUTS = auts;
++    		this.auts = auts;
+     	}
+     	
++    	public void setIK(byte[] ik) {
++    		this.IK = ik;
++    	}
++    	
++    	public void setCK(byte[] ck) {
++    		this.CK = ck;
++    	}
++    	
++    	
++    	
++    	
+     	public byte[] getAKARES() {
+     		return password;
+     	}
+     	
+     	public byte[] getAUTS() {
+-    		return AUTS;
++    		return auts;
+     	}
++    	
++    	public byte[] getIK()
++    	{
++    		return this.IK;
++    	}
++    	
++    	public byte[] getCK()
++    	{
++    		return this.CK;
++    	}
++    	
++    	
++    	
++    	// TODO: follow TS33.102 to deal with SQN
++    	public void initSQN()
++    	{
++        	sqn = new String(&quot;dummy&quot;);
++        }
++    	public void incrementSQN()
++    	{
++        	//this.sqn;
++        }
++        public byte[] getSQN()
++        {
++        	return this.sqn.getBytes();
++        }
++        
++
++    	
++    	
+     }
+     
+ }
+
+Added: trunk/ims-communicator/src/net/java/sip/communicator/sip/security/AKAIPSecSACache.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/security/AKAIPSecSACache.java	2007-11-30 14:52:58 UTC (rev 78)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/security/AKAIPSecSACache.java	2007-11-30 14:54:32 UTC (rev 79)
+@@ -0,0 +1,695 @@
++/* GNU Lesser General Public License Version 2.1
++ * =============================================
++ * Copyright (C) 2006-2007  Portugal Telecom Inovacao
++ *
++ * This library is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU Lesser General Public
++ * License as published by the Free Software Foundation; either
++ * version 2.1 of the License, or (at your option) any later version.
++ * 
++ * This library is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++ * Lesser General Public License for more details.
++ * 
++ * You should have received a copy of the GNU Lesser General Public
++ * License along with this library; if not, write to the Free Software
++ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
++ * =============================================
++ * 
++ * Initial developer(s): Miguel Freitas &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">it-j-freitas at ptinovacao.pt</A>&gt;, &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">a23875 at gmail.com</A>&gt;
++ */
++
++package net.java.sip.communicator.sip.security;
++
++import gov.nist.javax.sip.header.ims.SecurityClientHeader;
++import gov.nist.javax.sip.header.ims.SecurityVerifyHeader;
++import gov.nist.javax.sip.header.ims.SecurityVerifyList;
++
++import java.io.IOException;
++import java.util.Hashtable;
++import java.util.Iterator;
++
++import net.java.sip.communicator.common.Console;
++import net.java.sip.communicator.common.Utils;
++
++import org.apache.log4j.varia.NullAppender;
++
++
++public class AKAIPSecSACache 
++{
++	private static final Console console = Console.getConsole(AKAIPSecSACache.class);
++	
++	private Hashtable&lt;Integer, IPSecSA&gt; saTable;
++	
++	// TS 33.203: port_us stays fixed for a UE until all IMPUs form this UE are de-registered
++	private int portUS; 
++	
++	
++	// IPSec SA direction
++	protected static int IN = 0;
++	protected static int OUT = 1;
++	
++	
++	protected AKAIPSecSACache()
++	{
++		saTable = new Hashtable&lt;Integer, IPSecSA&gt;();
++		this.portUS = 0;
++		
++	}
++	
++	
++	/**
++	 * 
++	 * @param uePPort
++	 * @param pcscfPPort
++	 * @param spi
++	 * @param lifetime
++	 */
++	private void addSA(IPSecSA sa) throws SecurityException
++	{
++		
++		if (sa == null)
++			throw new SecurityException(&quot;Cannot establish IPSec SA, object is null.&quot;);
++		else if (existsSA(sa))
++			throw new SecurityException(&quot;Cannot establish IPSec SA, &quot; +
++					&quot;another SA for the same target ports is still established.&quot;);
++		else
++		{
++			saTable.put(Integer.valueOf(saTable.size()), sa);
++		}
++		
++	}
++	
++	
++	/**
++	 * TODO - Remove SA (identify by the UE and PCSCF port).
++	 * @param uePPort
++	 * @param pcscfPPort
++	 */
++	protected void removeSA(String uePPort, String pcscfPPort)
++	{
++		// TODO: look in the SATable if any entry has the pair (UEPort, PCSCFPort)
++		
++	}
++	
++	/**
++	 * TODO - check if the pair (UEPort, PCSCFPort) exists in the SATable.
++	 * @param sa
++	 * @return
++	 */
++	private boolean existsSA(IPSecSA sa)
++	{
++		// TODO: check if SA exists in the SATable
++		// TODO: if exists and is not established, remove it?
++		return false;
++	}
++	
++	
++	
++	protected void setPortUserServer(int port)
++	{
++		this.portUS = port;
++	}
++	
++	protected int getPortUserServer()
++	{
++		return this.portUS;
++	}
++	
++	
++	
++	
++	
++	
++
++    
++    
++    /**
++     * Establish IPSec SA, with the most preferred SA shared by UE and P-CSCF.
++     * 
++     * @param secServerList - the Security-Server content.
++     * @param secClientHeader - for now, the Client only supports 1 type of SA at a time.
++     * @param akaRes - ARA RES for this authentication.
++     * @throws SecurityException
++     */
++    protected void establishIPSecSA(SecurityClientHeader secClientHeader,
++    		SecurityVerifyList secServerList,
++    		AKADigest.AKARES akaRes) 
++    throws SecurityException
++    {
++    	try {
++    		console.logEntry();
++
++    		if (secServerList == null || secClientHeader == null || akaRes == null)
++    		{
++    			throw new SecurityException(&quot;Cannot establish IPSec SA, object is null!&quot;);
++    		}
++    		
++    		// pick firstly common shared SA
++    		SecurityVerifyHeader secServerHeader = getCommonSA(secClientHeader, secServerList);
++    		
++    		
++    		// TODO: establish IPSec SA
++    		String ueIPAddress = Utils.getProperty(&quot;javax.sip.IP_ADDRESS&quot;);
++    		
++    		String pcscfIPAddress = Utils.getProperty(&quot;javax.sip.OUTBOUND_PROXY&quot;);
++    		pcscfIPAddress = pcscfIPAddress.substring(0, pcscfIPAddress.indexOf(&quot;:&quot;));
++    		
++    		// P-CSCF (Security-Server / Security-Verify header)
++    		// 		alg, (ealg?)
++    		// 		spi-c, spi-s
++    		//		port-c, port-s
++    		
++    		// UE (Security-Client header + AKA RES)
++    		// 		alg, (ealg?)
++    		// 		spi-c, spi-s
++    		//		port-c
++    		//		port-s 
++    		//		ik, ck (aka res)
++    		
++    		
++    		// SA for outgoing requests (US -&gt; PC)
++    		IPSecSA sa1o = new IPSecSA(ueIPAddress, secClientHeader.getPortServer(),
++    				pcscfIPAddress, secServerHeader.getPortClient(),
++    				OUT,
++    				1,	// TODO: outgoing IPSec SA ID
++    				secServerHeader.getSPIClient(),
++    				&quot;transport&quot;,
++    				secClientHeader.getEncryptionAlgorithm(), 
++    				akaRes.getCK(),
++    				secClientHeader.getAlgorithm(),
++    				akaRes.getIK(),
++    				0);	// TODO: SA lifetime
++    		this.addSA(sa1o);
++    		
++    		// SA for incoming replies (US &lt;- PC)
++    		IPSecSA sa1i = new IPSecSA(pcscfIPAddress, secServerHeader.getPortClient(),
++    				ueIPAddress, secClientHeader.getPortServer(),
++    				IN,
++    				0,	// TODO: outgoing IPSec SA ID
++    				secClientHeader.getSPIServer(),
++    				&quot;transport&quot;,
++    				secClientHeader.getEncryptionAlgorithm(), 
++    				akaRes.getCK(),
++    				secClientHeader.getAlgorithm(),
++    				akaRes.getIK(),
++    				0);	// TODO: SA lifetime
++    		this.addSA(sa1i);
++    		
++    		
++    		// SA for incoming requests (UC &lt;- PS)
++    		IPSecSA sa2i = new IPSecSA(pcscfIPAddress, secServerHeader.getPortServer(),
++    				ueIPAddress, secClientHeader.getPortClient(),
++    				IN,
++    				0,	// TODO: outgoing IPSec SA ID
++    				secClientHeader.getSPIClient(),
++    				&quot;transport&quot;,
++    				secClientHeader.getEncryptionAlgorithm(), 
++    				akaRes.getCK(),
++    				secClientHeader.getAlgorithm(),
++    				akaRes.getIK(),
++    				0);	// TODO: SA lifetime
++    		this.addSA(sa2i);
++    		
++    		// SA for outgoing replies (UC -&gt; PS)
++    		IPSecSA sa2o = new IPSecSA(ueIPAddress, secClientHeader.getPortClient(),
++    				pcscfIPAddress, secServerHeader.getPortServer(),
++    				OUT,
++    				2,	// TODO: outgoing IPSec SA ID
++    				secServerHeader.getSPIServer(),
++    				&quot;transport&quot;,
++    				secClientHeader.getEncryptionAlgorithm(), 
++    				akaRes.getCK(),
++    				secClientHeader.getAlgorithm(),
++    				akaRes.getIK(),
++    				0);	// TODO: SA lifetime
++    		this.addSA(sa2o);
++    		
++    		
++    		console.debug(&quot;(US -&gt; PC): &quot; + sa1o.getSetkeyAddStr());
++    		console.debug(&quot;(US &lt;- PC): &quot; + sa1i.getSetkeyAddStr());
++    		console.debug(&quot;(UC &lt;- PS): &quot; + sa2i.getSetkeyAddStr());
++    		console.debug(&quot;(UC -&gt; PS): &quot; + sa2o.getSetkeyAddStr());
++    		
++    		
++    		String sysName = System.getProperty(&quot;os.name&quot;);
++        	if (sysName.indexOf(&quot;Windows&quot;) != -1 )
++        	{
++        		System.out.println(&quot;IPSec establishment not yet supported on Windows OS...&quot;);
++        		console.debug(&quot;IPSec establishment not yet supported on Windows OS...&quot;);
++        		
++        	}
++        	else // if linux
++        	{
++        		console.debug(&quot;Using Linux flavoured OS: configuring IPSec...&quot;);
++        		
++        		//String cmd = new String(&quot;/bin/sh &quot;);
++        		try {
++        			Runtime rt = Runtime.getRuntime();
++        			Process proc = rt.exec(sa1o.getSetkeyAddStr());
++        			sa1o.setEstablished();
++        			proc = rt.exec(sa1i.getSetkeyAddStr());
++        			sa1i.setEstablished();
++        			proc = rt.exec(sa2i.getSetkeyAddStr());
++        			sa2i.setEstablished();
++        			proc = rt.exec(sa2o.getSetkeyAddStr());
++        			sa2o.setEstablished();
++        			
++        		}
++        		catch (IOException ex) 
++        		{
++        			throw new SecurityException(&quot;Exception while trying to setup ipsec_tools with setkey.&quot;, ex);
++        		}
++        	}
++    		
++		}
++    	finally {
++    		console.logExit();
++    	}
++    }
++    
++    
++    /**
++     * Returns firstly common shared SA.
++     * 
++     * @param secClientHeader
++     * @param secServerList
++     * @return Security-Server Header
++     * @throws SecurityException
++     */
++    protected SecurityVerifyHeader getCommonSA(SecurityClientHeader secClientHeader, SecurityVerifyList secServerList)
++    throws SecurityException
++    {
++    	try {
++    		console.logEntry();
++    		
++    		
++	    	if (secServerList == null || secClientHeader == null)
++			{
++				throw new SecurityException(&quot;Cannot establish IPSec SA, object is null!&quot;);
++			}
++	    	
++	    	SecurityVerifyHeader secServerHeader = null;
++	
++			String clientSecMech = secClientHeader.getSecurityMechanism();
++			String clientAlg = secClientHeader.getAlgorithm();
++			String clientEAlg = secClientHeader.getEncryptionAlgorithm();
++			
++			try {
++				Iterator list = secServerList.iterator();
++				float highestPreference = 9999.9f;	// the lower the number, higher the preference
++				while (list.hasNext())
++				{
++					SecurityVerifyHeader secServerTemp = (SecurityVerifyHeader)list.next();
++					boolean isCommonSA = false;
++					
++		    		String serverSecMech = secServerTemp.getSecurityMechanism();
++		    		if (serverSecMech != null &amp;&amp; serverSecMech.equals(clientSecMech))
++		    		{
++		    			// ALG
++		    			String serverAlg = secServerTemp.getAlgorithm();
++		    			if (clientAlg != null &amp;&amp; serverAlg != null &amp;&amp; serverAlg.equals(clientAlg))
++		    				isCommonSA = true;
++		    			else if (serverAlg == null &amp;&amp; clientAlg == null)
++		    				isCommonSA = true;
++		    			else
++		    				isCommonSA = false;
++		    			
++		    			// EALG
++		    			String serverEAlg = secServerTemp.getEncryptionAlgorithm();
++						if (clientEAlg != null &amp;&amp; serverEAlg != null &amp;&amp; serverEAlg.equals(clientEAlg))
++							isCommonSA = true;
++						else if (clientEAlg == null &amp;&amp; serverEAlg == null)
++		    				isCommonSA = true;
++		    			else
++		    				isCommonSA = false;
++						
++		    			
++						if (isCommonSA)
++						{
++							// &quot;q&quot; preference parameter: the lower the number, higher the preference
++							float preference = secServerTemp.getPreference();
++		            		if (preference &lt; highestPreference)
++		            		{
++		            			highestPreference = preference;
++		            			secServerHeader = secServerTemp;
++		            		}  
++						}
++		    		}
++				}
++			}
++			catch (Exception ex)
++			{
++				throw new SecurityException(&quot;Cannot establish IPSec SA.&quot;, ex);
++			}
++			
++			if (secServerHeader == null)
++			{
++				throw new SecurityException(&quot;Cannot establish IPSec SA, Client and Server have not any SA in common.&quot;);			
++			}
++	    	
++	    	return secServerHeader;
++	    	
++    	}
++    	finally {
++    		console.logExit();
++    	}
++    }
++    
++    
++	
++    
++    /**
++     * Flush SA Table.
++     */
++    public void flushIPSecSA()
++    {
++    	// TODO: consider doing this other way.
++    	
++    	int size = saTable.size();
++    	if (size &gt; 0)
++    	{
++	    	String sysName = System.getProperty(&quot;os.name&quot;);
++	    	if (sysName.indexOf(&quot;Windows&quot;) == -1 )
++	    	{
++	    		// linux
++	    		console.debug(&quot;Flushing IPSec SA...&quot;);
++
++		    	for (int i = 0; i &lt; size; i++)
++		    	{
++		    		if (saTable.get(i).isEstablished())
++		    		{
++			    		//String cmd = new String(&quot;/bin/sh &quot;);
++			    		try {
++			    			Runtime rt = Runtime.getRuntime();
++			    			Process proc = rt.exec(saTable.get(i).getSetkeyDropStr());
++			    		}
++			    		catch (IOException ex) 
++			    		{
++			    			throw new SecurityException(&quot;Exception while trying to DROP SA using ipsec_tools with setkey.&quot;, ex);
++			    		}
++			    		
++			    		saTable.remove(i);
++		    		}
++		    	}
++	    	}
++    	}
++    }
++    
++    
++    
++	
++	
++	
++	/**
++	 * Class that describes an IPSec SA.
++	 * @author Miguel Freitas
++	 */
++	protected class IPSecSA
++	{
++		
++		private String origIPAddress;
++		private int origPort;
++		private String destIPAddress;	
++		private int destPort;
++		private int direction;
++		private int id;			// for outgoing SAs, an unique ID
++		private int spi;		// dest spi
++		private int lifetime;
++		private String mode;
++		private String alg;
++		private byte[] ik;
++		private String ealg;
++		private byte[] ck;		
++		
++		private boolean established;
++		
++		
++		/**
++		 * Default IPSec SA constructor. 
++		 * 
++		 * @param ueIPAddress
++		 * @param uePPort
++		 * @param pcscfIPAddress
++		 * @param pcscfPPort
++		 * @param spi
++		 * @param mode
++		 * @param ealg
++		 * @param ck
++		 * @param alg
++		 * @param ik
++		 * @param lifetime
++		 */
++		public IPSecSA(String origIPAddress, int origPort, 
++				String destIPAddress, int destPort, 
++				int direction,
++				int id,
++				int spi, 
++				String mode,
++				String ealg, byte[] ck, 
++				String alg, byte[] ik, 
++				int lifetime)
++		{
++			this.origIPAddress = origIPAddress;
++			this.origPort = origPort;
++			this.destIPAddress = destIPAddress;
++			this.destPort = destPort;
++			
++			this.direction = direction;
++			// for outgoing SAs, an unique ID
++			this.id = (this.direction==OUT ? id : 0);
++			
++			this.spi = spi;
++			
++			this.ealg = ealg;
++			if(ealg==null)
++				this.ck = &quot;&quot;.getBytes();
++			else
++				this.ck = ck;
++			
++			this.alg = alg;
++			this.ik = ik;
++			this.mode = mode;
++			this.lifetime = lifetime;
++			
++			established = false;
++			
++			console.debug(&quot;new IPSec SA: orig=&quot; + origIPAddress + &quot;[&quot; + origPort + &quot;]&quot; +
++					&quot; dest=&quot; + destIPAddress + &quot;[&quot; + destPort + &quot;]&quot; +
++					&quot; direction=&quot; + ((direction==IN)?&quot;IN&quot;:&quot;OUT id=&quot; + id) +
++					&quot; spi=&quot; + spi +
++					&quot; mode=&quot; + mode + 
++					&quot; ealg=&quot; + ealg + &quot; ck=&quot; + ck + 
++					&quot; alg=&quot; + alg + &quot; ik=&quot; + ik + 
++					&quot; lifetime=&quot; + lifetime);
++		}
++		
++		
++		
++		public String getSetkeyAddStr()
++		{
++			// key must be a double-quoted character string, or a series 
++			// of hex digits preceded by &quot;0x&quot; 
++			String ckHex = &quot;0x&quot; + toHexString(this.ck);
++			String ikHex = &quot;0x&quot; + toHexString(this.ik);
++			
++			return 
++				&quot;setkey -c &lt;&lt; EOF \n&quot; +
++				&quot;spdadd &quot; + this.origIPAddress + &quot;/32[&quot; + this.origPort + &quot;]&quot; 
++					+ &quot; &quot; + this.destIPAddress + &quot;/32[&quot; + this.destPort + &quot;]&quot;
++					+ &quot; tcp -P &quot; + ((this.direction==IN)?&quot;in&quot;:&quot;out&quot;) + &quot; ipsec esp/transport/&quot; 
++					+ ((this.direction==IN) ? &quot;/require&quot; : &quot;unique:&quot; + this.id) + &quot;; \n&quot; + 
++				&quot;spdadd &quot; + this.origIPAddress + &quot;/32[&quot; + this.origPort + &quot;]&quot;
++					+ &quot; &quot; + this.destIPAddress + &quot;/32[&quot; + this.destPort + &quot;]&quot;
++					+ &quot; udp -P &quot; + ((this.direction==IN)?&quot;in&quot;:&quot;out&quot;) + &quot; ipsec esp/transport/&quot; 
++					+ ((this.direction==IN) ? &quot;/require&quot; : &quot;unique:&quot; + this.id) + &quot;; \n&quot; + 
++				&quot;add &quot; + this.origIPAddress + &quot; &quot; + this.destIPAddress 
++					+ &quot; esp &quot; + this.spi
++					+ &quot; -m &quot; + this.mode 
++					+ ((this.direction==OUT) ? &quot; -u &quot; + this.id : &quot;&quot;)
++					+ &quot; -E &quot; + ((this.ealg!=null)?&quot;null&quot;:this.ealg + &quot; &quot; + ckHex + &quot;&quot;)
++					+ &quot; -A &quot; + this.alg + &quot; &quot; + ikHex + &quot;; \n&quot; + 
++				&quot;EOF \n&quot;;
++		}
++		
++		
++		public String getSetkeyDropStr()
++		{
++			return
++				&quot;setkey -c &lt;&lt; EOF \n&quot; +
++				&quot;spddelete &quot; + this.origIPAddress + &quot;/32[&quot; + this.origPort + &quot;]&quot;
++					+ &quot; &quot; + this.destIPAddress + &quot;/32[&quot; + this.destPort + &quot;]&quot;
++					+ &quot; tcp -P &quot; + ((this.direction==IN)?&quot;in&quot;:&quot;out&quot;) + &quot;; \n&quot; +
++				&quot;spddelete &quot; + this.origIPAddress + &quot;/32[&quot; + this.origPort + &quot;]&quot;
++					+ &quot; &quot; + this.destIPAddress + &quot;/32[&quot; + this.destPort + &quot;]&quot;
++					+ &quot; udp -P &quot; + ((this.direction==IN)?&quot;in&quot;:&quot;out&quot;) + &quot;; \n&quot; + 
++				&quot;delete &quot; + this.origIPAddress + &quot; &quot; + this.destIPAddress 
++					+ &quot; esp &quot; + this.spi
++					+ &quot;; \n&quot; + 
++			&quot;EOF \n&quot;;
++		}
++		
++		
++		/**
++		 * 
++		 * @return ueIPAddress
++		 */
++		public String getUeIpAddress()
++		{
++			return this.origIPAddress;
++		}
++		
++		/**
++		 * 
++		 * @return pcscfIPAddress
++		 */
++		public String getPcscfIpAddress()
++		{
++			return this.destIPAddress;
++		}
++		
++		/**
++		 * 
++		 * @return uePPort
++		 */
++		public int getClientPort()
++		{
++			return this.origPort; 
++		}
++		
++		/**
++		 * 
++		 * @return pcscfPPort
++		 */
++		public int getPcscfPort()
++		{
++			return this.destPort;
++		}
++		
++		/**
++		 * IPSec SA direction (IN=0; OUT=1).
++		 * @return direction (IN=0 / OUT=1)
++		 */
++		public int getDirection()
++		{
++			return this.direction;
++		}
++		
++		/**
++		 * 
++		 * @return spi
++		 */
++		public int getSpi()
++		{
++			return this.spi;
++		}
++		
++		/**
++		 * 
++		 * @return mode
++		 */
++		public String getMode()
++		{
++			return this.mode;
++		}
++		
++		/**
++		 * 
++		 * @return lifetime
++		 */
++		public int getLifetime()
++		{
++			return this.lifetime;
++		}
++		
++		
++		public String getEAlg()
++		{
++			return this.ealg;
++		}
++		
++		/**
++		 * 
++		 * @return IK
++		 */
++		public byte[] getIK()
++		{
++			return this.ik;
++		}
++
++		
++		public String getAlg()
++		{
++			return this.alg;
++		}
++		
++		/**
++		 * 
++		 * @return CK
++		 */
++		public byte[] getCK()
++		{
++			return this.ck;
++		}
++		
++		/**
++		 * Set SA as established.
++		 */
++		public void setEstablished()
++		{
++			this.established = true;
++		}
++		
++		/**
++		 * Set SA as not established.
++		 */
++		public void setNotEstablished()
++		{
++			this.established = false;
++		}
++		
++		/**
++		 * Check the state of the SA.
++		 * @return true if SA is established
++		 */
++		public boolean isEstablished()
++		{
++			return this.established;
++		}
++		
++	}
++	
++	
++	
++	
++	
++    // the following code was copied from the NIST-SIP instant
++    // messenger (its author is Olivier Deruelle). Thanks for making it public!
++    /**
++     * to hex converter
++     */
++    private static final char[] toHex = {
++        '0', '1', '2', '3', '4', '5', '6',
++        '7', '8', '9', 'a', 'b', 'c', 'd',
++        'e', 'f'};
++
++    /**
++     * Converts b[] to hex string.
++     * @param b the bte array to convert
++     * @return a Hex representation of b.
++     */
++    public static String toHexString(byte b[])
++    {
++        int pos = 0;
++        char[] c = new char[b.length * 2];
++        for (int i = 0; i &lt; b.length; i++) {
++            c[pos++] = toHex[ (b[i] &gt;&gt; 4) &amp; 0x0F];
++            c[pos++] = toHex[b[i] &amp; 0x0f];
++        }
++        return new String(c);
++    }
++    
++    
++	
++}
+
+Added: trunk/ims-communicator/src/net/java/sip/communicator/sip/security/AKARESCache.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/security/AKARESCache.java	2007-11-30 14:52:58 UTC (rev 78)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/security/AKARESCache.java	2007-11-30 14:54:32 UTC (rev 79)
+@@ -0,0 +1,61 @@
++/* GNU Lesser General Public License Version 2.1
++ * =============================================
++ * Copyright (C) 2006-2007  Portugal Telecom Inovacao
++ *
++ * This library is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU Lesser General Public
++ * License as published by the Free Software Foundation; either
++ * version 2.1 of the License, or (at your option) any later version.
++ * 
++ * This library is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++ * Lesser General Public License for more details.
++ * 
++ * You should have received a copy of the GNU Lesser General Public
++ * License along with this library; if not, write to the Free Software
++ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
++ * =============================================
++ * 
++ * Initial developer(s): Miguel Freitas &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">it-j-freitas at ptinovacao.pt</A>&gt;, &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">a23875 at gmail.com</A>&gt;
++ */
++
++package net.java.sip.communicator.sip.security;
++
++import java.util.Hashtable;
++import net.java.sip.communicator.sip.security.AKADigest.AKARES;
++
++public class AKARESCache
++{
++
++	
++	Hashtable akaCache = null;
++	
++	
++	
++	public AKARESCache()
++	{
++		akaCache = new Hashtable();
++	}
++	
++	
++	public void putAKARes(String realm, AKARES akaRes)
++	{
++		akaCache.put(realm, akaRes);
++	}
++	
++	public AKARES getAKARes(String realm)
++	{
++		return (AKARES)akaCache.get(realm);
++	}
++	
++	public boolean removeAKARes(String realm)
++	{
++		if (akaCache.remove(realm) != null)
++			return true;
++		else
++			return false;
++		
++	}
++	
++}
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/security/MessageDigestAlgorithm.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/security/MessageDigestAlgorithm.java	2007-11-30 14:52:58 UTC (rev 78)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/security/MessageDigestAlgorithm.java	2007-11-30 14:54:32 UTC (rev 79)
+@@ -173,7 +173,7 @@
+     private static String H(String data)
+     {
+         try {
+-            console.logEntry();
++            //console.logEntry();
+ 
+             MessageDigest digest = MessageDigest.getInstance(&quot;MD5&quot;);
+ 
+@@ -186,7 +186,7 @@
+             return null;
+         }
+         finally {
+-            console.logExit();
++            //console.logExit();
+         }
+     }
+ 
+@@ -200,12 +200,12 @@
+    private static String KD(String secret, String data)
+    {
+        try {
+-           console.logEntry();
++           //console.logEntry();
+ 
+            return H(secret + &quot;:&quot; + data);
+        }
+        finally {
+-           console.logExit();
++           //console.logExit();
+        }
+    }
+ 
+@@ -237,6 +237,24 @@
+     }
+ 
+     
++    public static byte[] toBinArray( String hexStr, int length )
++    {
++	    byte bArray[] = new byte[length];  
++	    int i = 0;
++	    for(i = 0; i &lt; (hexStr.length()/2); i++){
++	    	byte firstNibble  = Byte.parseByte(hexStr.substring(2*i,2*i+1),16); // [x,y)
++	    	byte secondNibble = Byte.parseByte(hexStr.substring(2*i+1,2*i+2),16);
++	    	int finalByte = (secondNibble) | (firstNibble &lt;&lt; 4 ); // bit-operations only with numbers, not bytes.
++	    	bArray[i] = (byte) finalByte;
++	    }
++	    //for (int j = i; j &lt; length; j++){
++	    //	bArray[j] = 0;
++	    //}
++	    return bArray;
++	}
++
++    
++    
+     // issued by Miguel Freitas //
+     
+     static String calculateResponse(String algorithm,
+@@ -331,7 +349,7 @@
+     private static String H(byte[] data)
+     {
+     	try {
+-            console.logEntry();
++            //console.logEntry();
+ 
+             MessageDigest digest = MessageDigest.getInstance(&quot;MD5&quot;);
+ 
+@@ -344,7 +362,7 @@
+             return null;
+         }
+         finally {
+-            console.logExit();
++            //console.logExit();
+         }
+     }
+     
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/security/Rijndael32Bit.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/security/Rijndael32Bit.java	2007-11-30 14:52:58 UTC (rev 78)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/security/Rijndael32Bit.java	2007-11-30 14:54:32 UTC (rev 79)
+@@ -202,7 +202,7 @@
+     private void expandKey(byte[] cipherKey) {
+     	
+     	try {
+-    		console.logEntry();
++    		//console.logEntry();
+     		
+ 	        int temp, r = 0;
+ 	        for (int i = 0, k = 0; i &lt; Nk; i++, k += 4) {
+@@ -256,7 +256,7 @@
+ 	        temp = 0;
+     	}
+     	finally {
+-    		console.logExit();
++    		//console.logExit();
+     	}
+     }
+ 
+@@ -383,7 +383,7 @@
+      */
+     private void invertKey() {
+     	try {
+-    		console.logEntry();
++    		//console.logEntry();
+     		
+ 	        int d = 0, e = 4*Nr, w;
+ 		    /*
+@@ -430,7 +430,7 @@
+ 	        rdk[d + 3] = rek[e + 3];
+     	}
+     	finally {
+-    		console.logExit();
++    		//console.logExit();
+     	}
+     }
+     
+@@ -444,7 +444,7 @@
+     public void makeKey(byte[] cipherKey, int keyBits, int direction)
+             throws RuntimeException {
+     	try {
+-    		console.logEntry();
++    		//console.logEntry();
+     		
+ 	    	// check key size:
+ 	        if (keyBits != 128 &amp;&amp; keyBits != 192 &amp;&amp; keyBits != 256) {
+@@ -479,7 +479,7 @@
+ 	        }
+     	}
+ 	    finally {
+-	    	console.logExit();
++	    	//console.logExit();
+ 	    }
+     }
+ 
+@@ -502,7 +502,7 @@
+      */
+     public void encrypt(byte[] pt, byte[] ct) {
+     	try {
+-    		console.logEntry();
++    		//console.logEntry();
+ 	        /*
+ 		     * map byte array block to cipher state
+ 		     * and add initial round key:
+@@ -585,7 +585,7 @@
+ 	        ct[15] = (byte)(Se[(t2       ) &amp; 0xff] ^ (v       ));
+     	}
+     	finally {
+-    		console.logExit();
++    		//console.logExit();
+     	}
+     }
+ 
+@@ -597,7 +597,7 @@
+      */
+     public void decrypt(byte[] ct, byte[] pt) {
+     	try {
+-    		console.logEntry();
++    		//console.logEntry();
+ 	        /*
+ 		     * map byte array block to cipher state
+ 		     * and add initial round key:
+@@ -680,7 +680,7 @@
+ 	        pt[15] = (byte)(Sd[(t0       ) &amp; 0xff] ^ (v       ));
+     	}
+     	finally {
+-    		console.logExit();
++    		//console.logExit();
+     	}
+     }
+ 
+@@ -689,7 +689,7 @@
+      */
+     protected final void finalize() {
+     	try {
+-    		console.logEntry();
++    		//console.logEntry();
+ 	        if (rek != null) {
+ 	            for (int i = 0; i &lt; rek.length; i++) {
+ 	                rek[i] = 0;
+@@ -703,26 +703,26 @@
+ 	            rdk = null;
+ 	        }
+     	}finally {
+-    		console.logExit();
++    		//console.logExit();
+     	}
+     }
+ 
+     public void init(byte[] key) throws InvalidKeyException
+     {
+     	try {
+-    		console.logEntry();
++    		//console.logEntry();
+     		
+     		makeKey(key, BLOCK_BITS, DIR_ENCRYPT);
+     	}
+     	finally {
+-    		console.logExit();
++    		//console.logExit();
+     	}
+     }
+ 
+     public byte[] encrypt(byte[] input)
+     {
+     	try {
+-    		console.logEntry();
++    		//console.logEntry();
+ 	        byte[] output= new byte[input.length];
+ 	        
+ 	        //console.debug(&quot;input byte length = &quot; + input.length);
+@@ -731,7 +731,7 @@
+ 	        return output;
+     	}
+     	finally {
+-    		console.logExit();
++    		//console.logExit();
+     	}
+     }
+ }
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/security/SipSecurityManager.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/security/SipSecurityManager.java	2007-11-30 14:52:58 UTC (rev 78)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/security/SipSecurityManager.java	2007-11-30 14:54:32 UTC (rev 79)
+@@ -65,10 +65,13 @@
+ 
+ import java.util.Enumeration;
+ import java.util.Hashtable;
++import java.util.Iterator;
+ import java.util.ListIterator;
+ 
+ import net.java.sip.communicator.common.Console;
++import net.java.sip.communicator.common.Utils;
+ import net.java.sip.communicator.sip.SipManager;
++import net.java.sip.communicator.sip.event.RegistrationEvent;
+ 
+ import java.io.IOException;
+ import java.text.*;
+@@ -76,7 +79,13 @@
+ import net.java.sip.communicator.common.*;
+ 
+ // UA-IMS - Miguel Freitas (IT) PT-Inovacao //
++import gov.nist.javax.sip.header.HeaderFactoryImpl;
++import gov.nist.javax.sip.header.ParameterNames;
++import gov.nist.javax.sip.header.ims.SecurityClientHeader;
++import gov.nist.javax.sip.header.ims.SecurityClientList;
++import gov.nist.javax.sip.header.ims.SecurityServer;
+ import gov.nist.javax.sip.header.ims.SecurityServerHeader;
++import gov.nist.javax.sip.header.ims.SecurityVerifyHeader;
+ import gov.nist.javax.sip.header.ims.SecurityVerifyList;
+ // end //
+ 
+@@ -105,15 +114,304 @@
+ 
+     
+     // issued by Miguel Freitas (IT) PT-Inovacao //
+-    AKADigest.AKARES akaRes = null;
++    AKARESCache akaResCache = new AKARESCache();
++    
++    // IPSec SAs
++    private AKAIPSecSACache akaIPSecSACache = null;
++    
++    protected AKAIPSecSACache getSecurityAssociations()
++    {
++    	if (this.akaIPSecSACache == null) {
++    		this.akaIPSecSACache = new AKAIPSecSACache();
++    	}
++    	return this.akaIPSecSACache;
++    }
++    
++    public void flushSA()
++    {
++    	this.getSecurityAssociations().flushIPSecSA();
++    }
+     // end //
++     
+     
++    
+ 
++    /** UA-IMS - Miguel Freitas (IT) PT-Inovacao 
++     *
++     * Security Agree
++     *  - Security-Server header list received (to include on Security-Verify)
++     */
++    private Hashtable&lt;String, SecurityVerifyList&gt; securityServer = 
++    	new Hashtable&lt;String, SecurityVerifyList&gt;();
++       
++    public void setSecurityServer(String realm, ListIterator secServer)
++    {
++    	if (realm == null)
++    	{
++    		// TODO
++    		return;
++    	}
++    	
++    	if (secServer != null &amp;&amp; secServer.hasNext())
++    	{
++    		if( console.isDebugEnabled() )
++                console.debug(&quot;setting Security-Server for domain &lt;&quot; + realm + &quot;&gt; - &quot; 
++                		+ secServer.toString());
++    		
++    		SecurityVerifyList secVerifyList = new SecurityVerifyList();
++
++	    	while (secServer.hasNext())
++	    	{
++	    		SecurityServer security = (SecurityServer) secServer.next();
++	    		
++	    		try
++	    		{
++		    		Iterator parameters = security.getParameterNames();
++		    		HeaderFactoryImpl headerFactoryImpl = 
++		    			(HeaderFactoryImpl) headerFactory;
++		    		SecurityVerifyHeader secVerify = headerFactoryImpl.createSecurityVerifyHeader();
++		    		secVerify.setSecurityMechanism(security.getSecurityMechanism());
++		    		while (parameters.hasNext())
++		    		{
++		    			String paramName = (String)parameters.next();
++		    			secVerify.setParameter(paramName,security.getParameter(paramName));
++		    		}
++		    		secVerifyList.add(secVerify);
++		    		
++	    		}
++	    		catch (Exception ex)
++	    		{
++	    			System.out.println(ex + &quot; - setSecurityServer()&quot;);
++	    		}
++
++	    	}
++
++	    	securityServer.put(realm, secVerifyList);
++    	}
++    	else
++    		if( console.isDebugEnabled() )
++                console.debug(&quot;Security-Server is null!&quot;);
++    }
++
++    public SecurityVerifyList getSecurityServer(String realm)
++    {
++    	if (securityServer.containsKey(realm))
++    		return (SecurityVerifyList)securityServer.get(realm);
++    	else
++    		return null;
++    }
++
++    public void resetSecurityServer(String realm)
++    {
++    	if (securityServer.containsKey(realm)){
++    		securityServer.remove(realm);
++		}
++    }
++ 
++    
++    /** UA-IMS - Miguel Freitas (IT) PT-Inovacao 
++    *
++    * Security Agree: Security-Client header
++    */
++    protected SecurityClientHeader securityClientHeader = null;
++    
++    
++    public void resetSecurityClient()
++    {
++    	this.securityClientHeader = null;
++    }
++    
++    public SecurityClientHeader getSecurityClientHeader()
++    {
++    	try {
++            console.logEntry();
++            
++            if (securityClientHeader != null) {
++                return securityClientHeader;
++            }
++            
++            // else, create header if SECURITY_AGREEMENT exists and isn't empty
++            String secMech = 
++            	Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.SECURITY_AGREEMENT&quot;);
++            if (secMech != null &amp;&amp; secMech.length() != 0)
++            {   
++            	String str = null;
++            	HeaderFactoryImpl headerFactoryImpl = (HeaderFactoryImpl) headerFactory;
++            	try {
++            		securityClientHeader = headerFactoryImpl.createSecurityClientHeader();
++            		securityClientHeader.setSecurityMechanism(secMech);
++
++            		// ALG
++            		str = Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.SECURITY_ALGORITHM&quot;);
++            		securityClientHeader.setAlgorithm( (str!=null) ? str : &quot;hmac-md5-96&quot; );
++            		
++            	}
++            	catch (ParseException ex)
++            	{
++            		console.error(&quot;Exception creating Security-Client header : &quot; + ex);
++            	}
++            	
++            	
++            	if (secMech.equalsIgnoreCase(&quot;ipsec-3gpp&quot;))
++                {
++            		// EALG
++            		try {
++	                	str = Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.SECURITY_ENCRYPT_ALG&quot;);
++	                	securityClientHeader.setEncryptionAlgorithm( (str!=null) ? str : &quot;null&quot;);
++            		} catch (ParseException ex) {}
++
++            		
++            		// SPI-C
++                	try {
++                		// TS 33.203: spivalue = 10*DIGIT: 0 to 4294967295 
++                		// int MAX_VALUE = 2^31-1
++                		int spi = (int) (Integer.MAX_VALUE * Math.random());
++                		securityClientHeader.setSPIClient(spi);
++                		
++                	} catch (InvalidArgumentException ex){
++                		console.error(&quot;\nSecurity-Client header: Error while setting the spi-c parameter!&quot;,ex);
++                	}
++                	
++                	
++                	// SPI-S
++                	try {
++                		// TS 33.203: spivalue = 10*DIGIT: 0 to 4294967295 
++                		// int MAX_VALUE = 2^31-1
++                		int spi = (int) (Integer.MAX_VALUE * Math.random());
++                		securityClientHeader.setSPIServer(spi);
++                		
++                	} catch (InvalidArgumentException ex){
++                		console.error(&quot;\nSecurity-Client header: Error while setting the spi-s parameter!&quot;,ex);
++                	}
++                	
++                	
++                	
++                	// protected ports
++                	// use preferred local port  - != 5060/5061
++                	String protectLocalPort = Utils.getProperty(
++                		&quot;net.java.sip.communicator.sip.ims.sec.PROTECT_PREFERRED_LOCAL_PORT&quot;);
++                	String localPort = Utils.getProperty(
++        				&quot;net.java.sip.communicator.sip.PREFERRED_LOCAL_PORT&quot;);
++                	if (protectLocalPort != null &amp;&amp; protectLocalPort.equalsIgnoreCase(&quot;true&quot;)
++                			&amp;&amp; localPort != null 
++                			&amp;&amp; !localPort.equals(&quot;5060&quot;) &amp;&amp; !localPort.equals(&quot;5061&quot;))
++                	{
++                		console.debug(&quot;Use preferred local port for IPSec SA: &quot; + localPort);
++                		int port = Integer.parseInt(localPort);
++                		// PORT-C
++                		try {
++                			securityClientHeader.setPortClient(port);
++	                	}
++	        			catch (InvalidArgumentException ex){
++	        				console.error(&quot;\nSecurity-Client header: Error while setting the port-c parameter!&quot;,ex);
++	        			}
++                		// PORT-S
++       					getSecurityAssociations().setPortUserServer(port);
++        				try {
++        					securityClientHeader.setPortServer(port);
++	                	}
++	        			catch (InvalidArgumentException ex){
++	        				console.error(&quot;\nSecurity-Client header: Error while setting the port-s parameter!&quot;,ex);
++	        			}
++                	}
++                	// or pseudo-randomly generate new ports
++                	else
++                	{
++                		console.debug(&quot;Pseudo-randomly generate protected ports for IPSec SA&quot;);
++	                	// PORT-C
++	        			try {
++	                        boolean successfullyBound = false;
++	                        int port = 0;
++	                        while (!successfullyBound) {
++	                            try {
++	                            	// choose unused port between 1024 and 65000 (excluding 5060/5061)
++	                            	port = (int) ( (65000 - 1024) * Math.random()) + 1024;
++	                            	if (port == 5060 || port == 5061) port += 2;
++	                                ListeningPoint lp = sipManCallback.sipStack.createListeningPoint(port,sipManCallback.getTransport());
++	                                sipManCallback.sipStack.deleteListeningPoint(lp);
++	                            }
++	                            catch (InvalidArgumentException ex) {
++	                                continue;
++	                            }
++	                            successfullyBound = true;
++	                            
++	                            securityClientHeader.setPortClient(port);
++	                        }
++	                    }
++	                    catch (TransportNotSupportedException ex) {
++	                        console.error(&quot;\nSecurity-Client header: Error while checking listening point.&quot;,ex);
++	                    }
++	                    catch (ObjectInUseException ex) {
++	                    	console.error(&quot;\nError while trying to delete Listening Point!&quot;,ex);
++	                    }
++	        			catch (InvalidArgumentException ex){
++	        				console.error(&quot;\nSecurity-Client header: Error while setting the port-c parameter!&quot;,ex);
++	        			}
++	                	
++	        			
++	        			
++	                	// PORT-S
++	        			// TS 33.203: port_us stays fixed for a UE until all IMPUs form this UE are de-registered 
++	        			try {
++	        				int port = getSecurityAssociations().getPortUserServer();
++	        				if (port == 0)
++	        				{
++		                        boolean successfullyBound = false;
++		                        while (!successfullyBound) {
++		                            try {
++		                            	// choose unused port between 1024 and 65000 (excluding 5060/5061)
++		                            	port = (int) ( (65000 - 1024) * Math.random()) + 1024;
++		                            	if (port == 5060 || port == 5061) port += 2;
++		                                ListeningPoint lp = sipManCallback.sipStack.createListeningPoint(port,sipManCallback.getTransport());
++		                                sipManCallback.sipStack.deleteListeningPoint(lp);
++		                            }
++		                            catch (InvalidArgumentException ex) {
++		                                continue;
++		                            }
++		                            successfullyBound = true;
++		                            
++		                            getSecurityAssociations().setPortUserServer(port);
++		                        }
++	        				}
++	        				
++	        				securityClientHeader.setPortServer(port);
++	                    }
++	                    catch (TransportNotSupportedException ex) {
++	                        console.error(&quot;\nSecurity-Client header: Error while checking listening point.&quot;,ex);
++	                    }
++	                    catch (ObjectInUseException ex) {
++	                    	console.error(&quot;\nError while trying to delete Listening Point!&quot;,ex);
++	                    }
++	        			catch (InvalidArgumentException ex){
++	        				console.error(&quot;\nSecurity-Client header: Error while setting the port-s parameter!&quot;,ex);
++	        			}
++                	}
++                }
++            }
++               
++            return securityClientHeader;
++            
++        }
++        finally {
++            console.logExit();
++        }
++    }
++    
++    
++    
++    
++    
++    
++    
++    
++    
++
+     public SipSecurityManager()
+     {
+ 
+     }
+ 
++    
+     /**
+      * set the header factory to be used when creating authorization headers
+      */
+@@ -222,6 +520,9 @@
+                  * issued by Miguel Freitas (IT) PT-Inovacao
+                  */
+                 
++                String algorithm = authHeader.getAlgorithm();
++                console.debug(&quot;algorithm: &quot; + algorithm);
++                
+                 // check if IMS-UA mode is on
+                 String isIMSClient = Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.IMS_CLIENT&quot;);
+                 if (isIMSClient == null)
+@@ -229,10 +530,63 @@
+                 	Utils.setProperty(&quot;net.java.sip.communicator.sip.ims.IMS_CLIENT&quot;, &quot;false&quot;);
+                 	PropertiesDepot.storeProperties();
+                 }
++                String useIPSec = Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.USE_IPSEC&quot;);
++                if (useIPSec == null) {
++                	Utils.setProperty(&quot;net.java.sip.communicator.sip.ims.sec.USE_IPSEC&quot;, &quot;false&quot;);
++                	PropertiesDepot.storeProperties();
++                }
+                 
++                
+                 String privateID = null;
+                 if (isIMSClient.equalsIgnoreCase(&quot;true&quot;))
+                 {
++                	// use IPSec?
++                	
++                    if (useIPSec.equalsIgnoreCase(&quot;true&quot;) &amp;&amp; algorithm.contains(&quot;AKAv1&quot;))
++                    {
++	                    // check Security-Server and set Security-Verify 
++	                    // Security-Client = the Security-Client sent on the #1 REGISTER
++	                    if (realm == null)
++	                    	realm = Utils.getProperty(&quot;net.java.sip.communicator.sip.DEFAULT_DOMAIN_NAME&quot;);
++	
++	                    try {
++	        	            ListIterator secServerList = null;
++	        	            secServerList = challenge.getHeaders(SecurityServerHeader.NAME);
++	        	            
++	        	            if(secServerList != null)
++	        	            {
++	        	            	setSecurityServer(realm, secServerList);
++	        	            }
++	        	            else {
++	        	            	// TODO
++	        	            	// if not present, the UE shall abandon the auth procedure and send a 
++	        	            	// new REGISTER request
++	        	            	console.error(&quot;Security-Server required, but not present. Restarting Registration process... (TODO)&quot;);
++	        	            }
++	                    }
++	                    catch (Exception ex)
++	                    {
++	                    	console.error(&quot;Error getting Security-Server!!&quot;);
++	                    }
++	                
++	                    // set Security-Verify header
++	                    try {
++	                    	SecurityVerifyList secVerifyList = getSecurityServer(realm);
++	                    	
++	                    	if (secVerifyList != null)
++	        	            {
++	                    		retryTran.getRequest().addHeader(secVerifyList);
++	        	            }
++	                    	else
++	                    		console.error(&quot;-&gt; handleChallenge() - could not get Security-Verify for realm = &quot; + realm);
++	                    }
++	                    catch (Exception ex)
++	                    {
++	                    	console.error(&quot;Failed to add Security-Verify header&quot;);
++	                    }
++                    }
++                    
++                	
+                 	// shall use the IMS procedures
+                 	// get the private identity from the properties (or generate one from the public identity)
+                 	// the private identity must contain the domain
+@@ -268,7 +622,7 @@
+                     
+                     // sets the user private identity
+                     defaultCredentials.setUserPrvtIdentity(privateID);
+-                  
++                    
+                 }
+                 // end //
+                 
+@@ -400,7 +754,27 @@
+                 }
+ 
+                 //if this is a register - fix to as well
++                
++                
+ 
++    			// issued by Miguel Freitas
++    	        // set up IPSec SA
++                if (useIPSec.equalsIgnoreCase(&quot;true&quot;) &amp;&amp; algorithm.contains(&quot;AKAv1&quot;))
++                {
++    	            try { 
++    	            	this.getSecurityAssociations().establishIPSecSA(
++    	            			getSecurityClientHeader(),
++    	            			getSecurityServer(realm),
++    	            			akaResCache.getAKARes(realm));
++    	            }
++    	            catch(Exception ex) {
++    	            	console.error(&quot;IPSec SAs not established!&quot;, ex);
++    	            }
++                }
++                // end //
++                
++                
++
+             }
+             
+             CSeqHeader cSeq =
+@@ -413,43 +787,15 @@
+             //
+ 
+             
+-            /** UA-IMS - Miguel Freitas (IT) PT-Inovacao
+-             * 
+-             * set Security-Verify 
+-             * Security-Client = the Security-Client sent on the #1 REGISTER
+-             */
+-            if (realm == null)
+-            	realm = Utils.getProperty(&quot;net.java.sip.communicator.sip.DEFAULT_DOMAIN_NAME&quot;);
+-
+-            // check for Security-Server header  
+-            try {
+-	            ListIterator secServerList = null;
+-	            secServerList = challenge.getHeaders(SecurityServerHeader.NAME);
+-	            sipManCallback.setSecurityServer(realm, secServerList);
+-            }
+-            catch (Exception ex)
+-            {
+-            	System.out.println(&quot;Error getting Security-Server!!&quot;);
+-            }
++            // issued by Miguel Freitas
++            // TS 24.229 - UE shall set the Call-ID of the SA protected REGISTER request which
++            // carries the authentication challenge response to the same value as the Call-ID
++            // of the 401 response which carried the challenge.
++            
++            // TODO: set the 2nd REGISTER Call-ID to the Call-ID of the 401 received.
++            //reoriginatedRequest
+         
+-
+-            try {
+-            	SecurityVerifyList secVerifyList = sipManCallback.getSecurityServer(realm);
+-            	
+-            	if (secVerifyList != null)
+-	            {
+-            		retryTran.getRequest().addHeader(secVerifyList);
+-	            }
+-            	else
+-            		System.out.println(&quot;-&gt; handleChallenge() - could not get Security-Verify for realm = &quot; + realm);
+-            }
+-            catch (Exception ex)
+-            {
+-            	System.out.println(&quot;Failed to add Security-Verify header&quot;);
+-            }
+             
+-            // end //
+-
+             
+             return retryTran;
+         }
+@@ -500,148 +846,215 @@
+         throws SecurityException
+     {
+     	
+-    	
++    	try {
++    		console.logEntry();
++	    		
++	    	/**
++	    	 * UA-IMS
++	    	 * if IMS-UA enable, the authorization username must be the private identity
++	    	 * 
++	    	 * issued by Miguel Freitas (IT) PT-Inovacao
++	    	 */
++	    	
++	    	String isIMSClient = 
++	    		Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.IMS_CLIENT&quot;);
++	    	
++	    	String authUserName = new String();
++	    	if (isIMSClient != null &amp;&amp; isIMSClient.equalsIgnoreCase(&quot;true&quot;))
++	    		authUserName = userCredentials.getUserPrvtIdentity();
++	    	else
++	    		authUserName = userCredentials.getUserName();
+ 
+-    	/**
+-    	 * UA-IMS
+-    	 * if IMS-UA enable, the authorization username must be the private identity
+-    	 * 
+-    	 * issued by Miguel Freitas (IT) PT-Inovacao
+-    	 */
+-    	String isIMSClient = 
+-    		Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.IMS_CLIENT&quot;);
+-    	
+-    	String authUserName = new String();
+-    	if (isIMSClient.equalsIgnoreCase(&quot;true&quot;))
+-    		authUserName = userCredentials.getUserPrvtIdentity();
+-    	else
+-    		authUserName = userCredentials.getUserName();
+-
+-    	
+-    	// HTTP AKA implementation (RFC 3310)
+-    	byte[] password = new byte[AKADigest.KLEN];
+-    	if (userCredentials.getPassword() != null)
+-    	{
+-    		password = new String(userCredentials.getPassword()).getBytes();
++	    	
++	    	String sharedSecretHex = 
++	    		Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.SHARED_SECRET&quot;);
++	    	byte[] sharedSecret = null; 
++	    	if (sharedSecretHex != null &amp;&amp; sharedSecretHex.length() &gt; 0)
++	    	{
++	    		 sharedSecret = 
++	    			 MessageDigestAlgorithm.toBinArray(sharedSecretHex, AKADigest.KLEN);
++	    		 
++	    		 console.debug(&quot;shared secret = &quot; + MessageDigestAlgorithm.toHexString(sharedSecret));
++	    	}
++	    	
++	    	// HTTP AKA implementation (RFC 3310)
++	    	byte[] password = new byte[AKADigest.KLEN];
++	    	
++	    	if (userCredentials.getPassword() != null)
++	    	{
++	    		if (sharedSecret != null)
++	    			password = sharedSecret.clone();
++	    		else
++	    			password = new String(userCredentials.getPassword()).getBytes();
++	    	}
++	
++	    	
++	    	// add client nonce (cnonce) when qop=&quot;auth&quot; or qop=&quot;auth, auth-int&quot;
++	    	String qop = authHeader.getQop();
++	    	int ncValue = 0;
++	    	String ncValueStr = null;
++	    	String cnonceValue = null;
++	    	if (qop != null &amp;&amp; qop.contains(&quot;auth&quot;))
++	    	{
++	    		// RFC 2617
++	    		// cnonce         = &quot;cnonce&quot; &quot;=&quot; cnonce-value
++	    		// cnonce-value   = nonce-value
++	    		// nonce-value    = quoted-string
++	    		// nonce-count    = &quot;nc&quot; &quot;=&quot; nc-value
++	    	    // nc-value       = 8LHEX
++	    		
++	    		// TODO: generate non-dummy cnonce and nouce
++	    		cnonceValue = &quot;0a4f113b&quot;;
++	    		ncValue = 1;
++	    		
++	    		ncValueStr = Integer.toHexString(ncValue);
++	    		String base = &quot;00000000&quot;;
++	    		ncValueStr = base.substring(0, 8 - ncValueStr.length()) + ncValueStr;
++	    		
++	    	}
++	    	
++	
++	    	// get the AKA cache for the corrent realm
++	    	String realm = authHeader.getRealm();
++	    	AKADigest.AKARES akaRes = akaResCache.getAKARes(realm); 
++	    	if (akaRes == null)
++	    	{
++	    		akaRes = new AKADigest.AKARES();
++	    		akaResCache.putAKARes(realm, akaRes);
++	    	}
++	    	
++	    	
++	    	// TODO &quot;if the algorithm directives not understood, the nonce should 
++	    	// be ignored and another challenge (if present) should be used instead&quot; 
++	    	
++	    	// &quot;when the algorithm directive is not present, it is assumed to be MD5.
++	    	// This indicates that AKA is NOT used to produce the Digest password&quot;
++	    	String algorithm = authHeader.getAlgorithm();
++	    	console.debug(&quot;algorithm: &quot; + algorithm);
++	    	if (algorithm != null &amp;&amp; algorithm.indexOf(&quot;AKAv1&quot;) != -1)
++	    	{
++	    		
++	    		// use AKA to produce the AKA RES 
++	    		// (to be treated as &quot;password&quot; when calculating the response
++	    		// directive of RFC 2617) -&gt; MessageDigestAlgorithm.calculateResponse()
++	    		try {
++	    			akaRes = AKADigest.calculateAKARES(akaRes, password, 
++	    					authHeader.getNonce());
++	    		}
++	    		catch (Exception ex)
++	    		{
++	    			throw new SecurityException(&quot;Unable to generate AKA RES : &quot; + ex);
++	    		}
++	
++	    		
++	    		if (akaRes != null &amp;&amp; (akaRes.getAKARES() != null
++	    				|| akaRes.getAKARES().length&gt;0) )
++	    		{
++	    			password = akaRes.getAKARES();
++	    		}
++	    		else
++	    		{
++	    			console.debug(&quot;Unable to get the AKA RES... using MD5&quot;);
++	    			//throw new SecurityException(&quot;Unable to get the AKA RES!&quot;);
++	    		}
++	    	}
++	    	//console.debug(&quot;algorithm = &quot; + algorithm);
++	        console.debug(&quot;password = &quot; + MessageDigestAlgorithm.toHexString(password));
++	    	
++	    	// end //
++	    	
++	        String response = null;
++	        try
++	        {
++	            response = MessageDigestAlgorithm.calculateResponse(
++	                            algorithm, //authHeader.getAlgorithm(),
++	                            authUserName, //userCredentials.getUserName(),
++	                            authHeader.getRealm(),
++	                            password, //new String(userCredentials.getPassword()),
++	                            authHeader.getNonce(),
++	                            ncValueStr,//nc-value
++	                            cnonceValue,//cnonce
++	                            method,
++	                            uri,
++	                            requestBody,
++	                            authHeader.getQop());	
++	        }catch(NullPointerException exc)
++	        {
++	            throw new SecurityException(&quot;The authenticate header was malformatted&quot;);
++	        }
++	        
++	        // //
++	        console.debug(&quot;response RES = &quot; + response + &quot; (&quot;+response.getBytes().length+&quot;bytes)&quot;);
++	        
++	        
++	        AuthorizationHeader authorization = null;
++	        try {
++	            if (authHeader instanceof ProxyAuthenticateHeader) {
++	                authorization = headerFactory.createProxyAuthorizationHeader(
++	                    authHeader.getScheme());
++	            }
++	            else {
++	                authorization = headerFactory.createAuthorizationHeader(authHeader.getScheme());
++	            }
++	
++	            // UA-IMS - Miguel Freitas (IT) PT-Inovacao //
++	            //authorization.setUsername(userCredentials.getUserName());
++	            authorization.setUsername(authUserName);
++	            // end //
++	          
++	            authorization.setRealm(authHeader.getRealm());
++	            authorization.setNonce(authHeader.getNonce());
++	            authorization.setParameter(&quot;uri&quot;,uri);
++	            authorization.setResponse(response);
++	         
++	            if( authHeader.getAlgorithm() != null)
++	                authorization.setAlgorithm(authHeader.getAlgorithm());
++	            // issued by Miguel Freitas (IT) PT-Inovacao //
++	            else
++	            {
++	            	// if algorithm param in WWW-Authenticate not present, MD5 should be used
++	            	authorization.setAlgorithm(&quot;MD5&quot;);
++	            }
++	            
++	            if (cnonceValue != null)
++	    		{
++	            	authorization.setCNonce(cnonceValue);
++	    		}
++	            if (ncValueStr != null &amp;&amp; ncValue != 0)
++	            {
++	            	authorization.setNonceCount(ncValue);
++	            }
++	            
++	            // end //
++	 
++	            
++	            if( authHeader.getOpaque() != null)
++	                authorization.setOpaque(authHeader.getOpaque());
++	
++	            
++	            // issued by Miguel Freitas (IT) PT-Inovacao //
++	            // HTTP AKA synchronisation
++	            if (akaRes != null &amp;&amp; akaRes.getAUTS() != null
++	            		&amp;&amp; akaRes.getAUTS().length&gt;0)
++	            {
++	            	authorization.setParameter(&quot;auts&quot;,
++	            			new String(&quot;\&quot;&quot; + akaRes.getAUTS() + &quot;\&quot;&quot;));
++	            }
++	            // end //
++	
++	        }
++	        catch (ParseException ex) {
++	            throw new
++	                SecurityException(&quot;Failed to create an authorization header!&quot;);
++	        }
++	 
++	        return authorization;
++	        				
+     	}
+-    	
+-    	// TODO &quot;if the algorithm directiveis not understood, the nonce should 
+-    	// be ignored and another challenge (if present) should be used instead&quot; 
+-    	
+-    	// &quot;when the algorithm directive is not present, it is assumed to be MD5.
+-    	// This indicates that AKA is NOT used to produce the Digest password&quot;
+-    	String algorithm = authHeader.getAlgorithm();
+-    	if (algorithm != null &amp;&amp; algorithm.indexOf(&quot;AKAv1&quot;) != -1)
++    	finally 
+     	{
+-    		// use AKA to produce the AKA RES 
+-    		// (to be treated as &quot;password&quot; when calculating the response
+-    		// directive of RFC 2617) -&gt; MessageDigestAlgorithm.calculateResponse()
+-    		try {
+-    			akaRes = AKADigest.getAKARES(password, 
+-    					authHeader.getNonce(),
+-    					userCredentials.getSQN());
+-    		}
+-    		catch (Exception ex)
+-    		{
+-    			throw new SecurityException(&quot;Unable to generate AKA RES : &quot; + ex);
+-    		}
+-
+-    		
+-    		if (akaRes != null &amp;&amp; (akaRes.getAKARES() != null
+-    				|| akaRes.getAKARES().length&gt;0) )
+-    		{
+-    			password = akaRes.getAKARES();
+-    		}
+-    		else
+-    		{
+-    			console.debug(&quot;Unable to generate the AKA RES&quot;);
+-    			//throw new SecurityException(&quot;Unable to generate the AKA RES!&quot;);
+-    		}
++    		console.logExit();
+     	}
+-    	//console.debug(&quot;algorithm = &quot; + algorithm);
+-        console.debug(&quot;password = &quot; + MessageDigestAlgorithm.toHexString(password));
+-    	
+-    	// end //
+-    	
+-        String response = null;
+-        try
+-        {
+-            response = MessageDigestAlgorithm.calculateResponse(
+-                            algorithm, //authHeader.getAlgorithm(),
+-                            authUserName, //userCredentials.getUserName(),
+-                            // end //
+-                            authHeader.getRealm(),
+-                            password, //new String(userCredentials.getPassword()),
+-                            authHeader.getNonce(),
+-                            //TODO we should one day implement those two null-s
+-                            null,//nc-value
+-                            null,//cnonce
+-                            method,
+-                            uri,
+-                            requestBody,
+-                            authHeader.getQop());
+-        }catch(NullPointerException exc)
+-        {
+-            throw new SecurityException(&quot;The authenticate header was malformatted&quot;);
+-        }
+-        
+-        // //
+-        console.debug(&quot;response RES = &quot; 
+-        		+ response
+-        		+ &quot; (&quot;+response.getBytes().length+&quot;bytes)&quot;);
+-        
+-        
+-        AuthorizationHeader authorization = null;
+-        try {
+-            if (authHeader instanceof ProxyAuthenticateHeader) {
+-                authorization = headerFactory.createProxyAuthorizationHeader(
+-                    authHeader.getScheme());
+-            }
+-            else {
+-                authorization = headerFactory.createAuthorizationHeader(authHeader.getScheme());
+-            }
+-
+-            // UA-IMS - Miguel Freitas (IT) PT-Inovacao //
+-            //authorization.setUsername(userCredentials.getUserName());
+-            authorization.setUsername(authUserName);
+-            // end //
+-          
+-            authorization.setRealm(authHeader.getRealm());
+-            authorization.setNonce(authHeader.getNonce());
+-            authorization.setParameter(&quot;uri&quot;,uri);
+-            authorization.setResponse(response);
+-         
+-            if( authHeader.getAlgorithm() != null)
+-                authorization.setAlgorithm(authHeader.getAlgorithm());
+-            // issued by Miguel Freitas (IT) PT-Inovacao //
+-            else
+-            {
+-            	authorization.setAlgorithm(&quot;AKAv1-MD5&quot;);
+-            }
+-            // end //
+- 
+-            
+-            if( authHeader.getOpaque() != null)
+-                authorization.setOpaque(authHeader.getOpaque());
+-
+-            
+-            // issued by Miguel Freitas (IT) PT-Inovacao //
+-            // HTTP AKA synchronisation
+-            if (akaRes != null &amp;&amp; akaRes.getAUTS() != null
+-            		&amp;&amp; akaRes.getAUTS().length&gt;0)
+-            {
+-            	authorization.setParameter(&quot;auts&quot;,
+-            			new String(&quot;\&quot;&quot; + akaRes.getAUTS() + &quot;\&quot;&quot;));
+-            }
+-            // end //
+-
+-        }
+-        catch (ParseException ex) {
+-            throw new
+-                SecurityException(&quot;Failed to create an authorization header!&quot;);
+-        }
+- 
+-        return authorization;
+     }
+ 
+      public void cacheCredentials(String realm, UserCredentials credentials)
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/security/UserCredentials.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/security/UserCredentials.java	2007-11-30 14:52:58 UTC (rev 78)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/security/UserCredentials.java	2007-11-30 14:54:32 UTC (rev 79)
+@@ -73,16 +73,6 @@
+     private String userPrvtIdentity = null;
+ 
+     
+-    private String sqn = new String(&quot;dummy&quot;);	// AKA auth - client sequence number
+-    
+-    public void incrementSQN(String sqn) {
+-    	this.sqn = sqn;
+-    }
+-    public byte[] getSQN() {
+-    	return this.sqn.getBytes();
+-    }
+-    
+-    
+     /**
+      * Sets the user private identity.
+      * @param userPrvtIdentity The user private identity to set.
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000063.html">[Imscommunicator-dev] r78 - trunk/lib
+</A></li>
+	<LI>Next message: <A HREF="000065.html">[Imscommunicator-dev] r80 - trunk/releases
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#64">[ date ]</a>
+              <a href="thread.html#64">[ thread ]</a>
+              <a href="subject.html#64">[ subject ]</a>
+              <a href="author.html#64">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">More information about the Imscommunicator-dev
+mailing list</a><br>
+</body></html>

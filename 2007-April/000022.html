@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Imscommunicator-dev] r52 - trunk/ims-communicator
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/imscommunicator-dev/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:imscommunicator-dev%40lists.berlios.de?Subject=Re%3A%20%5BImscommunicator-dev%5D%20r52%20-%20trunk/ims-communicator&In-Reply-To=%3C200704161629.l3GGTVjP002724%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000025.html">
+   <LINK REL="Next"  HREF="000023.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Imscommunicator-dev] r52 - trunk/ims-communicator</H1>
+    <B>jmfreitas at mail.berlios.de</B> 
+    <A HREF="mailto:imscommunicator-dev%40lists.berlios.de?Subject=Re%3A%20%5BImscommunicator-dev%5D%20r52%20-%20trunk/ims-communicator&In-Reply-To=%3C200704161629.l3GGTVjP002724%40sheep.berlios.de%3E"
+       TITLE="[Imscommunicator-dev] r52 - trunk/ims-communicator">jmfreitas at mail.berlios.de
+       </A><BR>
+    <I>Mon Apr 16 18:29:31 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000025.html">[Imscommunicator-dev] 494 Security Agreement Required
+</A></li>
+        <LI>Next message: <A HREF="000023.html">[Imscommunicator-dev] r53 - trunk/ims-communicator
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#22">[ date ]</a>
+              <a href="thread.html#22">[ thread ]</a>
+              <a href="subject.html#22">[ subject ]</a>
+              <a href="author.html#22">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: jmfreitas
+Date: 2007-04-16 18:29:25 +0200 (Mon, 16 Apr 2007)
+New Revision: 52
+
+Modified:
+   trunk/ims-communicator/.classpath
+   trunk/ims-communicator/ims-communicator.xml
+Log:
+Libraries jmf-win/jmf.jar and jmf-win/jmf-native.jar were missing in the Eclipse project (many thanks to Stefan Spodniak to point this out)
+
+Modified: trunk/ims-communicator/.classpath
+===================================================================
+--- trunk/ims-communicator/.classpath	2007-04-13 12:20:35 UTC (rev 51)
++++ trunk/ims-communicator/.classpath	2007-04-16 16:29:25 UTC (rev 52)
+@@ -1,17 +1,19 @@
+-&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+-&lt;classpath&gt;
+-	&lt;classpathentry kind=&quot;src&quot; path=&quot;src&quot;/&gt;
+-	&lt;classpathentry kind=&quot;con&quot; path=&quot;org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.5.0_09&quot;/&gt;
+-	&lt;classpathentry kind=&quot;lib&quot; path=&quot;lib/concurrent.jar&quot;/&gt;
+-	&lt;classpathentry kind=&quot;lib&quot; path=&quot;lib/JainSipApi1.1-ims.jar&quot;/&gt;
+-	&lt;classpathentry kind=&quot;lib&quot; path=&quot;lib/jmf-all/jmf.jar&quot;/&gt;
+-	&lt;classpathentry kind=&quot;lib&quot; path=&quot;lib/jmf-lin/jmf.jar&quot;/&gt;
+-	&lt;classpathentry kind=&quot;lib&quot; path=&quot;lib/jmf-lin/jmf-native.jar&quot;/&gt;
+-	&lt;classpathentry kind=&quot;lib&quot; path=&quot;lib/jmf-lin/libjmutil.so.jar&quot;/&gt;
+-	&lt;classpathentry kind=&quot;lib&quot; path=&quot;lib/log4j-1.2.8.jar&quot;/&gt;
+-	&lt;classpathentry kind=&quot;lib&quot; path=&quot;lib/nist-sdp-1.0-ims.jar&quot;/&gt;
+-	&lt;classpathentry kind=&quot;lib&quot; path=&quot;lib/nist-sip-1.2-ims.jar&quot;/&gt;
+-	&lt;classpathentry kind=&quot;lib&quot; path=&quot;lib/Stun4J.jar&quot;/&gt;
+-	&lt;classpathentry kind=&quot;lib&quot; path=&quot;lib/jmf-win/sound.jar&quot;/&gt;
+-	&lt;classpathentry kind=&quot;output&quot; path=&quot;bin&quot;/&gt;
+-&lt;/classpath&gt;
++&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
++&lt;classpath&gt;
++	&lt;classpathentry kind=&quot;src&quot; path=&quot;src&quot;/&gt;
++	&lt;classpathentry kind=&quot;con&quot; path=&quot;org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.5.0_09&quot;/&gt;
++	&lt;classpathentry kind=&quot;lib&quot; path=&quot;lib/concurrent.jar&quot;/&gt;
++	&lt;classpathentry kind=&quot;lib&quot; path=&quot;lib/JainSipApi1.1-ims.jar&quot;/&gt;
++	&lt;classpathentry kind=&quot;lib&quot; path=&quot;lib/jmf-all/jmf.jar&quot;/&gt;
++	&lt;classpathentry kind=&quot;lib&quot; path=&quot;lib/jmf-lin/jmf.jar&quot;/&gt;
++	&lt;classpathentry kind=&quot;lib&quot; path=&quot;lib/jmf-lin/jmf-native.jar&quot;/&gt;
++	&lt;classpathentry kind=&quot;lib&quot; path=&quot;lib/jmf-lin/libjmutil.so.jar&quot;/&gt;
++	&lt;classpathentry kind=&quot;lib&quot; path=&quot;lib/log4j-1.2.8.jar&quot;/&gt;
++	&lt;classpathentry kind=&quot;lib&quot; path=&quot;lib/nist-sdp-1.0-ims.jar&quot;/&gt;
++	&lt;classpathentry kind=&quot;lib&quot; path=&quot;lib/nist-sip-1.2-ims.jar&quot;/&gt;
++	&lt;classpathentry kind=&quot;lib&quot; path=&quot;lib/Stun4J.jar&quot;/&gt;
++	&lt;classpathentry kind=&quot;lib&quot; path=&quot;lib/jmf-win/sound.jar&quot;/&gt;
++	&lt;classpathentry kind=&quot;lib&quot; path=&quot;lib/jmf-win/jmf.jar&quot;/&gt;
++	&lt;classpathentry kind=&quot;lib&quot; path=&quot;lib/jmf-win/jmf-native.jar&quot;/&gt;
++	&lt;classpathentry kind=&quot;output&quot; path=&quot;bin&quot;/&gt;
++&lt;/classpath&gt;
+
+Modified: trunk/ims-communicator/ims-communicator.xml
+===================================================================
+--- trunk/ims-communicator/ims-communicator.xml	2007-04-13 12:20:35 UTC (rev 51)
++++ trunk/ims-communicator/ims-communicator.xml	2007-04-16 16:29:25 UTC (rev 52)
+@@ -17,7 +17,7 @@
+   &lt;java&gt;
+     &lt;sip&gt;
+       &lt;communicator&gt;
+-          &lt;FIRST_LAUNCH value=&quot;true&quot;/&gt;
++          &lt;FIRST_LAUNCH value=&quot;false&quot;/&gt;
+           &lt;ENABLE_SIMPLE value=&quot;false&quot;/&gt;
+           &lt;media&gt;
+ &lt;!---         &lt;PREFERRED_AUDIO_ENCODING system=&quot;false&quot; value=&quot;&quot;/&gt; --&gt;
+@@ -104,8 +104,8 @@
+             &lt;PHONE_GUI_MODE value=&quot;true&quot;/&gt;
+             &lt;IM_GUI_MODE value=&quot;false&quot;/&gt;
+             &lt;imp&gt;
+-                &lt;CONTACT_LIST_X value=&quot;269&quot;/&gt;
+-                &lt;CONTACT_LIST_Y value=&quot;158&quot;/&gt;
++                &lt;CONTACT_LIST_X value=&quot;185&quot;/&gt;
++                &lt;CONTACT_LIST_Y value=&quot;165&quot;/&gt;
+                 &lt;CONTACT_LIST_WIDTH value=&quot;157&quot;/&gt;
+                 &lt;CONTACT_LIST_HEIGHT value=&quot;433&quot;/&gt;
+             &lt;/imp&gt;
+@@ -117,8 +117,8 @@
+         &lt;/gui&gt;
+         
+         &lt;common&gt;
+-            &lt;PREFERRED_NETWORK_INTERFACE value=&quot;Broadcom 440x 10/100 Integrated Controller - Miniport do agendador de pacotes&quot;/&gt;
+-            &lt;PREFERRED_NETWORK_ADDRESS value=&quot;10.112.64.238&quot;/&gt;
++            &lt;PREFERRED_NETWORK_INTERFACE value=&quot;Intel(R) PRO/Wireless 2200BG Network Connection - Miniport do agendador de pacotes&quot;/&gt;
++            &lt;PREFERRED_NETWORK_ADDRESS value=&quot;192.168.88.39&quot;/&gt;
+         &lt;/common&gt;
+ 
+ 
+@@ -163,7 +163,7 @@
+ &lt;/gov&gt;
+ &lt;javax&gt;
+     &lt;sip&gt;
+-		&lt;IP_ADDRESS value=&quot;10.112.64.238&quot;/&gt;
++		&lt;IP_ADDRESS value=&quot;192.168.88.39&quot;/&gt;
+         &lt;STACK_NAME value=&quot;sip-communicator&quot;/&gt;
+         &lt;ROUTER_PATH value=&quot;net.java.sip.communicator.sip.SipCommRouter&quot;/&gt;
+         &lt;!-- important: sip outbound proxy format is &lt;address&gt;:&lt;port&gt;/&lt;transport&gt; --&gt;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000025.html">[Imscommunicator-dev] 494 Security Agreement Required
+</A></li>
+	<LI>Next message: <A HREF="000023.html">[Imscommunicator-dev] r53 - trunk/ims-communicator
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#22">[ date ]</a>
+              <a href="thread.html#22">[ thread ]</a>
+              <a href="subject.html#22">[ subject ]</a>
+              <a href="author.html#22">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">More information about the Imscommunicator-dev
+mailing list</a><br>
+</body></html>

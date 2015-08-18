@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Imscommunicator-dev] No reponse to PRACK sent
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/imscommunicator-dev/2007-December/index.html" >
+   <LINK REL="made" HREF="mailto:imscommunicator-dev%40lists.berlios.de?Subject=Re%3A%20%5BImscommunicator-dev%5D%20No%20reponse%20to%20PRACK%20sent&In-Reply-To=%3C001601c83452%24d8886840%240200a8c0%40fenotebook%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000068.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Imscommunicator-dev] No reponse to PRACK sent</H1>
+    <B>Franz Edler</B> 
+    <A HREF="mailto:imscommunicator-dev%40lists.berlios.de?Subject=Re%3A%20%5BImscommunicator-dev%5D%20No%20reponse%20to%20PRACK%20sent&In-Reply-To=%3C001601c83452%24d8886840%240200a8c0%40fenotebook%3E"
+       TITLE="[Imscommunicator-dev] No reponse to PRACK sent">franz.edler at inode.at
+       </A><BR>
+    <I>Sat Dec  1 20:46:20 CET 2007</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000068.html">[Imscommunicator-dev] No reponse to PRACK sent
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#66">[ date ]</a>
+              <a href="thread.html#66">[ thread ]</a>
+              <a href="subject.html#66">[ subject ]</a>
+              <a href="author.html#66">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+I am just testing a &quot;transparent&quot; B2BUA with OpenIMSCore using
+IMS-Communicator as clients. I am now stuck in the situation that the PRACK
+request is not responded by IMS-communicator when it is sent by the B2BUA.
+
+Session setup-works of course without B2BUA and therefore I compared the
+PRACK received by IMS-Communicator with and without B2BUA. The only
+difference I found is that in case of the B2BUA no Contact header field is
+included in the PRACK request (which is correct according to RFC 3262). I
+cannot insert the Contact-header as it is a system-header controlled by the
+SIP-servlet container.
+
+Can the missing Contact header be the cause of not responding to the PRACK
+request?
+
+I have attached a tcpdump-tracefile of the platform (in osi49721-net1.zip)
+where packet 65 is the PRACK request which is not answered by the client
+(alice). 
+
+Any help is much appreciated.
+
+Regards
+Franz
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: osi49721-net1.zip
+Type: application/x-zip-compressed
+Size: 10932 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/imscommunicator-dev/attachments/20071201/4340e526/attachment.bin">https://lists.berlios.de/pipermail/imscommunicator-dev/attachments/20071201/4340e526/attachment.bin</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000068.html">[Imscommunicator-dev] No reponse to PRACK sent
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#66">[ date ]</a>
+              <a href="thread.html#66">[ thread ]</a>
+              <a href="subject.html#66">[ subject ]</a>
+              <a href="author.html#66">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">More information about the Imscommunicator-dev
+mailing list</a><br>
+</body></html>

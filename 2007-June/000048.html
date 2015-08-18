@@ -1,0 +1,250 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Imscommunicator-dev] r73 - in trunk/ims-communicator: .	src/net/java/sip/communicator src/net/java/sip/communicator/media	src/net/java/sip/communicator/sip
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/imscommunicator-dev/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:imscommunicator-dev%40lists.berlios.de?Subject=Re%3A%20%5BImscommunicator-dev%5D%20r73%20-%20in%20trunk/ims-communicator%3A%20.%0A%09src/net/java/sip/communicator%20src/net/java/sip/communicator/media%0A%09src/net/java/sip/communicator/sip&In-Reply-To=%3C200706050959.l559xiRJ011489%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000049.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Imscommunicator-dev] r73 - in trunk/ims-communicator: .	src/net/java/sip/communicator src/net/java/sip/communicator/media	src/net/java/sip/communicator/sip</H1>
+    <B>jmfreitas at mail.berlios.de</B> 
+    <A HREF="mailto:imscommunicator-dev%40lists.berlios.de?Subject=Re%3A%20%5BImscommunicator-dev%5D%20r73%20-%20in%20trunk/ims-communicator%3A%20.%0A%09src/net/java/sip/communicator%20src/net/java/sip/communicator/media%0A%09src/net/java/sip/communicator/sip&In-Reply-To=%3C200706050959.l559xiRJ011489%40sheep.berlios.de%3E"
+       TITLE="[Imscommunicator-dev] r73 - in trunk/ims-communicator: .	src/net/java/sip/communicator src/net/java/sip/communicator/media	src/net/java/sip/communicator/sip">jmfreitas at mail.berlios.de
+       </A><BR>
+    <I>Tue Jun  5 11:59:44 CEST 2007</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000049.html">[Imscommunicator-dev] source of 'nist-sip-1.2-ims.jar'
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#48">[ date ]</a>
+              <a href="thread.html#48">[ thread ]</a>
+              <a href="subject.html#48">[ subject ]</a>
+              <a href="author.html#48">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: jmfreitas
+Date: 2007-06-05 11:59:37 +0200 (Tue, 05 Jun 2007)
+New Revision: 73
+
+Modified:
+   trunk/ims-communicator/ims-communicator.xml
+   trunk/ims-communicator/src/net/java/sip/communicator/SipCommunicator.java
+   trunk/ims-communicator/src/net/java/sip/communicator/media/MediaManager.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/Call.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/CallProcessing.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/SipManager.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/TransferProcessing.java
+Log:
+
+
+Modified: trunk/ims-communicator/ims-communicator.xml
+===================================================================
+--- trunk/ims-communicator/ims-communicator.xml	2007-05-30 10:00:04 UTC (rev 72)
++++ trunk/ims-communicator/ims-communicator.xml	2007-06-05 09:59:37 UTC (rev 73)
+@@ -95,7 +95,7 @@
+                 &lt;MIN_EXP_TIME value=&quot;60&quot;/&gt;
+                 &lt;LAST_SELECTED_OPEN_STATUS value=&quot;busy&quot;/&gt;
+             &lt;/simple&gt;
+-        &lt;EXCESSIVE_URI_CHARACTERS value=&quot;( )-&quot;/&gt;
++        &lt;EXCESSIVE_URI_CHARACTERS value=&quot;( )&quot;/&gt;
+ &lt;/sip&gt;
+         
+         &lt;gui&gt;
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/SipCommunicator.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/SipCommunicator.java	2007-05-30 10:00:04 UTC (rev 72)
++++ trunk/ims-communicator/src/net/java/sip/communicator/SipCommunicator.java	2007-06-05 09:59:37 UTC (rev 73)
+@@ -442,10 +442,10 @@
+             }
+             
+             
+-            
+-            String sdpData = null;
++            // TODO: check if SDP was already generated 
++            SessionDescription sessDescr = null;
+             try {
+-                sdpData = mediaManager.generateSdpDescription();
++            	sessDescr = mediaManager.generateSdpDescriptionPrecond();
+             }
+             catch (MediaException ex) {
+                 Console.showException(&quot;Failed to Generate an SDP description&quot;,
+@@ -459,7 +459,7 @@
+                 return;
+             }
+             try {
+-                sipManager.answerCall(interlocutor.getID(), sdpData);
++                sipManager.answerCall(interlocutor.getID(), sessDescr.toString());
+             }
+             catch (CommunicationsException exc) {
+                 Console.showException(&quot;Could not answer call!\nError was: &quot;
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/media/MediaManager.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/media/MediaManager.java	2007-05-30 10:00:04 UTC (rev 72)
++++ trunk/ims-communicator/src/net/java/sip/communicator/media/MediaManager.java	2007-06-05 09:59:37 UTC (rev 73)
+@@ -823,7 +823,10 @@
+                 	AttributeField audioAttrib = new AttributeField();
+                 	gov.nist.core.NameValue nv = 
+                 		new gov.nist.core.NameValue(&quot;rtpmap&quot;, 
+-                				new String(formats[i] + &quot; &quot; + findCorrespondingJmfFormat(formats[i])) );
++                				new String(formats[i] + &quot; &quot; 
++					                	+ findCorrespondingJmfFormatPlusClockRates(formats[i]) 
++										+ &quot;/&quot;
++										+ findCorrespondingClockRate(formats[i])) );
+                 	nv.setSeparator(&quot;:&quot;);
+                 	audioAttrib.setAttribute(nv);
+                 	am.addAttribute(audioAttrib);
+@@ -836,7 +839,10 @@
+                 	AttributeField videoAttrib = new AttributeField();
+                 	gov.nist.core.NameValue nv = 
+                 		new gov.nist.core.NameValue(&quot;rtpmap&quot;, 
+-                				new String(vformats[i] + &quot; &quot; + findCorrespondingJmfFormat(vformats[i])) );
++                				new String(vformats[i] + &quot; &quot;
++                						+ findCorrespondingJmfFormatPlusClockRates(vformats[i]) 
++                						+ &quot;/&quot;
++						                + findCorrespondingClockRate(vformats[i])) );
+                 	nv.setSeparator(&quot;:&quot;);
+                 	videoAttrib.setAttribute(nv);
+                 	vm.addAttribute(videoAttrib);
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/Call.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/Call.java	2007-05-30 10:00:04 UTC (rev 72)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/Call.java	2007-06-05 09:59:37 UTC (rev 73)
+@@ -202,7 +202,6 @@
+             	if (isIMS.equalsIgnoreCase(&quot;true&quot;)
+ 	            	&amp;&amp; getRemoteAssertedIdentity() != null)
+             	{
+-            		console.debug(&quot;getRemoteAssertedIdentity() = &quot; + getRemoteAssertedIdentity().toString());
+             		return getRemoteAssertedIdentity().getURI().toString();
+             	}
+             	// end //
+@@ -230,7 +229,6 @@
+ 	            	// end //
+ 	                FromHeader fromHeader = (FromHeader) initialRequest.getHeader(
+ 	                    FromHeader.NAME);
+-	                console.debug(&quot;fromHeader = &quot; + fromHeader.getAddress().getURI().toString());
+ 	                return fromHeader.getAddress().getURI().toString();
+ 	                
+ 	            }
+@@ -279,21 +277,23 @@
+ 	            	// ETSI-TS-183-007-v1-1-1
+ 	            	// if P-Asserted-Identity present, it must be showned
+ 	            	String isIMS = Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.IMS_CLIENT&quot;);
+-	            	if (isIMS.equalsIgnoreCase(&quot;true&quot;))
++	            	PAssertedIdentity pAssertedId = (PAssertedIdentity) 
++            			initialRequest.getHeader(PAssertedIdentity.NAME);
++	            	Privacy privacy = (Privacy) initialRequest.getHeader(Privacy.NAME);
++	            	if (isIMS.equalsIgnoreCase(&quot;true&quot;)
++	            			&amp;&amp; (pAssertedId != null || privacy != null))
+ 	            	{
+-		            	PAssertedIdentity pAssertedId = (PAssertedIdentity) 
+-		            		initialRequest.getHeader(PAssertedIdentity.NAME);
+-		            	Privacy privacy = (Privacy) initialRequest.getHeader(Privacy.NAME);
+ 		            	if(pAssertedId != null)
+ 		            		address = pAssertedId.getAddress();
+ 		            	else if (privacy != null)
+ 		            		return new String(&quot;Anonymous&quot;);
+ 	            	}
+ 	            	// end //
+-	            	
+-	                FromHeader fromHeader = (FromHeader) initialRequest.getHeader(
+-	                    FromHeader.NAME);
+-	                address = fromHeader.getAddress();
++	            	else {
++		                FromHeader fromHeader = (FromHeader) initialRequest.getHeader(
++		                    FromHeader.NAME);
++		                address = fromHeader.getAddress();
++	            	}
+ 	            }
+ 	            else {
+ 	            	// issued by Miguel Freitas //
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/CallProcessing.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/CallProcessing.java	2007-05-30 10:00:04 UTC (rev 72)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/CallProcessing.java	2007-06-05 09:59:37 UTC (rev 73)
+@@ -4369,7 +4369,7 @@
+             //if(excessiveChars == null &amp;&amp; isSipphone != null &amp;&amp; isSipphone.equalsIgnoreCase(&quot;true&quot;))
+             if(excessiveChars == null)
+             {
+-                excessiveChars = &quot;( )-&quot;;
++                excessiveChars = &quot;( )&quot;;
+                 PropertiesDepot.setProperty(&quot;net.java.sip.communicator.sip.EXCESSIVE_URI_CHARACTERS&quot;, excessiveChars);
+                 PropertiesDepot.storeProperties();
+             }
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/SipManager.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/SipManager.java	2007-05-30 10:00:04 UTC (rev 72)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/SipManager.java	2007-06-05 09:59:37 UTC (rev 73)
+@@ -107,7 +107,7 @@
+ {
+ 	
+ 	//  issued by Miguel Freitas
+-	static private String IMSCommUserAgent = &quot;IMS-Communicator 070530&quot;;
++	static private String IMSCommUserAgent = &quot;IMS-Communicator 070605&quot;;
+ 	// end //
+ 	
+ 	
+@@ -2277,7 +2277,7 @@
+         try {
+             console.logEntry();
+             if (console.isDebugEnabled()) {
+-                console.debug(&quot;call rejected remotely. reason=&quot;
++                console.debug(&quot;call rejected. reason=&quot;
+                               + reason
+                               + &quot;\ninvite message=&quot; + invite);
+             }
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/TransferProcessing.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/TransferProcessing.java	2007-05-30 10:00:04 UTC (rev 72)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/TransferProcessing.java	2007-06-05 09:59:37 UTC (rev 73)
+@@ -176,9 +176,7 @@
+ 	            }
+             ////////////////////////////////////////////////////////////////////////
+ 	            
+-	        // issued by Miguel Freitas
+             }
+-            // end //
+ 
+             
+             
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000049.html">[Imscommunicator-dev] source of 'nist-sip-1.2-ims.jar'
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#48">[ date ]</a>
+              <a href="thread.html#48">[ thread ]</a>
+              <a href="subject.html#48">[ subject ]</a>
+              <a href="author.html#48">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">More information about the Imscommunicator-dev
+mailing list</a><br>
+</body></html>

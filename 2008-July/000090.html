@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Imscommunicator-dev] Error : Could not initialize rtp manager!
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/imscommunicator-dev/2008-July/index.html" >
+   <LINK REL="made" HREF="mailto:imscommunicator-dev%40lists.berlios.de?Subject=Re%3A%20%5BImscommunicator-dev%5D%20Error%20%3A%20Could%20not%20initialize%20rtp%20manager%21&In-Reply-To=%3C5c68f57c0807080032i514837eeu543ce4a1de76dfb9%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000089.html">
+   <LINK REL="Next"  HREF="000091.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Imscommunicator-dev] Error : Could not initialize rtp manager!</H1>
+    <B>Naveen Kumashi</B> 
+    <A HREF="mailto:imscommunicator-dev%40lists.berlios.de?Subject=Re%3A%20%5BImscommunicator-dev%5D%20Error%20%3A%20Could%20not%20initialize%20rtp%20manager%21&In-Reply-To=%3C5c68f57c0807080032i514837eeu543ce4a1de76dfb9%40mail.gmail.com%3E"
+       TITLE="[Imscommunicator-dev] Error : Could not initialize rtp manager!">naveenkumashi at gmail.com
+       </A><BR>
+    <I>Tue Jul  8 09:32:11 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000089.html">[Imscommunicator-dev] Call Transfer
+</A></li>
+        <LI>Next message: <A HREF="000091.html">[Imscommunicator-dev] r92 - in trunk/ims-communicator: .	src/net/java/sip/communicator src/net/java/sip/communicator/gui	src/net/java/sip/communicator/media	src/net/java/sip/communicator/plugin/addressselector	src/net/java/sip/communicator/plugin/setup	src/net/java/sip/communicator/sip	src/net/java/sip/communicator/sip/reg	src/net/java/sip/communicator/sip/simple
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#90">[ date ]</a>
+              <a href="thread.html#90">[ thread ]</a>
+              <a href="subject.html#90">[ subject ]</a>
+              <a href="author.html#90">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello everybody.
+
+I am facing a problem while trying to communicate between two users Alice
+and Bob.The error is as follows :
+
+net.java.sip.communicator.media.MediaException: Couldn't set any of the
+tracks to a valid RTP format
+    at
+net.java.sip.communicator.media.AVTransmitter.configureProcessor(AVTransmitter.java:288)
+    at
+net.java.sip.communicator.media.AVTransmitter.start(AVTransmitter.java:141)
+    at
+net.java.sip.communicator.media.MediaManager.startTransmitter(MediaManager.java:549)
+    at
+net.java.sip.communicator.media.MediaManager.openMediaStreams(MediaManager.java:459)
+    at
+net.java.sip.communicator.SipCommunicator.callStateChanged(SipCommunicator.java:1228)
+    at
+net.java.sip.communicator.sip.Call.fireCallStatusChangedEvent(Call.java:366)
+    at net.java.sip.communicator.sip.Call.setState(Call.java:186)
+    at
+net.java.sip.communicator.sip.CallProcessing.processAck(CallProcessing.java:4104)
+    at
+net.java.sip.communicator.sip.SipManager.processRequest(SipManager.java:2280)
+    at gov.nist.javax.sip.EventScanner.deliverEvent(EventScanner.java:185)
+    at gov.nist.javax.sip.EventScanner.run(EventScanner.java:324)
+    at java.lang.Thread.run(Thread.java:619)
+
+The content of my log file is as follows :
+
+817175 [EventScannerThread] ERROR media.AVReceiver  - Could not initialize
+rtp manager!
+javax.media.rtp.InvalidSessionAddressException: Local Data AddressDoes not
+belong to any of this hosts local interfaces
+        at
+com.sun.media.rtp.RTPSessionMgr.initialize(RTPSessionMgr.java:2664)
+        at
+com.sun.media.rtp.RTPSessionMgr.initialize(RTPSessionMgr.java:2515)
+        at
+net.java.sip.communicator.media.AVReceiver.initialize(AVReceiver.java:178)
+        at
+net.java.sip.communicator.media.MediaManager.startReceiver(MediaManager.java:596)
+        at
+net.java.sip.communicator.media.MediaManager.openMediaStreams(MediaManager.java:458)
+        at
+net.java.sip.communicator.SipCommunicator.callStateChanged(SipCommunicator.java:1228)
+        at
+net.java.sip.communicator.sip.Call.fireCallStatusChangedEvent(Call.java:366)
+        at net.java.sip.communicator.sip.Call.setState(Call.java:186)
+        at
+net.java.sip.communicator.sip.CallProcessing.processInviteOK(CallProcessing.java:2925)
+        at
+net.java.sip.communicator.sip.SipManager.processResponse(SipManager.java:2503)
+        at
+gov.nist.javax.sip.EventScanner.deliverEvent(EventScanner.java:220)
+        at gov.nist.javax.sip.EventScanner.run(EventScanner.java:324)
+        at java.lang.Thread.run(Thread.java:619)
+
+The error is the same at both ends i.e Alice and Bob.
+
+I would be very thankful if anyone can help me solve this problem.
+
+Thanks and regards,
+Naveen Kumashi.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/imscommunicator-dev/attachments/20080708/c57efa00/attachment.html">https://lists.berlios.de/pipermail/imscommunicator-dev/attachments/20080708/c57efa00/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000089.html">[Imscommunicator-dev] Call Transfer
+</A></li>
+	<LI>Next message: <A HREF="000091.html">[Imscommunicator-dev] r92 - in trunk/ims-communicator: .	src/net/java/sip/communicator src/net/java/sip/communicator/gui	src/net/java/sip/communicator/media	src/net/java/sip/communicator/plugin/addressselector	src/net/java/sip/communicator/plugin/setup	src/net/java/sip/communicator/sip	src/net/java/sip/communicator/sip/reg	src/net/java/sip/communicator/sip/simple
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#90">[ date ]</a>
+              <a href="thread.html#90">[ thread ]</a>
+              <a href="subject.html#90">[ subject ]</a>
+              <a href="author.html#90">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">More information about the Imscommunicator-dev
+mailing list</a><br>
+</body></html>

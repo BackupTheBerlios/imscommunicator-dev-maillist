@@ -1,0 +1,225 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Imscommunicator-dev] r53 - trunk/ims-communicator
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/imscommunicator-dev/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:imscommunicator-dev%40lists.berlios.de?Subject=Re%3A%20%5BImscommunicator-dev%5D%20r53%20-%20trunk/ims-communicator&In-Reply-To=%3C200704161637.l3GGbm3D017721%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000022.html">
+   <LINK REL="Next"  HREF="000026.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Imscommunicator-dev] r53 - trunk/ims-communicator</H1>
+    <B>jmfreitas at mail.berlios.de</B> 
+    <A HREF="mailto:imscommunicator-dev%40lists.berlios.de?Subject=Re%3A%20%5BImscommunicator-dev%5D%20r53%20-%20trunk/ims-communicator&In-Reply-To=%3C200704161637.l3GGbm3D017721%40sheep.berlios.de%3E"
+       TITLE="[Imscommunicator-dev] r53 - trunk/ims-communicator">jmfreitas at mail.berlios.de
+       </A><BR>
+    <I>Mon Apr 16 18:37:48 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000022.html">[Imscommunicator-dev] r52 - trunk/ims-communicator
+</A></li>
+        <LI>Next message: <A HREF="000026.html">[Imscommunicator-dev] [imscommunicator-users] Presence Support	in IMS Communicator
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#23">[ date ]</a>
+              <a href="thread.html#23">[ thread ]</a>
+              <a href="subject.html#23">[ subject ]</a>
+              <a href="author.html#23">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: jmfreitas
+Date: 2007-04-16 18:37:39 +0200 (Mon, 16 Apr 2007)
+New Revision: 53
+
+Modified:
+   trunk/ims-communicator/ims-communicator.xml
+Log:
+old configuration xml committed by mistake 
+
+Modified: trunk/ims-communicator/ims-communicator.xml
+===================================================================
+--- trunk/ims-communicator/ims-communicator.xml	2007-04-16 16:29:25 UTC (rev 52)
++++ trunk/ims-communicator/ims-communicator.xml	2007-04-16 16:37:39 UTC (rev 53)
+@@ -17,7 +17,7 @@
+   &lt;java&gt;
+     &lt;sip&gt;
+       &lt;communicator&gt;
+-          &lt;FIRST_LAUNCH value=&quot;false&quot;/&gt;
++          &lt;FIRST_LAUNCH value=&quot;true&quot;/&gt;
+           &lt;ENABLE_SIMPLE value=&quot;false&quot;/&gt;
+           &lt;media&gt;
+ &lt;!---         &lt;PREFERRED_AUDIO_ENCODING system=&quot;false&quot; value=&quot;&quot;/&gt; --&gt;
+@@ -32,9 +32,9 @@
+             &lt;VIDEO_PORT value=&quot;&quot;/&gt;
+         &lt;/media&gt;
+         &lt;sip&gt;
+-			&lt;PUBLIC_ADDRESS value=&quot;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">bob at ptinovacao.pt</A>&quot;/&gt;
++            &lt;PUBLIC_ADDRESS value=&quot;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">bob at ptinovacao.pt</A>&quot;/&gt;
+             &lt;TRANSPORT value=&quot;&quot;/&gt;
+-			&lt;REGISTRAR_ADDRESS value=&quot;ptinovacao.pt&quot;/&gt;
++            &lt;REGISTRAR_ADDRESS value=&quot;ptinovacao.pt&quot;/&gt;
+             &lt;USER_NAME value=&quot;bob&quot;/&gt;
+             &lt;STACK_PATH value=&quot;gov.nist&quot;/&gt;
+             &lt;PREFERRED_LOCAL_PORT value=&quot;5060&quot;/&gt;
+@@ -43,44 +43,43 @@
+             &lt;REGISTRATIONS_EXPIRATION value=&quot;120&quot;/&gt;
+             &lt;REGISTRAR_PORT value=&quot;5060&quot;/&gt;
+             &lt;FAIL_CALLS_ON_DEST_USER_MISMATCH value=&quot;false&quot;/&gt;
+-			&lt;DEFAULT_DOMAIN_NAME value=&quot;ptinovacao.pt&quot;/&gt; 
+-			&lt;DEFAULT_AUTHENTICATION_REALM value=&quot;ptinovacao.pt&quot;/&gt; 
++            &lt;DEFAULT_DOMAIN_NAME value=&quot;ptinovacao.pt&quot;/&gt; 
++            &lt;DEFAULT_AUTHENTICATION_REALM value=&quot;ptinovacao.pt&quot;/&gt; 
+             &lt;WAIT_UNREGISTGRATION_FOR value=&quot;1100&quot;/&gt;
+             &lt;SAME_USER_EVERYWHERE value=&quot;true&quot;/&gt;
+-            
+             &lt;ACCEPT_EARLY_MEDIA value=&quot;true&quot;/&gt;
+             
+ &lt;!-- IMS Client --&gt;
+ 
+             &lt;ims&gt;
+-              &lt;IMS_CLIENT value=&quot;true&quot;/&gt;
+-              &lt;PRIVATE_ADDRESS value=&quot;<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">bob at ptinovacao.pt</A>&quot;/&gt;
+-              &lt;PREFERRED_ADDRESS value=&quot;<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">bob at ptinovacao.pt</A>&quot;/&gt;
+-              &lt;PREFERRED_DISPLAY_NAME value=&quot;&quot;/&gt;
+-              &lt;PRIVACY value=&quot;none&quot;/&gt;
+-              &lt;!-- operator ID : 16 bytes (32 hex char) --&gt;
+-              &lt;OPERATOR_ID value=&quot;00000000000000000000000000000000&quot;/&gt;
+-              &lt;!-- if SECURITY_AGREEMENT value is empty, Security-Client header is not sent --&gt;
+-              &lt;SECURITY_AGREEMENT value=&quot;ipsec-3gpp&quot;/&gt;
+-              &lt;SECURITY_ALGORITHM value=&quot;hmac-sha-1-96&quot;/&gt;
+-              &lt;SECURITY_ENCRYPT_ALG value=&quot;&quot;/&gt;
+-              &lt;SECURITY_SPI_C value=&quot;10000&quot;/&gt;
+-              &lt;SECURITY_SPI_S value=&quot;10002&quot;/&gt;
+-              &lt;SECURITY_PORT_C value=&quot;5062&quot;/&gt;
+-              &lt;SECURITY_PORT_S value=&quot;5063&quot;/&gt;
+-              &lt;ACCEPT_REFER_WITHOUT_SESSION_ON value=&quot;true&quot;/&gt;
+-              &lt;REFER_TIMEOUT value=&quot;60000&quot;/&gt;
+-              &lt;REG_EVENT_SUBSCRIPTION_TIMEOUT value=&quot;600000&quot;/&gt;
+-              &lt;ACCESS_TYPE value=&quot;IEEE-802.11&quot;/&gt;
+-              &lt;DEFAULT_LOCAL_PRECONDITION value=&quot;sendrecv&quot;/&gt;
+-              &lt;VIDEO_BANDWIDTH value=&quot;75&quot;/&gt;
+-              &lt;AUDIO_BANDWIDTH value=&quot;25&quot;/&gt;
+-              &lt;sec&gt;
+-              &lt;REJECT_MALFORMED_NONCE value=&quot;false&quot;/&gt;
+-              &lt;/sec&gt;
++                &lt;IMS_CLIENT value=&quot;true&quot;/&gt;
++                &lt;PRIVATE_ADDRESS value=&quot;<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">bob at ptinovacao.pt</A>&quot;/&gt;
++                &lt;PREFERRED_ADDRESS value=&quot;<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">bob at ptinovacao.pt</A>&quot;/&gt;
++                &lt;PREFERRED_DISPLAY_NAME value=&quot;&quot;/&gt;
++                &lt;PRIVACY value=&quot;none&quot;/&gt;
++                &lt;!-- operator ID : 16 bytes (32 hex char) --&gt;
++                &lt;OPERATOR_ID value=&quot;00000000000000000000000000000000&quot;/&gt;
++                &lt;!-- if SECURITY_AGREEMENT value is empty, Security-Client header is not sent --&gt;
++                &lt;SECURITY_AGREEMENT value=&quot;ipsec-3gpp&quot;/&gt;
++                &lt;SECURITY_ALGORITHM value=&quot;hmac-sha-1-96&quot;/&gt;
++                &lt;SECURITY_ENCRYPT_ALG value=&quot;&quot;/&gt;
++                &lt;SECURITY_SPI_C value=&quot;10000&quot;/&gt;
++                &lt;SECURITY_SPI_S value=&quot;10002&quot;/&gt;
++                &lt;SECURITY_PORT_C value=&quot;5062&quot;/&gt;
++                &lt;SECURITY_PORT_S value=&quot;5063&quot;/&gt;
++                &lt;ACCEPT_REFER_WITHOUT_SESSION_ON value=&quot;true&quot;/&gt;
++                &lt;REFER_TIMEOUT value=&quot;60000&quot;/&gt;
++                &lt;REG_EVENT_SUBSCRIPTION_TIMEOUT value=&quot;600000&quot;/&gt;
++                &lt;ACCESS_TYPE value=&quot;IEEE-802.11&quot;/&gt;
++                &lt;DEFAULT_LOCAL_PRECONDITION value=&quot;sendrecv&quot;/&gt;
++                &lt;VIDEO_BANDWIDTH value=&quot;75&quot;/&gt;
++                &lt;AUDIO_BANDWIDTH value=&quot;25&quot;/&gt;
++                &lt;sec&gt;
++                    &lt;REJECT_MALFORMED_NONCE value=&quot;false&quot;/&gt;
++                &lt;/sec&gt;
+               
+-              &lt;!-- testing feature --&gt;
+-              &lt;PCSCF_DYNAMIC_DISCOVERY value=&quot;false&quot;/&gt;
++                &lt;!-- testing feature --&gt;
++                    &lt;PCSCF_DYNAMIC_DISCOVERY value=&quot;false&quot;/&gt;
+             &lt;/ims&gt;
+             
+ &lt;!-- end of IMS Client --&gt;
+@@ -122,27 +121,27 @@
+         &lt;/common&gt;
+ 
+ 
+-&lt;!--
+-    net.java.sip.communicator.sipphone.IS_RUNNING_SIPPHONE=false
+-    net.java.sip.communicator.sipphone.MY_SIPPHONE_URL=<A HREF="http://my.sipphone.com">http://my.sipphone.com</A>
++&lt;!--
++    net.java.sip.communicator.sipphone.IS_RUNNING_SIPPHONE=false
++    net.java.sip.communicator.sipphone.MY_SIPPHONE_URL=<A HREF="http://my.sipphone.com">http://my.sipphone.com</A>
+ --&gt;
+         &lt;sipphone&gt;
+             &lt;IS_RUNNING_SIPPHONE value=&quot;false&quot;/&gt;
+             &lt;MY_SIPPHONE_URL value=&quot;<A HREF="http://my.sipphone.com">http://my.sipphone.com</A>&quot;/&gt;
+         &lt;USER_NAME_EXAMPLE value=&quot;testes1&quot;/&gt;
+ &lt;/sipphone&gt;
+-&lt;!--
+-net.java.sip.communicator.gui.AUTH_WIN_TITLE=SIP Authentication!
+-net.java.sip.communicator.gui.AUTHENTICATION_PROMPT=Please enter login name and password for the specified realm:
+-net.java.sip.communicator.gui.USER_NAME_LABEL=SIPphone Number:
+-net.java.sip.communicator.sipphone.USER_NAME_EXAMPLE=Example: 1-747-555-1212
+-net.java.sip.communicator.gui.PASSWORD_LABEL=Password:
++&lt;!--
++net.java.sip.communicator.gui.AUTH_WIN_TITLE=SIP Authentication!
++net.java.sip.communicator.gui.AUTHENTICATION_PROMPT=Please enter login name and password for the specified realm:
++net.java.sip.communicator.gui.USER_NAME_LABEL=SIPphone Number:
++net.java.sip.communicator.sipphone.USER_NAME_EXAMPLE=Example: 1-747-555-1212
++net.java.sip.communicator.gui.PASSWORD_LABEL=Password:
+ --&gt;
+ 
+-&lt;!--
+-    net.java.sip.communicator.STUN_SERVER_ADDRESS=stun01.sipphone.com
+-    net.java.sip.communicator.STUN_SERVER_PORT=3478
+-    net.java.sip.communicator.VOICE_MAIL_ADDRESS=17475551212
++&lt;!--
++    net.java.sip.communicator.STUN_SERVER_ADDRESS=stun01.sipphone.com
++    net.java.sip.communicator.STUN_SERVER_PORT=3478
++    net.java.sip.communicator.VOICE_MAIL_ADDRESS=17475551212
+ --&gt;
+         &lt;!--STUN_SERVER_ADDRESS value=&quot;stun01.sipphone.com&quot;/--&gt;
+         &lt;!--STUN_SERVER_PORT value=&quot;3478&quot;/--&gt;
+@@ -163,11 +162,11 @@
+ &lt;/gov&gt;
+ &lt;javax&gt;
+     &lt;sip&gt;
+-		&lt;IP_ADDRESS value=&quot;192.168.88.39&quot;/&gt;
++        &lt;IP_ADDRESS value=&quot;192.168.88.39&quot;/&gt;
+         &lt;STACK_NAME value=&quot;sip-communicator&quot;/&gt;
+         &lt;ROUTER_PATH value=&quot;net.java.sip.communicator.sip.SipCommRouter&quot;/&gt;
+         &lt;!-- important: sip outbound proxy format is &lt;address&gt;:&lt;port&gt;/&lt;transport&gt; --&gt;
+-		&lt;OUTBOUND_PROXY value=&quot;10.112.64.12:4060/udp&quot;/&gt;
++        &lt;OUTBOUND_PROXY value=&quot;10.112.64.12:4060/udp&quot;/&gt;
+         &lt;RETRANSMISSON_FILTER value=&quot;&quot;/&gt;
+         &lt;EXTENSION_METHODS value=&quot;&quot;/&gt;
+         &lt;RETRANSMISSION_FILTER value=&quot;true&quot;/&gt;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000022.html">[Imscommunicator-dev] r52 - trunk/ims-communicator
+</A></li>
+	<LI>Next message: <A HREF="000026.html">[Imscommunicator-dev] [imscommunicator-users] Presence Support	in IMS Communicator
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#23">[ date ]</a>
+              <a href="thread.html#23">[ thread ]</a>
+              <a href="subject.html#23">[ subject ]</a>
+              <a href="author.html#23">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">More information about the Imscommunicator-dev
+mailing list</a><br>
+</body></html>

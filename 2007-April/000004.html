@@ -1,0 +1,477 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Imscommunicator-dev] r37 - in	trunk/ims-communicator/src/net/java/sip/communicator: . gui	gui/event sip
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/imscommunicator-dev/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:imscommunicator-dev%40lists.berlios.de?Subject=Re%3A%20%5BImscommunicator-dev%5D%20r37%20-%20in%0A%09trunk/ims-communicator/src/net/java/sip/communicator%3A%20.%20gui%0A%09gui/event%20sip&In-Reply-To=%3C200704121657.l3CGv384004820%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000003.html">
+   <LINK REL="Next"  HREF="000005.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Imscommunicator-dev] r37 - in	trunk/ims-communicator/src/net/java/sip/communicator: . gui	gui/event sip</H1>
+    <B>jmfreitas at mail.berlios.de</B> 
+    <A HREF="mailto:imscommunicator-dev%40lists.berlios.de?Subject=Re%3A%20%5BImscommunicator-dev%5D%20r37%20-%20in%0A%09trunk/ims-communicator/src/net/java/sip/communicator%3A%20.%20gui%0A%09gui/event%20sip&In-Reply-To=%3C200704121657.l3CGv384004820%40sheep.berlios.de%3E"
+       TITLE="[Imscommunicator-dev] r37 - in	trunk/ims-communicator/src/net/java/sip/communicator: . gui	gui/event sip">jmfreitas at mail.berlios.de
+       </A><BR>
+    <I>Thu Apr 12 18:57:03 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000003.html">[Imscommunicator-dev] r36 - trunk/releases
+</A></li>
+        <LI>Next message: <A HREF="000005.html">[Imscommunicator-dev] r39 - trunk/ims-communicator/resource
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#4">[ date ]</a>
+              <a href="thread.html#4">[ thread ]</a>
+              <a href="subject.html#4">[ subject ]</a>
+              <a href="author.html#4">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: jmfreitas
+Date: 2007-04-12 18:56:34 +0200 (Thu, 12 Apr 2007)
+New Revision: 37
+
+Modified:
+   trunk/ims-communicator/src/net/java/sip/communicator/SipCommunicator.java
+   trunk/ims-communicator/src/net/java/sip/communicator/gui/AuthenticationSplash.java
+   trunk/ims-communicator/src/net/java/sip/communicator/gui/GuiManager.java
+   trunk/ims-communicator/src/net/java/sip/communicator/gui/MenuBar.java
+   trunk/ims-communicator/src/net/java/sip/communicator/gui/event/UserActionListener.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/CallProcessing.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/RegisterProcessing.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/SipManager.java
+Log:
+Register/Unregister GUI option added, and issued a bug when cancelling a Register request.
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/SipCommunicator.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/SipCommunicator.java	2007-04-12 16:46:27 UTC (rev 36)
++++ trunk/ims-communicator/src/net/java/sip/communicator/SipCommunicator.java	2007-04-12 16:56:34 UTC (rev 37)
+@@ -570,7 +570,7 @@
+     {
+     	try {
+             console.trace(
+-                &quot;Entering handleDialRequest(UserCallInitiationEvent)&quot;);
++                &quot;Entering handleMulticastRequest(UserCallInitiationEvent)&quot;);
+             
+             
+             // is user registered?!
+@@ -620,7 +620,62 @@
+         }
+     }
+     
++        
++    public void handleRegisterRequest()
++    {
++    	try {
++            console.trace(
++                &quot;Entering handleRegisterRequest()&quot;);
++            
++            // is user already registered?!
++            if (!sipManager.isRegistered())
++            {
++	            try {
++	            	sipManager.startRegisterProcess();
++	            }
++	            catch (CommunicationsException exc) {
++	                console.error(
++	                    &quot;An exception occurred while trying to register, exc&quot;);
++	                console.showException(
++	                    &quot;Failed to register!\n&quot;
++	                    + exc.getMessage() + &quot;\n&quot;
++	                    + &quot;This is a warning only. The phone would still function&quot;,
++	                    exc);
++	            }
++            }
++    	}
++    	finally {
++            console.logExit();
++        }
++    }
+     
++    
++    public void handleUnregisterRequest()
++    {
++    	try {
++            console.trace(
++                &quot;Entering handleUnregisterRequest()&quot;);
++            
++            // is user registered?!
++            if (sipManager.isRegistered())
++            {
++            	try {
++                    sipManager.unregister();
++                }
++                catch (CommunicationsException ex) {
++                    console.showException(&quot;Could not unregister!&quot;, ex);
++                }
++                catch(Throwable exc)
++                {
++                    console.error(&quot;Failed to properly unregister&quot;, exc);
++                }
++            }
++    	}
++    	finally {
++            console.logExit();
++        }
++    }
++    
+     // end //
+     
+ 
+@@ -1149,8 +1204,16 @@
+ 
+             UserCredentials credentials = new UserCredentials();
+ 
+-            credentials.setUserName(guiManager.getAuthenticationUserName());
+-            credentials.setPassword(guiManager.getAuthenticationPassword());
++            
++            // issued by Miguel Freitas //
++            if (guiManager.getAuthenticationUserName() != null) {
++            	credentials.setUserName(guiManager.getAuthenticationUserName());
++                credentials.setPassword(guiManager.getAuthenticationPassword());
++            }
++            else // CANCEL
++            	return null;
++            // end //
++            
+ 
+             return credentials;
+         }
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/gui/AuthenticationSplash.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/gui/AuthenticationSplash.java	2007-04-12 16:46:27 UTC (rev 36)
++++ trunk/ims-communicator/src/net/java/sip/communicator/gui/AuthenticationSplash.java	2007-04-12 16:56:34 UTC (rev 37)
+@@ -186,6 +186,20 @@
+         if(title == null)
+             title = &quot;Registrar Login&quot;;
+ 
++        
++        // issued by Miguel Freitas //
++        String isIMS = Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.IMS_CLIENT&quot;);
++        String auth = null; 
++        if (isIMS != null &amp;&amp; isIMS.equalsIgnoreCase(&quot;true&quot;)) {
++        	auth = Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.PRIVATE_ADDRESS&quot;);
++        }
++        else {
++        	auth = Utils.getProperty(&quot;net.java.sip.communicator.sip.PUBLIC_ADDRESS&quot;);
++        }
++        title = title.concat(&quot; for &quot; + auth);
++        // end //
++        
++        
+         setTitle(title);
+         setResizable(false);
+         addWindowListener(new WindowAdapter()
+@@ -295,6 +309,7 @@
+         c.insets = new Insets(11, 7, 0, 11);
+         centerPane.add(passwordTextField, c);
+ 
++        
+         //Set a relevant realm value
+         //Bug report by Steven Lass (sltemp at comcast.net)
+         //JLabel realmValueLabel = new JLabel(&quot;SipPhone.com&quot;); // needed below
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/gui/GuiManager.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/gui/GuiManager.java	2007-04-12 16:46:27 UTC (rev 36)
++++ trunk/ims-communicator/src/net/java/sip/communicator/gui/GuiManager.java	2007-04-12 16:56:34 UTC (rev 37)
+@@ -126,6 +126,8 @@
+     // issued by Miguel Freitas //
+     ReceiveMulticastAction receiveMulticastAction = null;
+     private MulticastAddressSplash multicastSplash = null;
++    
++    RegisterUnregisterAction registerUnregisterAction = null;
+     // end //
+     
+     
+@@ -149,6 +151,7 @@
+ 
+         // issued by Miguel Freitas //
+         receiveMulticastAction = new ReceiveMulticastAction();
++        registerUnregisterAction = new RegisterUnregisterAction();
+         // end //
+         
+         phoneFrame    = new PhoneFrame(this);
+@@ -186,6 +189,11 @@
+         // issued by Miguel Freitas - to make release to work on windows //
+         contactList.menuBar.addAboutAction(aboutAction);
+         // end //
++        
++        // issued by Miguel Freitas //
++        ( (MenuBar) phoneFrame.jMenuBar1).addCallAction(registerUnregisterAction, KeyEvent.VK_F2);
++        // end //
++        
+         ( (MenuBar) phoneFrame.jMenuBar1).addCallAction(voiceMailAction, KeyEvent.VK_F6);
+ 
+         // issued by Miguel Freitas //
+@@ -555,6 +563,32 @@
+             ( (UserActionListener) listeners.get(i)).handleMulticastRequest(commEvt);
+         }
+     }
++    
++    void registerUnregister_actionPerformed(ActionEvent evt)
++    {
++    	// if registered, unregister
++    	// else, start registration process
++    	
++    	String statusCode = phoneFrame.registrationLabel.getText();
++    	if (statusCode.indexOf(REGISTERED) != -1)
++    			//|| statusCode.indexOf(REGISTERING) != -1)
++    	{
++    		for (int i = listeners.size() - 1; i &gt;= 0; i--) {
++                ( (UserActionListener) listeners.get(i)).handleUnregisterRequest();
++            }
++    	}
++    	else if (statusCode.indexOf(NOT_REGISTERED) != -1)
++    			//|| statusCode.indexOf(UNREGISTERING) != -1)
++    	{
++    		for (int i = listeners.size() - 1; i &gt;= 0; i--) {
++                ( (UserActionListener) listeners.get(i)).handleRegisterRequest();
++            }
++    	}
++    	else {
++    		console.debug(&quot;GUIManager - Register/Unregister not working...&quot;);
++    	}
++    }
++    
+     // end //
+     
+     
+@@ -842,9 +876,22 @@
+             //phoneFrame.contactBox.setSelectedItem(voiceMailNumber);
+             //dialButton_actionPerformed(new EventObject(phoneFrame.dialButton));
+         }
+-	    
+-	    
+ 	}
++    
++    private class RegisterUnregisterAction
++    extends AbstractAction
++    {
++    	private RegisterUnregisterAction()
++    	{
++    		super(&quot;Register/Unregister&quot;);
++    	}
++    	
++    	public void actionPerformed(ActionEvent evt)
++    	{
++    		registerUnregister_actionPerformed(evt);
++    	}
++    }
++    
+     // end //
+     
+ 
+@@ -960,6 +1007,8 @@
+         //Bug report by Steven Lass (sltemp at comcast.net)
+         if(realm != null)
+             authenticationSplash.realmValueLabel.setText(new String(realm));
++
++        
+         //authenticationSplash.show();
+         authenticationSplash.setVisible(true);
+     }
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/gui/MenuBar.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/gui/MenuBar.java	2007-04-12 16:46:27 UTC (rev 36)
++++ trunk/ims-communicator/src/net/java/sip/communicator/gui/MenuBar.java	2007-04-12 16:56:34 UTC (rev 37)
+@@ -129,6 +129,14 @@
+         mItem.setMnemonic('M');
+         callMenu.add(mItem);
+     }
++    
++    void addRegisterUnregister(Action action)
++    {
++        JMenuItem mItem = new JMenuItem(action);
++        mItem.setMnemonic('R');
++        callMenu.add(mItem);
++        callMenu.addSeparator();
++    }
+     // end //
+     
+     
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/gui/event/UserActionListener.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/gui/event/UserActionListener.java	2007-04-12 16:46:27 UTC (rev 36)
++++ trunk/ims-communicator/src/net/java/sip/communicator/gui/event/UserActionListener.java	2007-04-12 16:56:34 UTC (rev 37)
+@@ -82,6 +82,8 @@
+     
+     // issued by Miguel Freitas //
+     public void handleMulticastRequest(UserCallInitiationEvent commEvt);
++    public void handleRegisterRequest();
++    public void handleUnregisterRequest();
+     // end //
+     
+     
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/CallProcessing.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/CallProcessing.java	2007-04-12 16:46:27 UTC (rev 36)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/CallProcessing.java	2007-04-12 16:56:34 UTC (rev 37)
+@@ -4268,7 +4268,10 @@
+             //un ugly hack to override old xml configurations (todo: remove at some point)
+             //define excessive chars for sipphone.com users
+             String isSipphone = Utils.getProperty(&quot;net.java.sip.communicator.sipphone.IS_RUNNING_SIPPHONE&quot;);
+-            if(excessiveChars == null &amp;&amp; isSipphone != null &amp;&amp; isSipphone.equalsIgnoreCase(&quot;true&quot;))
++            
++            // commented by Miguel Freitas
++            //if(excessiveChars == null &amp;&amp; isSipphone != null &amp;&amp; isSipphone.equalsIgnoreCase(&quot;true&quot;))
++            if(excessiveChars == null)
+             {
+                 excessiveChars = &quot;( )-&quot;;
+                 PropertiesDepot.setProperty(&quot;net.java.sip.communicator.sip.EXCESSIVE_URI_CHARACTERS&quot;, excessiveChars);
+@@ -4291,6 +4294,32 @@
+                 callee = calleeBuff.toString();
+             }
+ 
++            
++            
++            // issued by Miguel Freitas //
++            
++            // include the '#' as escaped : '%' HEXDIG HEXDIG
++            // US-ASCII '#' -&gt; 0x23 
++            while(callee.indexOf('#') != -1)
++            {
++            	int indPound = callee.indexOf('#');
++            	String beginning = callee.substring(0, indPound);
++            	String end = callee.substring(indPound + 1);
++            	String escaped = &quot;%&quot;.concat(Integer.toHexString((int)'#'));
++            	callee = beginning.concat(escaped).concat(end);
++            }
++            
++            // RFC 2396 - URI Generic Syntax
++            // Excluded US-ASCII Characters: 
++            //   control  = &lt;US-ASCII coded characters 00-1F and 7F hexadecimal&gt;
++            //   space    = &lt;US-ASCII coded character 20 hexadecimal&gt;
++            //   delims   = &quot;&lt;&quot; | &quot;&gt;&quot; | &quot;#&quot; | &quot;%&quot; | &lt;&quot;&gt;
++            
++            // end //
++            
++            
++            
++            
+             //Handle default domain name (i.e. transform 1234 -&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">1234 at sip.com</A>
+             String defaultDomainName =
+                 Utils.getProperty(&quot;net.java.sip.communicator.sip.DEFAULT_DOMAIN_NAME&quot;);
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/RegisterProcessing.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/RegisterProcessing.java	2007-04-12 16:46:27 UTC (rev 36)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/RegisterProcessing.java	2007-04-12 16:56:34 UTC (rev 37)
+@@ -115,8 +115,10 @@
+     {
+         try {
+             console.logEntry();
+-            isRegistered = true;
+             
++            //commented by Miguel Freitas
++            //isRegistered = true;
++            
+             /** UA-IMS - Miguel Freitas
+              * 
+              *  consider the 1st URI on the P-Associated-URI as the AOR registered 
+@@ -203,13 +205,13 @@
+             if (expires != null) {
+             	System.out.println(&quot;-&gt; processOK() - Expires: &quot; + expires.getExpires());
+             }
+-            
+-            
++
+             // INICIO CAMBIO
+-            if (expires != null &amp;&amp; expires.getExpires() == 0 || waitingUnregister == true)
++            if (waitingUnregister == true || (expires != null &amp;&amp; expires.getExpires() == 0) )
+             {
+ 	         	waitingUnregister = false;
+ 	            sipManCallback.fireUnregistered(address.toString());
++	            isRegistered = false;
+ 	        }
+ 	        else {
+ 	            isRegistered = true;
+@@ -217,7 +219,7 @@
+ 	            // Service-Route
+ 	            ListIterator serviceRouteList = response.getHeaders(ServiceRouteHeader.NAME);
+ 	            
+-	            /** UA-IMS - Miguel Freitas (<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">jfreitas at av.it.pt</A>) */
++	            // UA-IMS - Miguel Freitas (IT) PT-Inovacao //
+ 	            if (actualURI.equalsIgnoreCase(defaultURI))
+             	{
+ 	            	sipManCallback.fireRegistered(address.toString());
+@@ -780,6 +782,10 @@
+             
+             cancelPendingRegistrations();
+             isRegistered = false;
++            
++            // issued by Miguel Freitas //
++            waitingUnregister = true;
++            // end //
+ 
+             Request registerRequest = getRegisterRequest();
+             if (this.registerRequest == null) {
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/SipManager.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/SipManager.java	2007-04-12 16:46:27 UTC (rev 36)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/SipManager.java	2007-04-12 16:56:34 UTC (rev 37)
+@@ -107,7 +107,7 @@
+ {
+ 	
+ 	//  issued by Miguel Freitas
+-	static private String IMSCommUserAgent = &quot;IMS-Communicator 070329&quot;;
++	static private String IMSCommUserAgent = &quot;IMS-Communicator 070412&quot;;
+ 	// end //
+ 	
+ 	
+@@ -1186,6 +1186,16 @@
+ 
+             UserCredentials initialCredentials = securityAuthority.obtainCredentials(realm,
+                 defaultCredentials);
++            
++            // issued by Miguel Freitas //
++            if (initialCredentials == null)
++            {
++            	console.debug(&quot;Authentication process canceled...&quot;);
++            	return;
++            }
++            // end //
++            
++            
+             //put the returned user name in the properties file
+             //so that it appears as a default one next time user is prompted for pass
+             PropertiesDepot.setProperty(&quot;net.java.sip.communicator.sip.USER_NAME&quot;,
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000003.html">[Imscommunicator-dev] r36 - trunk/releases
+</A></li>
+	<LI>Next message: <A HREF="000005.html">[Imscommunicator-dev] r39 - trunk/ims-communicator/resource
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#4">[ date ]</a>
+              <a href="thread.html#4">[ thread ]</a>
+              <a href="subject.html#4">[ subject ]</a>
+              <a href="author.html#4">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">More information about the Imscommunicator-dev
+mailing list</a><br>
+</body></html>

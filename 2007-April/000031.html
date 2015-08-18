@@ -1,0 +1,275 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Imscommunicator-dev] r57 - in trunk/ims-communicator: .	src/net/java/sip/communicator src/net/java/sip/communicator/sip	src/net/java/sip/communicator/sip/simple
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/imscommunicator-dev/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:imscommunicator-dev%40lists.berlios.de?Subject=Re%3A%20%5BImscommunicator-dev%5D%20r57%20-%20in%20trunk/ims-communicator%3A%20.%0A%09src/net/java/sip/communicator%20src/net/java/sip/communicator/sip%0A%09src/net/java/sip/communicator/sip/simple&In-Reply-To=%3C200704271615.l3RGFVR0007372%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000030.html">
+   <LINK REL="Next"  HREF="000032.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Imscommunicator-dev] r57 - in trunk/ims-communicator: .	src/net/java/sip/communicator src/net/java/sip/communicator/sip	src/net/java/sip/communicator/sip/simple</H1>
+    <B>jmfreitas at mail.berlios.de</B> 
+    <A HREF="mailto:imscommunicator-dev%40lists.berlios.de?Subject=Re%3A%20%5BImscommunicator-dev%5D%20r57%20-%20in%20trunk/ims-communicator%3A%20.%0A%09src/net/java/sip/communicator%20src/net/java/sip/communicator/sip%0A%09src/net/java/sip/communicator/sip/simple&In-Reply-To=%3C200704271615.l3RGFVR0007372%40sheep.berlios.de%3E"
+       TITLE="[Imscommunicator-dev] r57 - in trunk/ims-communicator: .	src/net/java/sip/communicator src/net/java/sip/communicator/sip	src/net/java/sip/communicator/sip/simple">jmfreitas at mail.berlios.de
+       </A><BR>
+    <I>Fri Apr 27 18:15:31 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000030.html">[Imscommunicator-dev] r56 - in trunk/ims-communicator: .	src/net/java/sip/communicator src/net/java/sip/communicator/gui	src/net/java/sip/communicator/gui/config/xml	src/net/java/sip/communicator/gui/imp	src/net/java/sip/communicator/media	src/net/java/sip/communicator/sip
+</A></li>
+        <LI>Next message: <A HREF="000032.html">[Imscommunicator-dev] r58 - trunk/releases
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#31">[ date ]</a>
+              <a href="thread.html#31">[ thread ]</a>
+              <a href="subject.html#31">[ subject ]</a>
+              <a href="author.html#31">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: jmfreitas
+Date: 2007-04-27 18:15:21 +0200 (Fri, 27 Apr 2007)
+New Revision: 57
+
+Modified:
+   trunk/ims-communicator/build.xml
+   trunk/ims-communicator/src/net/java/sip/communicator/SipCommunicator.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/RegisterProcessing.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/SipManager.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/simple/Watcher.java
+Log:
+Added Route header in Subscribe for presence (thanks to Kedar P Bhise)
+
+Modified: trunk/ims-communicator/build.xml
+===================================================================
+--- trunk/ims-communicator/build.xml	2007-04-26 16:09:24 UTC (rev 56)
++++ trunk/ims-communicator/build.xml	2007-04-27 16:15:21 UTC (rev 57)
+@@ -426,6 +426,18 @@
+ 
+         &lt;chmod file=&quot;${releaselinsc}/ims-communicator.sh&quot; perm=&quot;ugo+rx&quot;/&gt;
+ 
++    	&lt;!-- generate the sh script --&gt;
++        &lt;echo file=&quot;${releaselinsc}/ims-communicator-config.sh&quot; append=&quot;false&quot;&gt;
++            export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./lib
++        &lt;/echo&gt;
++        &lt;echo file=&quot;${releaselinsc}/ims-communicator-config.sh&quot; message=&quot;java &quot; append=&quot;true&quot;/&gt;
++        &lt;echo file=&quot;${releaselinsc}/ims-communicator-config.sh&quot; message=&quot;-classpath ims-communicator.jar:jmf.jar:$CLASSPATH:$JMFHOME &quot; append=&quot;true&quot;/&gt;
++        &lt;echo file=&quot;${releaselinsc}/ims-communicator-config.sh&quot; message=&quot;-Dlog4j.configuration=sip-communicator.properties &quot; append=&quot;true&quot;/&gt;
++        &lt;echo file=&quot;${releaselinsc}/ims-communicator-config.sh&quot; message=&quot;net.java.sip.communicator.SipCommunicator --configure&quot; append=&quot;true&quot;/&gt;
++
++        &lt;chmod file=&quot;${releaselinsc}/ims-communicator-config.sh&quot; perm=&quot;ugo+rx&quot;/&gt;
++	
++    	
+         &lt;!-- generate the bat file --&gt;
+         &lt;echo file=&quot;${releasewinsc}/ims-communicator.bat&quot; message=&quot;java &quot; append=&quot;false&quot;/&gt;
+     	&lt;!-- issued by Miguel Freitas - commented because the CLASSPATH is usually not necessary --&gt;
+@@ -435,6 +447,12 @@
+         &lt;echo file=&quot;${releasewinsc}/ims-communicator.bat&quot; message=&quot;-Djava.library.path=./lib &quot; append=&quot;true&quot;/&gt;
+         &lt;echo file=&quot;${releasewinsc}/ims-communicator.bat&quot; message=&quot;net.java.sip.communicator.SipCommunicator&quot; append=&quot;true&quot;/&gt;
+ 
++    	&lt;!-- generate the bat file --&gt;
++        &lt;echo file=&quot;${releasewinsc}/ims-communicator-config.bat&quot; message=&quot;java &quot; append=&quot;false&quot;/&gt;
++        &lt;echo file=&quot;${releasewinsc}/ims-communicator-config.bat&quot; message=&quot;-classpath ims-communicator.jar;jmf.jar;sound.jar &quot; append=&quot;true&quot;/&gt;
++        &lt;echo file=&quot;${releasewinsc}/ims-communicator-config.bat&quot; message=&quot;-Dlog4j.configuration=sip-communicator.properties &quot; append=&quot;true&quot;/&gt;
++        &lt;echo file=&quot;${releasewinsc}/ims-communicator-config.bat&quot; message=&quot;-Djava.library.path=./lib &quot; append=&quot;true&quot;/&gt;
++        &lt;echo file=&quot;${releasewinsc}/ims-communicator-config.bat&quot; message=&quot;net.java.sip.communicator.SipCommunicator --configure&quot; append=&quot;true&quot;/&gt;
+ 
+         &lt;!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - --&gt;
+         &lt;!-- copy &amp; unjar files to WINDOWS destination --&gt;
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/SipCommunicator.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/SipCommunicator.java	2007-04-26 16:09:24 UTC (rev 56)
++++ trunk/ims-communicator/src/net/java/sip/communicator/SipCommunicator.java	2007-04-27 16:15:21 UTC (rev 57)
+@@ -336,11 +336,16 @@
+ 
+                     //it is important that the following call comes after registering and after
+                     //initialization of the presenceStatusController
++                    // issued by Miguel Freitas //
++                    // commented and the code transfered to registered()
++                    /*
+                     String initialStatus = Utils.getProperty(
+                         &quot;net.java.sip.communicator.sip.simple.LAST_SELECTED_OPEN_STATUS&quot;);
+                     if (initialStatus == null)
+                         initialStatus = PresenceTuple.EXTENDED_STATUS_ONLINE;
+                     presenceStatusController.requestStatusChange(initialStatus);
++                    */
++                    // end //
+                 }
+                 catch (Exception ex) {
+                     console.error(ex);
+@@ -1015,6 +1020,38 @@
+             console.logEntry();
+             guiManager.setGlobalStatus(GuiManager.REGISTERED,
+                                        evt.getReason());
++            
++            
++            // issued by Miguel Freitas //
++            
++            // it is important that the following call comes after registering and after
++            //initialization of the presenceStatusController
++            boolean startSimple = false;
++            try {
++                startSimple = Boolean.valueOf(Utils.getProperty(
++                    &quot;net.java.sip.communicator.ENABLE_SIMPLE&quot;)).booleanValue();
++            }
++            catch (Exception ex) {
++                console.debug(&quot;Couldn't read net.java.sip.communicator.ENABLE_SIMPLE. Assuming false&quot;, ex);
++            }
++            if (startSimple)
++            {
++            	if (this.presenceStatusController == null)
++            	{
++	            	presenceStatusController = new PresenceStatusController(
++	                        sipManager.getPresenceStatusManager());
++	                guiManager.setStatusControllerUiModel(
++	                    presenceStatusController);
++            	}
++                    
++	            String initialStatus = Utils.getProperty(
++	            	&quot;net.java.sip.communicator.sip.simple.LAST_SELECTED_OPEN_STATUS&quot;);
++	            if (initialStatus == null)
++	            	initialStatus = PresenceTuple.EXTENDED_STATUS_ONLINE;
++	            presenceStatusController.requestStatusChange(initialStatus);
++            }
++            // end //
++        
+         }
+         finally {
+             console.logExit();
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/RegisterProcessing.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/RegisterProcessing.java	2007-04-26 16:09:24 UTC (rev 56)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/RegisterProcessing.java	2007-04-27 16:15:21 UTC (rev 57)
+@@ -222,23 +222,21 @@
+ 	            // UA-IMS - Miguel Freitas (IT) PT-Inovacao //
+ 	            if (actualURI.equalsIgnoreCase(defaultURI))
+             	{
+-	            	sipManCallback.fireRegistered(address.toString());
+-		            // saves Service-Route established for the AOR registered
++	            	// saves Service-Route established for the AOR registered
+ 		            URI aor = address.getURI();
+ 		            sipManCallback.callProcessing.setServiceRoute(aor.toString(), serviceRouteList);
+ 		            
++	            	sipManCallback.fireRegistered(address.toString());
+             	}
+ 	            else	// P-Associated-URI does not match the URI used for registration
+ 	            {
+ 	            	sipManCallback.fireUnregistered(address.toString());
+-	            	
+ 	            	// get display-name
+ 	            	String displayName = &quot;\&quot;&quot; + sipManCallback.displayName + &quot;\&quot;&quot;;
+-	            	
+-	            	sipManCallback.fireRegistered(new String(displayName + &quot; &lt;&quot; + defaultURI + &quot;&gt;&quot;));
+-
+ 		            // saves Service-Route established for the AOR registered
+ 		            sipManCallback.callProcessing.setServiceRoute(defaultURI, serviceRouteList);
++		            
++		            sipManCallback.fireRegistered(new String(displayName + &quot; &lt;&quot; + defaultURI + &quot;&gt;&quot;));
+ 	            }
+ 	            
+ 	            
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/SipManager.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/SipManager.java	2007-04-26 16:09:24 UTC (rev 56)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/SipManager.java	2007-04-27 16:15:21 UTC (rev 57)
+@@ -107,7 +107,7 @@
+ {
+ 	
+ 	//  issued by Miguel Freitas
+-	static private String IMSCommUserAgent = &quot;IMS-Communicator 070426&quot;;
++	static private String IMSCommUserAgent = &quot;IMS-Communicator 070427&quot;;
+ 	// end //
+ 	
+ 	
+@@ -422,12 +422,10 @@
+                 	} catch (InvalidArgumentException ex){}
+                 	
+                 	try {
+-                		str = Utils.getProperty(&quot;net.java.sip.communicator.sip.PREFERRED_LOCAL_PORT&quot;);
+-                		if (str == null || str.length() == 0)
+-                			str = &quot;5060&quot;;
+-                		PropertiesDepot.setProperty(&quot;net.java.sip.communicator.sip.ims.SECURITY_PORT_C&quot;, str);
++                		PropertiesDepot.setProperty(&quot;net.java.sip.communicator.sip.ims.SECURITY_PORT_C&quot;, 
++                				Integer.toString(this.localPort));
+                 		PropertiesDepot.storeProperties();
+-	                	securityClientHeader.setPortClient( (str!=null) ? Integer.parseInt(str) : 0);
++	                	securityClientHeader.setPortClient(this.localPort);
+                 	} catch (InvalidArgumentException ex){}
+                 	
+                 	try {
+@@ -2190,6 +2188,7 @@
+             
+             // UA-IMS - Miguel Freitas (IT) PT-Inovacao
+             callProcessing.resetServiceRoute(address);
++            this.resetSecurityServer(address);
+             // end
+             
+             
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/simple/Watcher.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/simple/Watcher.java	2007-04-26 16:09:24 UTC (rev 56)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/simple/Watcher.java	2007-04-27 16:15:21 UTC (rev 57)
+@@ -62,6 +62,7 @@
+ import gov.nist.javax.sip.header.ims.*;		
+ /* end */
+ import gov.nist.javax.sip.header.HeaderFactoryImpl;
++import gov.nist.javax.sip.header.RouteList;
+ 
+ import java.text.ParseException;
+ import java.util.ArrayList;
+@@ -348,6 +349,18 @@
+             subscribe.addHeader(accessNetworkInfoHeader);
+             
+             
++            // Route header
++            // Service-Route established for the user
++            RouteList routeList = 
++            	sipManCallback.callProcessing.getServiceRoute(
++            			sipManCallback.getCurrentlyUsedURI());
++            if (routeList != null &amp;&amp; !routeList.isEmpty())
++            	subscribe.addHeader(routeList);
++            else
++            	console.debug(&quot;Route is null for realm &quot; + 
++            			sipManCallback.getCurrentlyUsedURI());
++            
++            
+             /* =========================================================== */
+             
+             
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000030.html">[Imscommunicator-dev] r56 - in trunk/ims-communicator: .	src/net/java/sip/communicator src/net/java/sip/communicator/gui	src/net/java/sip/communicator/gui/config/xml	src/net/java/sip/communicator/gui/imp	src/net/java/sip/communicator/media	src/net/java/sip/communicator/sip
+</A></li>
+	<LI>Next message: <A HREF="000032.html">[Imscommunicator-dev] r58 - trunk/releases
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#31">[ date ]</a>
+              <a href="thread.html#31">[ thread ]</a>
+              <a href="subject.html#31">[ subject ]</a>
+              <a href="author.html#31">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">More information about the Imscommunicator-dev
+mailing list</a><br>
+</body></html>

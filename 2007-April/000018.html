@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Imscommunicator-dev] IMS-communicator JMF initialization
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/imscommunicator-dev/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:imscommunicator-dev%40lists.berlios.de?Subject=Re%3A%20%5BImscommunicator-dev%5D%20IMS-communicator%20JMF%20initialization&In-Reply-To=%3C0AE2132CE51D1943A20F450AA7258E5C024CC059%40INOAVREX05.ptin.corpPT.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000017.html">
+   <LINK REL="Next"  HREF="000019.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Imscommunicator-dev] IMS-communicator JMF initialization</H1>
+    <B>Jos&#233; Miguel Freitas (IT)</B> 
+    <A HREF="mailto:imscommunicator-dev%40lists.berlios.de?Subject=Re%3A%20%5BImscommunicator-dev%5D%20IMS-communicator%20JMF%20initialization&In-Reply-To=%3C0AE2132CE51D1943A20F450AA7258E5C024CC059%40INOAVREX05.ptin.corpPT.com%3E"
+       TITLE="[Imscommunicator-dev] IMS-communicator JMF initialization">it-j-freitas at ptinovacao.pt
+       </A><BR>
+    <I>Mon Apr 16 15:51:13 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000017.html">[Imscommunicator-dev] r51 - trunk/releases
+</A></li>
+        <LI>Next message: <A HREF="000019.html">[Imscommunicator-dev] IMS-communicator JMF initialization
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#18">[ date ]</a>
+              <a href="thread.html#18">[ thread ]</a>
+              <a href="subject.html#18">[ subject ]</a>
+              <a href="author.html#18">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Stefan..
+Are you using the source code from SVN and trying to run from eclipse (or other IDE)? 
+If yes, don't forget to download the JMF required libraries (<A HREF="http://svn.berlios.de/svnroot/repos/imscommunicator/trunk/lib/">http://svn.berlios.de/svnroot/repos/imscommunicator/trunk/lib/</A>), copy them into the ims-communicator/lib folder and compile the project again.
+There's lib/jmf-all, lib/jmf-lin and lib/jmf-win. Since I think you are on Windows, you will only need to download the lib/jmf-win and copy the files into the folder ims-communicator/lib/jmf-win.
+ 
+Please report if this doesn't do the trick,
+thanks,
+Miguel Freitas
+ 
+PS: we create the lists <A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">imscommunicator-dev at lists.berlios.de</A> and <A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">imscommunicator-users at lists.berlios.de</A> &lt;mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">imscommunicator-users at lists.berlios.de</A>&gt; , so you can also use them :)
+ 
+________________________________
+
+De: Stefan Spodniak [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">stefan.spodniak at sitronicsts.sk</A>]
+Enviada: seg 16-04-2007 12:31
+Para: Jos&#233; Miguel Freitas (IT)
+Cc: Dalibor Lamos
+Assunto: IMS-communicator JMF initialization
+
+
+
+Hi,
+I have downloaded the newest version of ims-communicator from the SVN
+and i have still problems with initializing JMF, so im not able to
+create a call because
+net.java.sip.communicator.media.MediaException: Apparently all media
+descriptions failed to initialise!
+IMS COMMUNICATOR won't be able to open a media stream!
+at
+net.java.sip.communicator.media.MediaManager.openMediaStreams(MediaManager.java:463)
+at
+net.java.sip.communicator.SipCommunicator.callStateChanged(SipCommunicator.java:1136)
+at
+net.java.sip.communicator.sip.Call.fireCallStatusChangedEvent(Call.java:270)
+at net.java.sip.communicator.sip.Call.setState(Call.java:176)
+at
+net.java.sip.communicator.sip.CallProcessing.processInviteOK(CallProcessing.java:2890)
+at
+net.java.sip.communicator.sip.SipManager.processResponse(SipManager.java:2617)
+at gov.nist.javax.sip.EventScanner.deliverEvent(EventScanner.java:220)
+at gov.nist.javax.sip.EventScanner.run(EventScanner.java:324)
+at java.lang.Thread.run(Unknown Source)
+
+I tried to press the &quot;Detect capture devices&quot; button in the JMF registry
+editor but im getting an error &quot;Capture device query unsuccessful!!!&quot;
+
+When i`m running ims-communicator-windows-release-070215 not from SVN
+files and not from Eclipse, but from the .bat file the initialization is
+OK and the call is also successful.
+
+Have you any idea what could be the problem?
+Thanks in advance.
+
+Best regards Stefan Spodniak
+
+--------------------------------------------------------------------------------------
+Bc.Stefan Spodniak
+Java programmer
+Strom Slovakia ,member of group SITRONICS Telecom Solutions
+
+Company: STROM Slovakia, a.s.
+Marothyho 6, 811 06 Bratislava, Slovakia
+Mobile: +421 903 453 939
+E-mail: <A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">stefan.spodniak at sitronicsts.sk</A>
+--------------------------------------------------------------------------------------
+
+
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000017.html">[Imscommunicator-dev] r51 - trunk/releases
+</A></li>
+	<LI>Next message: <A HREF="000019.html">[Imscommunicator-dev] IMS-communicator JMF initialization
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#18">[ date ]</a>
+              <a href="thread.html#18">[ thread ]</a>
+              <a href="subject.html#18">[ subject ]</a>
+              <a href="author.html#18">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">More information about the Imscommunicator-dev
+mailing list</a><br>
+</body></html>

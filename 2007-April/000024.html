@@ -1,0 +1,224 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Imscommunicator-dev] IMS-communicator JMF initialization
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/imscommunicator-dev/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:imscommunicator-dev%40lists.berlios.de?Subject=Re%3A%20%5BImscommunicator-dev%5D%20IMS-communicator%20JMF%20initialization&In-Reply-To=%3C0AE2132CE51D1943A20F450AA7258E5C024CC061%40INOAVREX05.ptin.corpPT.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000021.html">
+   <LINK REL="Next"  HREF="000025.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Imscommunicator-dev] IMS-communicator JMF initialization</H1>
+    <B>Jos&#233; Miguel Freitas (IT)</B> 
+    <A HREF="mailto:imscommunicator-dev%40lists.berlios.de?Subject=Re%3A%20%5BImscommunicator-dev%5D%20IMS-communicator%20JMF%20initialization&In-Reply-To=%3C0AE2132CE51D1943A20F450AA7258E5C024CC061%40INOAVREX05.ptin.corpPT.com%3E"
+       TITLE="[Imscommunicator-dev] IMS-communicator JMF initialization">it-j-freitas at ptinovacao.pt
+       </A><BR>
+    <I>Wed Apr 18 13:18:43 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000021.html">[Imscommunicator-dev] IMS-communicator JMF initialization
+</A></li>
+        <LI>Next message: <A HREF="000025.html">[Imscommunicator-dev] 494 Security Agreement Required
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#24">[ date ]</a>
+              <a href="thread.html#24">[ thread ]</a>
+              <a href="subject.html#24">[ subject ]</a>
+              <a href="author.html#24">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE> 
+Afterall, if you compile the project you must to install in your system the Java Media Framework API - <A HREF="http://java.sun.com/products/java-media/jmf/2.1.1/download.html">http://java.sun.com/products/java-media/jmf/2.1.1/download.html</A>
+I will add this information to the FAQ and Dev Manual.
+ 
+Miguel Freitas
+
+________________________________
+
+De: Stefan Spodniak [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">stefan.spodniak at sitronicsts.sk</A>]
+Enviada: qua 18-04-2007 10:39
+Para: Jos&#233; Miguel Freitas (IT)
+Cc: Dalibor Lamos
+Assunto: Re: IMS-communicator JMF initialization
+
+
+
+Hi,
+
+I have had already that jar files in my classpath and in the lib/jmf-win folder of my project, so this is not the problem. And there is no exception thrown  in the console only this is shown in the console
+DirectSound Capture Supported = false
+JavaSound Capture Supported = true
+JavaSoundAuto: Committed ok
+and the dialog &quot;Capture device query unsuccessful!!!&quot; is shown. I dont understand what should be the problem because when i run the ims-communicator-windows-release-070215 from the batch file the initialization is OK. In the CMD window is shown
+DirectSound Capture Supported = true
+DirectSoundAuto: Committed ok
+JavaSound Capture Supported = true
+JavaSoundAuto: Committed ok
+Found device Microsoft WDM Image Capture (Win32)
+Querying device. Please wait...
+
+&quot;About the password, to make the Open IMS Core properly authenticate the user, remove the following comments in route[Register]: &quot; I dont understand where exactly must i remove the comments... in which file...
+
+Best regards Stefan Spodniak
+
+
+Jos&#233; Miguel Freitas (IT) wrote:
+&gt;<i> I have figured out what seams to be the problem!
+</I>&gt;<i> In the .classpath file (for Eclipse) available at the SVN is missing the entries for lib/jmf-win/jmf.jar and lib/jmf-win/jmf-native.jar libraries.
+</I>&gt;<i> You can add them manually in your IMS-Communicator Eclipse project...
+</I>&gt;<i> And I will correct and commit the changes right away.
+</I>&gt;<i> 
+</I>&gt;<i> Thanks for reporting this,
+</I>&gt;<i> Miguel Freitas
+</I>&gt;<i>
+</I>&gt;<i> ________________________________
+</I>&gt;<i>
+</I>&gt;<i> De: Stefan Spodniak [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">stefan.spodniak at sitronicsts.sk</A>]
+</I>&gt;<i> Enviada: seg 16-04-2007 15:18
+</I>&gt;<i> Para: Jos&#233; Miguel Freitas (IT)
+</I>&gt;<i> Cc: Dalibor Lamos; <A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">imscommunicator-dev at lists.berlios.de</A>
+</I>&gt;<i> Assunto: Re: IMS-communicator JMF initialization
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Hi,
+</I>&gt;<i> yes im running ims-comm from SVN sources, under windows and using
+</I>&gt;<i> Eclipse.  I have already  the 3 jar files  jmf.jar, jmf-native.jar,
+</I>&gt;<i> sound.jar in the lib/jmf-win folder of my project.
+</I>&gt;<i>
+</I>&gt;<i> I am still experiencing problems with the registration P-cscf only reply
+</I>&gt;<i> with this message.
+</I>&gt;<i> SIP/2.0 494 Security Agreement Required
+</I>&gt;<i> Call-ID: <A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">c01c9c949a44c2cb254ba0d12849d851 at 192.168.204.51</A>
+</I>&gt;<i> CSeq: 1 REGISTER
+</I>&gt;<i> From: &quot;bob&quot; &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">bob at ims.stromslovakia.sk</A>&gt;;tag=21694491
+</I>&gt;<i> To: &quot;bob&quot;
+</I>&gt;<i> &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">bob at ims.stromslovakia.sk</A>&gt;;tag=2d2648abf72945362333d9a7f6003306-d49a
+</I>&gt;<i> Via: SIP/2.0/UDP
+</I>&gt;<i> 192.168.204.51:5062;branch=z9hG4bK40e8fb9247ef34ba84ef9a2fc08331b3;rport=5062
+</I>&gt;<i> Proxy-Require: sec-agree
+</I>&gt;<i> Server: Sip EXpress router (0.10.99-dev53-tm_fixes (i386/linux))
+</I>&gt;<i> Warning: 392 172.16.48.3:4060 &quot;Noisy feedback tells:  pid=2837
+</I>&gt;<i> req_src_ip=192.168.204.51 req_src_port=5062
+</I>&gt;<i> in_uri=sip:ims.stromslovakia.sk out_uri=sip:ims.stromslovakia.sk via_cnt==1&quot;
+</I>&gt;<i> Content-Length: 0
+</I>&gt;<i>
+</I>&gt;<i> I always have to restart the P-cscf to register. And when im asked for
+</I>&gt;<i> the password for the user to register i can put any password and the
+</I>&gt;<i> registration  is OK. So what is that dialog for?
+</I>&gt;<i>
+</I>&gt;<i> Best regard Stefan Spodniak
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Jos&#233; Miguel Freitas (IT) wrote:
+</I>&gt;<i>  
+</I>&gt;&gt;<i> Hi Stefan..
+</I>&gt;&gt;<i> Are you using the source code from SVN and trying to run from eclipse (or other IDE)?
+</I>&gt;&gt;<i> If yes, don't forget to download the JMF required libraries (<A HREF="http://svn.berlios.de/svnroot/repos/imscommunicator/trunk/lib/">http://svn.berlios.de/svnroot/repos/imscommunicator/trunk/lib/</A>), copy them into the ims-communicator/lib folder and compile the project again.
+</I>&gt;&gt;<i> There's lib/jmf-all, lib/jmf-lin and lib/jmf-win. Since I think you are on Windows, you will only need to download the lib/jmf-win and copy the files into the folder ims-communicator/lib/jmf-win.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Please report if this doesn't do the trick,
+</I>&gt;&gt;<i> thanks,
+</I>&gt;&gt;<i> Miguel Freitas
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> PS: we create the lists <A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">imscommunicator-dev at lists.berlios.de</A> and <A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">imscommunicator-users at lists.berlios.de</A> &lt;mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">imscommunicator-users at lists.berlios.de</A>&gt; , so you can also use them :)
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ________________________________
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> De: Stefan Spodniak [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">stefan.spodniak at sitronicsts.sk</A>]
+</I>&gt;&gt;<i> Enviada: seg 16-04-2007 12:31
+</I>&gt;&gt;<i> Para: Jos&#233; Miguel Freitas (IT)
+</I>&gt;&gt;<i> Cc: Dalibor Lamos
+</I>&gt;&gt;<i> Assunto: IMS-communicator JMF initialization
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Hi,
+</I>&gt;&gt;<i> I have downloaded the newest version of ims-communicator from the SVN
+</I>&gt;&gt;<i> and i have still problems with initializing JMF, so im not able to
+</I>&gt;&gt;<i> create a call because
+</I>&gt;&gt;<i> net.java.sip.communicator.media.MediaException: Apparently all media
+</I>&gt;&gt;<i> descriptions failed to initialise!
+</I>&gt;&gt;<i> IMS COMMUNICATOR won't be able to open a media stream!
+</I>&gt;&gt;<i> at
+</I>&gt;&gt;<i> net.java.sip.communicator.media.MediaManager.openMediaStreams(MediaManager.java:463)
+</I>&gt;&gt;<i> at
+</I>&gt;&gt;<i> net.java.sip.communicator.SipCommunicator.callStateChanged(SipCommunicator.java:1136)
+</I>&gt;&gt;<i> at
+</I>&gt;&gt;<i> net.java.sip.communicator.sip.Call.fireCallStatusChangedEvent(Call.java:270)
+</I>&gt;&gt;<i> at net.java.sip.communicator.sip.Call.setState(Call.java:176)
+</I>&gt;&gt;<i> at
+</I>&gt;&gt;<i> net.java.sip.communicator.sip.CallProcessing.processInviteOK(CallProcessing.java:2890)
+</I>&gt;&gt;<i> at
+</I>&gt;&gt;<i> net.java.sip.communicator.sip.SipManager.processResponse(SipManager.java:2617)
+</I>&gt;&gt;<i> at gov.nist.javax.sip.EventScanner.deliverEvent(EventScanner.java:220)
+</I>&gt;&gt;<i> at gov.nist.javax.sip.EventScanner.run(EventScanner.java:324)
+</I>&gt;&gt;<i> at java.lang.Thread.run(Unknown Source)
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> I tried to press the &quot;Detect capture devices&quot; button in the JMF registry
+</I>&gt;&gt;<i> editor but im getting an error &quot;Capture device query unsuccessful!!!&quot;
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> When i`m running ims-communicator-windows-release-070215 not from SVN
+</I>&gt;&gt;<i> files and not from Eclipse, but from the .bat file the initialization is
+</I>&gt;&gt;<i> OK and the call is also successful.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Have you any idea what could be the problem?
+</I>&gt;&gt;<i> Thanks in advance.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Best regards Stefan Spodniak
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> --------------------------------------------------------------------------------------
+</I>&gt;&gt;<i> Bc.Stefan Spodniak
+</I>&gt;&gt;<i> Java programmer
+</I>&gt;&gt;<i> Strom Slovakia ,member of group SITRONICS Telecom Solutions
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Company: STROM Slovakia, a.s.
+</I>&gt;&gt;<i> Marothyho 6, 811 06 Bratislava, Slovakia
+</I>&gt;&gt;<i> Mobile: +421 903 453 939
+</I>&gt;&gt;<i> E-mail: <A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">stefan.spodniak at sitronicsts.sk</A>
+</I>&gt;&gt;<i> --------------------------------------------------------------------------------------
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> 
+</I>&gt;&gt;<i>    
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000021.html">[Imscommunicator-dev] IMS-communicator JMF initialization
+</A></li>
+	<LI>Next message: <A HREF="000025.html">[Imscommunicator-dev] 494 Security Agreement Required
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#24">[ date ]</a>
+              <a href="thread.html#24">[ thread ]</a>
+              <a href="subject.html#24">[ subject ]</a>
+              <a href="author.html#24">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">More information about the Imscommunicator-dev
+mailing list</a><br>
+</body></html>

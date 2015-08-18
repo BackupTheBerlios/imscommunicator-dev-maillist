@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Imscommunicator-dev] Via Header error
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/imscommunicator-dev/2007-August/index.html" >
+   <LINK REL="made" HREF="mailto:imscommunicator-dev%40lists.berlios.de?Subject=Re%3A%20%5BImscommunicator-dev%5D%20Via%20Header%20error&In-Reply-To=%3C46B1ABC9.8050905%40tuwien.ac.at%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000053.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Imscommunicator-dev] Via Header error</H1>
+    <B>Christoph Egger</B> 
+    <A HREF="mailto:imscommunicator-dev%40lists.berlios.de?Subject=Re%3A%20%5BImscommunicator-dev%5D%20Via%20Header%20error&In-Reply-To=%3C46B1ABC9.8050905%40tuwien.ac.at%3E"
+       TITLE="[Imscommunicator-dev] Via Header error">christoph.egger at tuwien.ac.at
+       </A><BR>
+    <I>Thu Aug  2 12:02:49 CEST 2007</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000053.html">[Imscommunicator-dev] ims communicator session setup failing only	under linux
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#52">[ date ]</a>
+              <a href="thread.html#52">[ thread ]</a>
+              <a href="subject.html#52">[ subject ]</a>
+              <a href="author.html#52">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+i just updated ims-communicator to JAIN-SIP API and RI 1.2 and found a 
+implementation error regarding the via header:
+
+RFC 3261, part 8.1.1.7 says, that a new branch id must be generated for 
+each transaction.
+
+This is not done in the ims-communicator as it uses the same local via 
+header for all requests when it was generated once.
+This caused some errors (&quot;Transaction already exists&quot;) with the new 
+JAIN-SIP stack.
+
+The error occurs twice:
+     sipManager.getLocalViaHeaders: here at least a new branch id has to 
+be generated.
+    RegisterProcessing.processAuthenticationChallenge: here also the old 
+via header is used including the old branch id.
+
+I think this is no problem with the old JAIN-SIP API 1.1, but the new 
+one does not like it...
+
+
+Regards,
+Christoph
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000053.html">[Imscommunicator-dev] ims communicator session setup failing only	under linux
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#52">[ date ]</a>
+              <a href="thread.html#52">[ thread ]</a>
+              <a href="subject.html#52">[ subject ]</a>
+              <a href="author.html#52">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">More information about the Imscommunicator-dev
+mailing list</a><br>
+</body></html>

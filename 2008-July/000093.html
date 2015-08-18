@@ -1,0 +1,201 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Imscommunicator-dev] r94 - in	trunk/ims-communicator/src/net/java/sip/communicator/sip: . security
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/imscommunicator-dev/2008-July/index.html" >
+   <LINK REL="made" HREF="mailto:imscommunicator-dev%40lists.berlios.de?Subject=Re%3A%20%5BImscommunicator-dev%5D%20r94%20-%20in%0A%09trunk/ims-communicator/src/net/java/sip/communicator/sip%3A%20.%20security&In-Reply-To=%3C200807111352.m6BDq1u5011054%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000092.html">
+   <LINK REL="Next"  HREF="000094.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Imscommunicator-dev] r94 - in	trunk/ims-communicator/src/net/java/sip/communicator/sip: . security</H1>
+    <B>jmfreitas at mail.berlios.de</B> 
+    <A HREF="mailto:imscommunicator-dev%40lists.berlios.de?Subject=Re%3A%20%5BImscommunicator-dev%5D%20r94%20-%20in%0A%09trunk/ims-communicator/src/net/java/sip/communicator/sip%3A%20.%20security&In-Reply-To=%3C200807111352.m6BDq1u5011054%40sheep.berlios.de%3E"
+       TITLE="[Imscommunicator-dev] r94 - in	trunk/ims-communicator/src/net/java/sip/communicator/sip: . security">jmfreitas at mail.berlios.de
+       </A><BR>
+    <I>Fri Jul 11 15:52:01 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000092.html">[Imscommunicator-dev] r93 - trunk/releases
+</A></li>
+        <LI>Next message: <A HREF="000094.html">[Imscommunicator-dev] r95 - trunk/releases
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#93">[ date ]</a>
+              <a href="thread.html#93">[ thread ]</a>
+              <a href="subject.html#93">[ subject ]</a>
+              <a href="author.html#93">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: jmfreitas
+Date: 2008-07-11 15:51:37 +0200 (Fri, 11 Jul 2008)
+New Revision: 94
+
+Modified:
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/RegisterProcessing.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/security/MessageDigestAlgorithm.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/security/SipSecurityManager.java
+Log:
+- REGISTER: Authorization qop parameter in answer to challenge
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/RegisterProcessing.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/RegisterProcessing.java	2008-07-08 11:41:05 UTC (rev 93)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/RegisterProcessing.java	2008-07-11 13:51:37 UTC (rev 94)
+@@ -153,7 +153,7 @@
+ 		            	
+ 		            	// prints to the user the P-Associated-URI list received
+ 		            	// delete if not necessary
+-		            	System.out.println(&quot;-&gt; processOK() - User associated URIs : &quot;
++		            	System.out.print(&quot;-&gt; processOK() - User associated URIs : &quot;
+ 		            			+ &quot;&lt;&quot; + defaultURI + &quot;&gt;&quot;);
+ 		            	while (associatedURIList.hasNext())
+ 		            	{
+@@ -161,7 +161,7 @@
+ 		            			(PAssociatedURIHeader) associatedURIList.next();
+ 		            		System.out.print(&quot;, &quot; + associatedURI.getAddress().toString());
+ 		            	}
+-		            		
++		            	System.out.println();
+ 		            	
+ 		            	
+ 		            	// check the actual URI and the default URI received
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/security/MessageDigestAlgorithm.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/security/MessageDigestAlgorithm.java	2008-07-08 11:41:05 UTC (rev 93)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/security/MessageDigestAlgorithm.java	2008-07-11 13:51:37 UTC (rev 94)
+@@ -308,18 +308,26 @@
+         }
+ 
+         String A2 = null;
+-        if (qop_value == null
+-            || qop_value.trim().length() == 0
+-            || qop_value.trim().equalsIgnoreCase(&quot;auth&quot;))
++        //  If the &quot;qop&quot; value is &quot;auth-int&quot;
++        if (qop_value != null 
++        		&amp;&amp; qop_value.trim().equalsIgnoreCase(&quot;auth-int&quot;))
+         {
+-            A2 = Method + &quot;:&quot; + digest_uri_value;
+-             
++        	/* FIXME:  
++        	   Also note that if integrity protection is applied (qop=auth-int), the
++        	   H(entity-body) is the hash of the entity body, not the message body -
++        	   it is computed before any transfer encoding is applied by the sender
++        	   and after it has been removed by the recipient. Note that this
++        	   includes multipart boundaries and embedded headers in each part of
++        	   any multipart content-type.*/
++        	
++        	if (entity_body == null)
++                entity_body = &quot;&quot;;
++            A2 = Method + &quot;:&quot; + digest_uri_value + &quot;:&quot; + H(entity_body); 
+         }
+         else
+         {
+-        	if (entity_body == null)
+-                entity_body = &quot;&quot;;
+-            A2 = Method + &quot;:&quot; + digest_uri_value + &quot;:&quot; + H(entity_body);
++        	// If the &quot;qop&quot; directive's value is &quot;auth&quot; or is unspecified
++            A2 = Method + &quot;:&quot; + digest_uri_value;
+         }
+ 
+         
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/security/SipSecurityManager.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/security/SipSecurityManager.java	2008-07-08 11:41:05 UTC (rev 93)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/security/SipSecurityManager.java	2008-07-11 13:51:37 UTC (rev 94)
+@@ -885,28 +885,39 @@
+ 	    	}
+ 	
+ 	    	
+-	    	// add client nonce (cnonce) when qop=&quot;auth&quot; or qop=&quot;auth, auth-int&quot;
++	    	/* QOP - if required by the server, choose quality-of-protection to apply
++	           from the ones supported by the server
++	    	   add client nonce (cnonce) when qop=&quot;auth&quot; or qop=&quot;auth, auth-int&quot; 
++	    	   	// RFC 2617
++    		   	// cnonce         = &quot;cnonce&quot; &quot;=&quot; cnonce-value
++	    		// cnonce-value   = nonce-value
++	    		// nonce-value    = quoted-string
++	    		// nonce-count    = &quot;nc&quot; &quot;=&quot; nc-value
++	    	    // nc-value       = 8LHEX
++    	    */
+ 	    	String qop = authHeader.getQop();
+ 	    	int ncValue = 0;
+ 	    	String ncValueStr = null;
+ 	    	String cnonceValue = null;
+-	    	if (qop != null &amp;&amp; qop.contains(&quot;auth&quot;))
++	    	if (qop != null)
+ 	    	{
+-	    		// RFC 2617
+-	    		// cnonce         = &quot;cnonce&quot; &quot;=&quot; cnonce-value
+-	    		// cnonce-value   = nonce-value
+-	    		// nonce-value    = quoted-string
+-	    		// nonce-count    = &quot;nc&quot; &quot;=&quot; nc-value
+-	    	    // nc-value       = 8LHEX
+-	    		
+-	    		// TODO: generate non-dummy cnonce and nouce
++	    		// FIXME: choose one qop method
++	    		if (qop.contains(&quot;auth&quot;)){
++	    			if (!qop.contains(&quot;auth-int&quot;))
++	    				qop = &quot;auth&quot;;
++	    			else
++	    				qop = &quot;auth-int&quot;;
++	    		}
++    			else
++    				qop = null;
++	    			    		
++	    		// FIXME: generate non-dummy cnonce and nouce
+ 	    		cnonceValue = &quot;0a4f113b&quot;;
+ 	    		ncValue = 1;
+ 	    		
+ 	    		ncValueStr = Integer.toHexString(ncValue);
+ 	    		String base = &quot;00000000&quot;;
+-	    		ncValueStr = base.substring(0, 8 - ncValueStr.length()) + ncValueStr;
+-	    		
++	    		ncValueStr = base.substring(0, 8 - ncValueStr.length()) + ncValueStr;    		
+ 	    	}
+ 	    	
+ 	
+@@ -973,7 +984,7 @@
+ 	                            method,
+ 	                            uri,
+ 	                            requestBody,
+-	                            authHeader.getQop());	
++	                            qop);	
+ 	        }catch(NullPointerException exc)
+ 	        {
+ 	            throw new SecurityException(&quot;The authenticate header was malformatted&quot;);
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000092.html">[Imscommunicator-dev] r93 - trunk/releases
+</A></li>
+	<LI>Next message: <A HREF="000094.html">[Imscommunicator-dev] r95 - trunk/releases
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#93">[ date ]</a>
+              <a href="thread.html#93">[ thread ]</a>
+              <a href="subject.html#93">[ subject ]</a>
+              <a href="author.html#93">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">More information about the Imscommunicator-dev
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,312 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Imscommunicator-dev] r81 - in	trunk/ims-communicator/src/net/java/sip/communicator: . gui	gui/config/xml sip sip/reg sip/security
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/imscommunicator-dev/2007-December/index.html" >
+   <LINK REL="made" HREF="mailto:imscommunicator-dev%40lists.berlios.de?Subject=Re%3A%20%5BImscommunicator-dev%5D%20r81%20-%20in%0A%09trunk/ims-communicator/src/net/java/sip/communicator%3A%20.%20gui%0A%09gui/config/xml%20sip%20sip/reg%20sip/security&In-Reply-To=%3C200712031404.lB3E4mtk008736%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000067.html">
+   <LINK REL="Next"  HREF="000071.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Imscommunicator-dev] r81 - in	trunk/ims-communicator/src/net/java/sip/communicator: . gui	gui/config/xml sip sip/reg sip/security</H1>
+    <B>jmfreitas at mail.berlios.de</B> 
+    <A HREF="mailto:imscommunicator-dev%40lists.berlios.de?Subject=Re%3A%20%5BImscommunicator-dev%5D%20r81%20-%20in%0A%09trunk/ims-communicator/src/net/java/sip/communicator%3A%20.%20gui%0A%09gui/config/xml%20sip%20sip/reg%20sip/security&In-Reply-To=%3C200712031404.lB3E4mtk008736%40sheep.berlios.de%3E"
+       TITLE="[Imscommunicator-dev] r81 - in	trunk/ims-communicator/src/net/java/sip/communicator: . gui	gui/config/xml sip sip/reg sip/security">jmfreitas at mail.berlios.de
+       </A><BR>
+    <I>Mon Dec  3 15:04:48 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000067.html">[Imscommunicator-dev] Registration problem with	ims-communicator-071120
+</A></li>
+        <LI>Next message: <A HREF="000071.html">[Imscommunicator-dev] r82 - trunk
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#70">[ date ]</a>
+              <a href="thread.html#70">[ thread ]</a>
+              <a href="subject.html#70">[ subject ]</a>
+              <a href="author.html#70">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: jmfreitas
+Date: 2007-12-03 15:04:26 +0100 (Mon, 03 Dec 2007)
+New Revision: 81
+
+Modified:
+   trunk/ims-communicator/src/net/java/sip/communicator/SipCommunicator.java
+   trunk/ims-communicator/src/net/java/sip/communicator/gui/AuthenticationSplash.java
+   trunk/ims-communicator/src/net/java/sip/communicator/gui/GuiManager.java
+   trunk/ims-communicator/src/net/java/sip/communicator/gui/config/xml/gui-config.xml
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/SipManager.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/reg/RegEventSubscription.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/security/SipSecurityManager.java
+Log:
+Registration bug fix: To header had repeated domain when re-Registering (reported by Franz Edler)
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/SipCommunicator.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/SipCommunicator.java	2007-11-30 16:29:36 UTC (rev 80)
++++ trunk/ims-communicator/src/net/java/sip/communicator/SipCommunicator.java	2007-12-03 14:04:26 UTC (rev 81)
+@@ -1297,7 +1297,18 @@
+             
+             // issued by Miguel Freitas //
+             if (guiManager.getAuthenticationUserName() != null) {
+-            	credentials.setUserName(guiManager.getAuthenticationUserName());
++            	// if IMS, use IMPI instead of the username 
++            	if (isIMS != null &amp;&amp; isIMS.equalsIgnoreCase(&quot;true&quot;)) {
++            		String username = Utils.getProperty(&quot;java.sip.communicator.sip.USER_NAME&quot;);
++            		credentials.setUserName(username!=null?username:&quot;&quot;);
++            		credentials.setUserPrvtIdentity(guiManager.getAuthenticationUserName());
++            	}
++            	else {
++            		credentials.setUserName(guiManager.getAuthenticationUserName());
++            		
++            	}
++            	
++            	
+                 credentials.setPassword(guiManager.getAuthenticationPassword());
+             }
+             else // CANCEL
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/gui/AuthenticationSplash.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/gui/AuthenticationSplash.java	2007-11-30 16:29:36 UTC (rev 80)
++++ trunk/ims-communicator/src/net/java/sip/communicator/gui/AuthenticationSplash.java	2007-12-03 14:04:26 UTC (rev 81)
+@@ -239,7 +239,15 @@
+         String userNameLabelValue = Utils.getProperty(&quot;net.java.sip.communicator.gui.USER_NAME_LABEL&quot;);
+ 
+         if(userNameLabelValue == null)
+-            userNameLabelValue = &quot;User name&quot;;
++            userNameLabelValue = &quot;User name:&quot;;
++        
++        // issued by Miguel Freitas //
++        if(isIMS != null &amp;&amp; isIMS.equalsIgnoreCase(&quot;true&quot;))
++        {
++        	userNameLabel.setDisplayedMnemonic('I');
++        	userNameLabelValue = &quot;IMPI:&quot;;
++        }
++        // end //
+ 
+         int gridy = 0;
+ 
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/gui/GuiManager.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/gui/GuiManager.java	2007-11-30 16:29:36 UTC (rev 80)
++++ trunk/ims-communicator/src/net/java/sip/communicator/gui/GuiManager.java	2007-12-03 14:04:26 UTC (rev 81)
+@@ -1005,11 +1005,17 @@
+     	if (authenticationSplash != null)
+             authenticationSplash.dispose();
+     	authenticationSplash = new AuthenticationSplash(phoneFrame, true);
++    	    	
++    	// issued by Miguel Freitas //
++    	// if IMS, use IMPI as the user name (and don't let it be changed)
++    	String isIMS = Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.IMS_CLIENT&quot;);
++    	if (isIMS != null &amp;&amp; isIMS.equalsIgnoreCase(&quot;true&quot;))
++    	{
++    		authenticationSplash.userNameTextField.setEditable(false);
++    	}
+     	if(userName != null)
+-            authenticationSplash.userNameTextField.setText(userName);
+-
++			authenticationSplash.userNameTextField.setText(userName);
+     	
+-    	// issued by Miguel Freitas //
+         // use shared secret configured on the xml or string inserted by the user 
+     	String sharedSecret = 
+     		Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.SHARED_SECRET&quot;);
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/gui/config/xml/gui-config.xml
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/gui/config/xml/gui-config.xml	2007-11-30 16:29:36 UTC (rev 80)
++++ trunk/ims-communicator/src/net/java/sip/communicator/gui/config/xml/gui-config.xml	2007-12-03 14:04:26 UTC (rev 81)
+@@ -176,15 +176,6 @@
+ 					]]&gt;&lt;/description&gt;
+            &lt;/property&gt;
+            
+-           &lt;property name=&quot;net.java.sip.communicator.sip.ims.sec.OPERATOR_ID&quot;&gt;
+-                &lt;labelname&gt;Operator ID&lt;/labelname&gt;
+-                &lt;description&gt;&lt;![CDATA[
+-					Operator ID. 
+-					16 bytes - 32 HEX char			
+-					Default is all zeros - &quot;00000000000000000000000000000000&quot;.
+-					]]&gt;&lt;/description&gt;
+-           &lt;/property&gt;
+-
+            &lt;property name=&quot;net.java.sip.communicator.sip.ims.sec.USE_IPSEC&quot;&gt;
+                 &lt;labelname&gt;IPSec&lt;/labelname&gt;
+                 &lt;description&gt;&lt;![CDATA[
+@@ -221,43 +212,24 @@
+ 					]]&gt;&lt;/description&gt;
+            &lt;/property&gt;
+            
+-           &lt;property name=&quot;net.java.sip.communicator.sip.ims.sec.SECURITY_SPI_C&quot;&gt;
+-                &lt;labelname&gt;SPI number (protected client port)&lt;/labelname&gt;
++           &lt;property name=&quot;net.java.sip.communicator.sip.ims.sec.OPERATOR_ID&quot;&gt;
++                &lt;labelname&gt;Operator ID&lt;/labelname&gt;
+                 &lt;description&gt;&lt;![CDATA[
+-					Security Parameter Index.
+-					(SPI, dest.IP, security prot) unequely identifies an SA at the IP layer.
+-                    (RFC 3329 + 3GPP TS 33.203-Annex H) 
+-                    Value between 0 and 4294967295. 
++					Operator ID. 
++					16 bytes - 32 HEX char			
++					Default is all zeros - &quot;00000000000000000000000000000000&quot;.
+ 					]]&gt;&lt;/description&gt;
+            &lt;/property&gt;
+            
+-           &lt;property name=&quot;net.java.sip.communicator.sip.ims.sec.SECURITY_SPI_S&quot;&gt;
+-                &lt;labelname&gt;SPI number (protected server port)&lt;/labelname&gt;
++           &lt;property name=&quot;net.java.sip.communicator.sip.ims.sec.SHARED_SECRET&quot;&gt;
++                &lt;labelname&gt;Shared Secret&lt;/labelname&gt;
+                 &lt;description&gt;&lt;![CDATA[
+-					Security Parameter Index.
+-					(SPI, dest.IP, security prot) unequely identifies an SA at the IP layer.
+-                    (RFC 3329 + 3GPP TS 33.203-Annex H) 
+-                    Value between 0 and 4294967295.
++					Shared Secret. (16 bytes - 32 HEX char)			
++					Fill this to use a hard-coded password in bytes. 
++					Leave it empty to be promped for a string password.
+ 					]]&gt;&lt;/description&gt;
+            &lt;/property&gt;
+            
+-           &lt;property name=&quot;net.java.sip.communicator.sip.ims.sec.SECURITY_PORT_C&quot;&gt;
+-                &lt;labelname&gt;Protected Client Port&lt;/labelname&gt;
+-                &lt;description&gt;&lt;![CDATA[
+-					Destination port for inbound protected messages. 
+-                    (RFC 3329 + 3GPP TS 33.203-Annex H) 
+-					]]&gt;&lt;/description&gt;
+-           &lt;/property&gt;
+-           
+-           &lt;property name=&quot;net.java.sip.communicator.sip.ims.sec.SECURITY_PORT_S&quot;&gt;
+-                &lt;labelname&gt;Protected Server Port&lt;/labelname&gt;
+-                &lt;description&gt;&lt;![CDATA[
+-					Destination port for outbound protected messages. 
+-                    (RFC 3329 + 3GPP TS 33.203-Annex H) 
+-					]]&gt;&lt;/description&gt;
+-           &lt;/property&gt;
+-           &lt;!-- +++++ --&gt;
+-           
+         
+         &lt;/ims-sec&gt;
+         
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/SipManager.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/SipManager.java	2007-11-30 16:29:36 UTC (rev 80)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/SipManager.java	2007-12-03 14:04:26 UTC (rev 81)
+@@ -107,7 +107,7 @@
+ {
+ 	
+ 	//  issued by Miguel Freitas
+-	static private String IMSCommUserAgent = &quot;IMS-Communicator 071120&quot;;
++	static private String IMSCommUserAgent = &quot;IMS-Communicator 071203&quot;;
+ 	// end //
+ 	
+ 	
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/reg/RegEventSubscription.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/reg/RegEventSubscription.java	2007-11-30 16:29:36 UTC (rev 80)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/reg/RegEventSubscription.java	2007-12-03 14:04:26 UTC (rev 81)
+@@ -589,18 +589,22 @@
+                 ListIterator terminated = reginfo.getTerminatedRegisteredAOR();
+                 if (terminated != null)
+                 {
++                	System.out.println(&quot;terminated&quot;);
+                 	// TODO
+                     // if &quot;terminated&quot;, shall we unregister() the public user identity ?!
+                 	while (terminated.hasNext())
+                 	{
+                 		String aor = ((RegisteredAOR)terminated.next()).getRegAOR();
+                 		
++                		System.out.println(&quot;aor: &quot; + aor);
++                		
++                		
+                 		// to do this???
+                     	// TODO: add param aor to unregister() 
+                     	//sipManCallback.unregister();
+-                    	
+                 		// or this???
+-                    	//sipManCallback.fireUnregistered(aor);
++                		System.out.println(&quot;fireUnregistered&quot;);
++                    	sipManCallback.fireUnregistered(aor);
+                     		
+                 	}
+                 	
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/security/SipSecurityManager.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/security/SipSecurityManager.java	2007-11-30 16:29:36 UTC (rev 80)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/security/SipSecurityManager.java	2007-12-03 14:04:26 UTC (rev 81)
+@@ -658,10 +658,13 @@
+ 
+                         
+                         // UA-IMS - issued by Miguel Freitas (IT) PT-Inovacao //
+-                        // for now it's done like this
+                         if (isIMSClient.equalsIgnoreCase(&quot;true&quot;))
+                         {
+-                        	ccEntry.userCredentials.setUserPrvtIdentity(privateID);
++                        	if(ccEntry.userCredentials.getUserPrvtIdentity() == null
++                        			|| ccEntry.userCredentials.getUserPrvtIdentity().length()==0)
++                        	{
++                        		ccEntry.userCredentials.setUserPrvtIdentity(privateID);
++                        	}
+                         }
+                         // end //
+                         
+@@ -685,13 +688,6 @@
+                         throw new SecurityException(
+                             &quot;Unable to authenticate with realm &quot; + realm);
+ 
+-                
+-                // issued by Miguel Freitas (IT) PT-Inovacao //
+-                ccEntry.userCredentials.setUserPrvtIdentity(privateID);
+-                // end //
+-                
+-               
+-                
+                 AuthorizationHeader authorization =
+                     this.getAuthorization(
+                             reoriginatedRequest.getMethod(),
+@@ -984,7 +980,7 @@
+ 	        }
+ 	        
+ 	        // //
+-	        console.debug(&quot;response RES = &quot; + response + &quot; (&quot;+response.getBytes().length+&quot;bytes)&quot;);
++	        console.debug(&quot;response RES hex = &quot; + response + &quot; (&quot;+response.length()+&quot;bytes)&quot;);
+ 	        
+ 	        
+ 	        AuthorizationHeader authorization = null;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000067.html">[Imscommunicator-dev] Registration problem with	ims-communicator-071120
+</A></li>
+	<LI>Next message: <A HREF="000071.html">[Imscommunicator-dev] r82 - trunk
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#70">[ date ]</a>
+              <a href="thread.html#70">[ thread ]</a>
+              <a href="subject.html#70">[ subject ]</a>
+              <a href="author.html#70">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">More information about the Imscommunicator-dev
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,1010 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Imscommunicator-dev] r61 - in trunk/ims-communicator: .	src/net/java/sip/communicator	src/net/java/sip/communicator/gui/config/xml	src/net/java/sip/communicator/media	src/net/java/sip/communicator/sip	src/net/java/sip/communicator/sip/reg	src/net/java/sip/communicator/sip/security	src/net/java/sip/communicator/sip/simple
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/imscommunicator-dev/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:imscommunicator-dev%40lists.berlios.de?Subject=Re%3A%20%5BImscommunicator-dev%5D%20r61%20-%20in%20trunk/ims-communicator%3A%20.%0A%09src/net/java/sip/communicator%0A%09src/net/java/sip/communicator/gui/config/xml%0A%09src/net/java/sip/communicator/media%0A%09src/net/java/sip/communicator/sip%0A%09src/net/java/sip/communicator/sip/reg%0A%09src/net/java/sip/communicator/sip/security%0A%09src/net/java/sip/communicator/sip/simple&In-Reply-To=%3C200705211107.l4LB7r2h002665%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000035.html">
+   <LINK REL="Next"  HREF="000037.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Imscommunicator-dev] r61 - in trunk/ims-communicator: .	src/net/java/sip/communicator	src/net/java/sip/communicator/gui/config/xml	src/net/java/sip/communicator/media	src/net/java/sip/communicator/sip	src/net/java/sip/communicator/sip/reg	src/net/java/sip/communicator/sip/security	src/net/java/sip/communicator/sip/simple</H1>
+    <B>jmfreitas at mail.berlios.de</B> 
+    <A HREF="mailto:imscommunicator-dev%40lists.berlios.de?Subject=Re%3A%20%5BImscommunicator-dev%5D%20r61%20-%20in%20trunk/ims-communicator%3A%20.%0A%09src/net/java/sip/communicator%0A%09src/net/java/sip/communicator/gui/config/xml%0A%09src/net/java/sip/communicator/media%0A%09src/net/java/sip/communicator/sip%0A%09src/net/java/sip/communicator/sip/reg%0A%09src/net/java/sip/communicator/sip/security%0A%09src/net/java/sip/communicator/sip/simple&In-Reply-To=%3C200705211107.l4LB7r2h002665%40sheep.berlios.de%3E"
+       TITLE="[Imscommunicator-dev] r61 - in trunk/ims-communicator: .	src/net/java/sip/communicator	src/net/java/sip/communicator/gui/config/xml	src/net/java/sip/communicator/media	src/net/java/sip/communicator/sip	src/net/java/sip/communicator/sip/reg	src/net/java/sip/communicator/sip/security	src/net/java/sip/communicator/sip/simple">jmfreitas at mail.berlios.de
+       </A><BR>
+    <I>Mon May 21 13:07:53 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000035.html">[Imscommunicator-dev] (no subject)
+</A></li>
+        <LI>Next message: <A HREF="000037.html">[Imscommunicator-dev] r62 - trunk/lib
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#36">[ date ]</a>
+              <a href="thread.html#36">[ thread ]</a>
+              <a href="subject.html#36">[ subject ]</a>
+              <a href="author.html#36">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: jmfreitas
+Date: 2007-05-21 13:07:42 +0200 (Mon, 21 May 2007)
+New Revision: 61
+
+Modified:
+   trunk/ims-communicator/ims-communicator.xml
+   trunk/ims-communicator/src/net/java/sip/communicator/SipCommunicator.java
+   trunk/ims-communicator/src/net/java/sip/communicator/gui/config/xml/gui-config.xml
+   trunk/ims-communicator/src/net/java/sip/communicator/media/MediaManager.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/CallProcessing.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/RegisterProcessing.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/SipManager.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/reg/RegEventSubscription.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/security/AKADigest.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/security/SipSecurityManager.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/simple/Watcher.java
+Log:
+- re-register timer (according to TS 24.229); 
+- SECURITY_PORT_CLIENT (port-c param); 
+- SDP : rtpmap
+- 182 Queued; 
+- 487 Request Terminated; 
+- 604 Dn't EXIST ANYWHERE, 600 decline; 
+
+
+Modified: trunk/ims-communicator/ims-communicator.xml
+===================================================================
+--- trunk/ims-communicator/ims-communicator.xml	2007-04-30 15:55:37 UTC (rev 60)
++++ trunk/ims-communicator/ims-communicator.xml	2007-05-21 11:07:42 UTC (rev 61)
+@@ -56,17 +56,6 @@
+                 &lt;PRIVATE_ADDRESS value=&quot;<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">bob at ptinovacao.pt</A>&quot;/&gt;
+                 &lt;PREFERRED_ADDRESS value=&quot;<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">bob at ptinovacao.pt</A>&quot;/&gt;
+                 &lt;PREFERRED_DISPLAY_NAME value=&quot;&quot;/&gt;
+-                &lt;PRIVACY value=&quot;none&quot;/&gt;
+-                &lt;!-- operator ID : 16 bytes (32 hex char) --&gt;
+-                &lt;OPERATOR_ID value=&quot;00000000000000000000000000000000&quot;/&gt;
+-                &lt;!-- if SECURITY_AGREEMENT value is empty, Security-Client header is not sent --&gt;
+-                &lt;SECURITY_AGREEMENT value=&quot;ipsec-3gpp&quot;/&gt;
+-                &lt;SECURITY_ALGORITHM value=&quot;hmac-sha-1-96&quot;/&gt;
+-                &lt;SECURITY_ENCRYPT_ALG value=&quot;&quot;/&gt;
+-                &lt;SECURITY_SPI_C value=&quot;10002&quot;/&gt;
+-                &lt;SECURITY_SPI_S value=&quot;10004&quot;/&gt;
+-                &lt;SECURITY_PORT_C value=&quot;5060&quot;/&gt;
+-                &lt;SECURITY_PORT_S value=&quot;5062&quot;/&gt;
+                 &lt;ACCEPT_REFER_WITHOUT_SESSION_ON value=&quot;true&quot;/&gt;
+                 &lt;REFER_TIMEOUT value=&quot;60000&quot;/&gt;
+                 &lt;REG_EVENT_SUBSCRIPTION_TIMEOUT value=&quot;600000&quot;/&gt;
+@@ -79,6 +68,20 @@
+                 &lt;PCSCF_DYNAMIC_DISCOVERY value=&quot;false&quot;/&gt;
+               
+                 &lt;sec&gt;
++	                &lt;PRIVACY value=&quot;&quot;/&gt;
++	                &lt;!-- operator ID : 16 bytes (32 hex char) --&gt;
++	                &lt;OPERATOR_ID value=&quot;00000000000000000000000000000000&quot;/&gt;
++	                &lt;!-- if SECURITY_AGREEMENT value is empty, Security-Client header is not sent and IPSec not setup --&gt;
++	                &lt;!--SECURITY_AGREEMENT value=&quot;ipsec-3gpp&quot;/--&gt;
++	                &lt;SECURITY_AGREEMENT value=&quot;&quot;/&gt;
++	                &lt;SECURITY_ALGORITHM value=&quot;hmac-sha-1-96&quot;/&gt;
++	                &lt;SECURITY_ENCRYPT_ALG value=&quot;&quot;/&gt;
++	                &lt;SECURITY_SPI_C value=&quot;10002&quot;/&gt;
++	                &lt;SECURITY_SPI_S value=&quot;10004&quot;/&gt;
++	                &lt;!-- if SECURITY_PORT_C empty, port-c parameter is filled with PREFERRED_LOCAL_PORT--&gt;
++	                &lt;SECURITY_PORT_C value=&quot;&quot;/&gt;
++	                &lt;SECURITY_PORT_S value=&quot;5064&quot;/&gt;
++	                
+                     &lt;REJECT_MALFORMED_NONCE value=&quot;false&quot;/&gt;
+                 &lt;/sec&gt;
+             &lt;/ims&gt;
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/SipCommunicator.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/SipCommunicator.java	2007-04-30 15:55:37 UTC (rev 60)
++++ trunk/ims-communicator/src/net/java/sip/communicator/SipCommunicator.java	2007-05-21 11:07:42 UTC (rev 61)
+@@ -675,13 +675,13 @@
+                     console.error(&quot;Failed to properly unregister&quot;, exc);
+                 }
+             }
+-            /* issued by Miguel Freitas //
++            // issued by Miguel Freitas //
+             else
+             {
+             	// if is not registered, place the UA as unregistered
+             	this.unregistered(null);
+             }
+-            // end */
++            // end //
+     	}
+     	finally {
+             console.logExit();
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/gui/config/xml/gui-config.xml
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/gui/config/xml/gui-config.xml	2007-04-30 15:55:37 UTC (rev 60)
++++ trunk/ims-communicator/src/net/java/sip/communicator/gui/config/xml/gui-config.xml	2007-05-21 11:07:42 UTC (rev 61)
+@@ -104,24 +104,6 @@
+ 					]]&gt;&lt;/description&gt;
+            &lt;/property&gt;
+            
+-           &lt;property name=&quot;net.java.sip.communicator.sip.ims.PRIVACY&quot;&gt;
+-                &lt;labelname&gt;Privacy&lt;/labelname&gt;
+-                &lt;description&gt;&lt;![CDATA[
+-					Privacy of personal identity information. 
+-					( &quot;none&quot; / &quot;id&quot; / &quot;header&quot; / &quot;session&quot; / &quot;user&quot; / &quot;critical&quot; / token )
+-					Default is &quot;none&quot;.
+-					]]&gt;&lt;/description&gt;
+-           &lt;/property&gt;
+-           
+-           &lt;property name=&quot;net.java.sip.communicator.sip.ims.OPERATOR_ID&quot;&gt;
+-                &lt;labelname&gt;Operator ID&lt;/labelname&gt;
+-                &lt;description&gt;&lt;![CDATA[
+-					Operator ID. 
+-					16 bytes - 32 HEX char			
+-					Default is all zeros - &quot;00000000000000000000000000000000&quot;.
+-					]]&gt;&lt;/description&gt;
+-           &lt;/property&gt;
+-           
+            &lt;property name=&quot;net.java.sip.communicator.sip.ims.ACCESS_TYPE&quot;&gt;
+                 &lt;labelname&gt;Access Type&lt;/labelname&gt;
+                 &lt;description&gt;&lt;![CDATA[
+@@ -158,10 +140,53 @@
+ 					]]&gt;&lt;/description&gt;
+            &lt;/property&gt;
+            
++           &lt;property name=&quot;net.java.sip.communicator.sip.ims.VIDEO_BANDWIDTH&quot;&gt;
++                &lt;labelname&gt;Video Bandwidth&lt;/labelname&gt;
++                &lt;description&gt;&lt;![CDATA[
++					Value for bandwidth required for the video stream (QoS reservation)
++					]]&gt;&lt;/description&gt;
++           &lt;/property&gt; 
++           &lt;property name=&quot;net.java.sip.communicator.sip.ims.AUDIO_BANDWIDTH&quot;&gt;
++                &lt;labelname&gt;Audio Bandwidth&lt;/labelname&gt;
++                &lt;description&gt;&lt;![CDATA[
++					Value for bandwidth required for the audio stream (QoS reservation)
++					]]&gt;&lt;/description&gt;
++           &lt;/property&gt;  
+            
++
++        &lt;/sip-ims&gt;
++        
++        
++        &lt;ims-sec&gt;
++           &lt;property name=&quot;net.java.sip.communicator.sip.ims.sec.PRIVACY&quot;&gt;
++                &lt;labelname&gt;Privacy&lt;/labelname&gt;
++                &lt;description&gt;&lt;![CDATA[
++					Privacy of personal identity information. 
++					( &quot;none&quot; / &quot;id&quot; / &quot;header&quot; / &quot;session&quot; / &quot;user&quot; / &quot;critical&quot; / token )
++					Default is &quot;none&quot;.
++					]]&gt;&lt;/description&gt;
++           &lt;/property&gt;
++           
++           &lt;property name=&quot;net.java.sip.communicator.sip.ims.sec.OPERATOR_ID&quot;&gt;
++                &lt;labelname&gt;Operator ID&lt;/labelname&gt;
++                &lt;description&gt;&lt;![CDATA[
++					Operator ID. 
++					16 bytes - 32 HEX char			
++					Default is all zeros - &quot;00000000000000000000000000000000&quot;.
++					]]&gt;&lt;/description&gt;
++           &lt;/property&gt;
++
++           &lt;property name=&quot;net.java.sip.communicator.sip.ims.sec.USE_IPSEC&quot;&gt;
++                &lt;labelname&gt;IPSec&lt;/labelname&gt;
++                &lt;description&gt;&lt;![CDATA[
++					Establish IPSec session with P-CSCF. 
++					Value is &quot;true&quot; or &quot;false&quot;.
++					Default is &quot;false&quot;.
++					]]&gt;&lt;/description&gt;
++           &lt;/property&gt;
++           
+            &lt;!-- Security Agreement --&gt;
+-           
+-           &lt;property name=&quot;net.java.sip.communicator.sip.ims.SECURITY_AGREEMENT&quot;&gt;
++           &lt;property name=&quot;net.java.sip.communicator.sip.ims.sec.SECURITY_AGREEMENT&quot;&gt;
+                 &lt;labelname&gt;Security Agreement - Mechanism Name&lt;/labelname&gt;
+                 &lt;description&gt;&lt;![CDATA[
+ 					Security Mechanism Name for the Security Agreement. eg: &quot;ipsec-3gpp&quot;    
+@@ -170,7 +195,7 @@
+ 					]]&gt;&lt;/description&gt;
+            &lt;/property&gt;
+            
+-           &lt;property name=&quot;net.java.sip.communicator.sip.ims.SECURITY_ALGORITHM&quot;&gt;
++           &lt;property name=&quot;net.java.sip.communicator.sip.ims.sec.SECURITY_ALGORITHM&quot;&gt;
+                 &lt;labelname&gt;Security Algorithm&lt;/labelname&gt;
+                 &lt;description&gt;&lt;![CDATA[
+ 					Security Algorithm for the Security Agreement.     
+@@ -179,7 +204,7 @@
+ 					]]&gt;&lt;/description&gt;
+            &lt;/property&gt;
+            
+-           &lt;property name=&quot;net.java.sip.communicator.sip.ims.SECURITY_ENCRYPT_ALG&quot;&gt;
++           &lt;property name=&quot;net.java.sip.communicator.sip.ims.sec.SECURITY_ENCRYPT_ALG&quot;&gt;
+                 &lt;labelname&gt;Security Encrypt Algorithm&lt;/labelname&gt;
+                 &lt;description&gt;&lt;![CDATA[
+ 					Security Encrypt Algorithm for the Security Agreement. Eg: &quot;aes-cbc&quot;     
+@@ -187,7 +212,7 @@
+ 					]]&gt;&lt;/description&gt;
+            &lt;/property&gt;
+            
+-           &lt;property name=&quot;net.java.sip.communicator.sip.ims.SECURITY_SPI_C&quot;&gt;
++           &lt;property name=&quot;net.java.sip.communicator.sip.ims.sec.SECURITY_SPI_C&quot;&gt;
+                 &lt;labelname&gt;SPI number (protected client port)&lt;/labelname&gt;
+                 &lt;description&gt;&lt;![CDATA[
+ 					Security Parameter Index.
+@@ -197,7 +222,7 @@
+ 					]]&gt;&lt;/description&gt;
+            &lt;/property&gt;
+            
+-           &lt;property name=&quot;net.java.sip.communicator.sip.ims.SECURITY_SPI_S&quot;&gt;
++           &lt;property name=&quot;net.java.sip.communicator.sip.ims.sec.SECURITY_SPI_S&quot;&gt;
+                 &lt;labelname&gt;SPI number (protected server port)&lt;/labelname&gt;
+                 &lt;description&gt;&lt;![CDATA[
+ 					Security Parameter Index.
+@@ -207,7 +232,7 @@
+ 					]]&gt;&lt;/description&gt;
+            &lt;/property&gt;
+            
+-           &lt;property name=&quot;net.java.sip.communicator.sip.ims.SECURITY_PORT_C&quot;&gt;
++           &lt;property name=&quot;net.java.sip.communicator.sip.ims.sec.SECURITY_PORT_C&quot;&gt;
+                 &lt;labelname&gt;Protected Client Port&lt;/labelname&gt;
+                 &lt;description&gt;&lt;![CDATA[
+ 					Destination port for inbound protected messages. 
+@@ -215,7 +240,7 @@
+ 					]]&gt;&lt;/description&gt;
+            &lt;/property&gt;
+            
+-           &lt;property name=&quot;net.java.sip.communicator.sip.ims.SECURITY_PORT_S&quot;&gt;
++           &lt;property name=&quot;net.java.sip.communicator.sip.ims.sec.SECURITY_PORT_S&quot;&gt;
+                 &lt;labelname&gt;Protected Server Port&lt;/labelname&gt;
+                 &lt;description&gt;&lt;![CDATA[
+ 					Destination port for outbound protected messages. 
+@@ -224,23 +249,9 @@
+            &lt;/property&gt;
+            &lt;!-- +++++ --&gt;
+            
+-           
+-           &lt;property name=&quot;net.java.sip.communicator.sip.ims.VIDEO_BANDWIDTH&quot;&gt;
+-                &lt;labelname&gt;Video Bandwidth&lt;/labelname&gt;
+-                &lt;description&gt;&lt;![CDATA[
+-					Value for bandwidth required for the video stream (QoS reservation)
+-					]]&gt;&lt;/description&gt;
+-           &lt;/property&gt; 
+-           &lt;property name=&quot;net.java.sip.communicator.sip.ims.AUDIO_BANDWIDTH&quot;&gt;
+-                &lt;labelname&gt;Audio Bandwidth&lt;/labelname&gt;
+-                &lt;description&gt;&lt;![CDATA[
+-					Value for bandwidth required for the audio stream (QoS reservation)
+-					]]&gt;&lt;/description&gt;
+-           &lt;/property&gt;  
+-           
+-
+-        &lt;/sip-ims&gt;
+         
++        &lt;/ims-sec&gt;
++        
+ &lt;!-- --&gt;
+ 
+ 
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/media/MediaManager.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/media/MediaManager.java	2007-04-30 15:55:37 UTC (rev 60)
++++ trunk/ims-communicator/src/net/java/sip/communicator/media/MediaManager.java	2007-05-21 11:07:42 UTC (rev 61)
+@@ -125,11 +125,6 @@
+         Integer.toString(SdpConstants.DVI4_16000), // javax.media.format.AudioFormat.DVI_RTP;
+         Integer.toString(SdpConstants.PCMA), // javax.media.format.AudioFormat.ALAW;
+         Integer.toString(SdpConstants.G728), // javax.media.format.AudioFormat.G728_RTP;
+-        
+-        /* IMS Client - issued by Miguel Freitas */
+-        Integer.toString(SdpConstants.TELEPHONE_EVENT), // audio + DTMF
+-        /* +++++++ */
+-        
+         //g729 is not suppported by JMF
+         Integer.toString(SdpConstants.G729) // javax.media.format.AudioFormat.G729_RTP
+     };
+@@ -1059,7 +1054,10 @@
+                 	AttributeField audioAttrib = new AttributeField();
+                 	gov.nist.core.NameValue nv = 
+                 		new gov.nist.core.NameValue(&quot;rtpmap&quot;, 
+-                				new String(formats[i] + &quot; &quot; + findCorrespondingJmfFormat(formats[i])) );
++                				new String(formats[i] + &quot; &quot; 
++                						+ findCorrespondingJmfFormat(formats[i]) 
++                						+ &quot;/&quot;
++                						+ findCorrespondingClockRate(formats[i])) );
+                 	nv.setSeparator(&quot;:&quot;);
+                 	audioAttrib.setAttribute(nv);
+                 	am.addAttribute(audioAttrib);
+@@ -1072,7 +1070,10 @@
+                 	AttributeField videoAttrib = new AttributeField();
+                 	gov.nist.core.NameValue nv = 
+                 		new gov.nist.core.NameValue(&quot;rtpmap&quot;, 
+-                				new String(vformats[i] + &quot; &quot; + findCorrespondingJmfFormat(vformats[i])) );
++                				new String(vformats[i] + &quot; &quot; 
++                						+ findCorrespondingJmfFormat(vformats[i]) 
++                						+ &quot;/&quot;
++						                + findCorrespondingClockRate(vformats[i])) );
+                 	nv.setSeparator(&quot;:&quot;);
+                 	videoAttrib.setAttribute(nv);
+                 	vm.addAttribute(videoAttrib);
+@@ -1222,6 +1223,7 @@
+     protected String findCorrespondingJmfFormat(String sdpFormatStr)
+     {
+         int sdpFormat = -1;
++        String format;
+         try {
+             sdpFormat = Integer.parseInt(sdpFormatStr);
+         }
+@@ -1230,30 +1232,35 @@
+         }
+         switch (sdpFormat) {
+             case SdpConstants.PCMU:
+-                return AudioFormat.ULAW_RTP;
++            	format = AudioFormat.ULAW_RTP; break;
+             case SdpConstants.GSM:
+-                return AudioFormat.GSM_RTP;
++            	format = AudioFormat.GSM_RTP; break;
+             case SdpConstants.G723:
+-                return AudioFormat.G723_RTP;
++                format = AudioFormat.G723_RTP; break;
+             case SdpConstants.DVI4_8000:
+-                return AudioFormat.DVI_RTP;
++            	format = AudioFormat.DVI_RTP; break;
+             case SdpConstants.DVI4_16000:
+-                return AudioFormat.DVI_RTP;
++            	format = AudioFormat.DVI_RTP; break;
+             case SdpConstants.PCMA:
+-                return AudioFormat.ALAW;
++            	format = AudioFormat.ALAW; break;
+             case SdpConstants.G728:
+-                return AudioFormat.G728_RTP;
++            	format = AudioFormat.G728_RTP; break;
+             case SdpConstants.G729:
+-                return AudioFormat.G729_RTP;
++            	format = AudioFormat.G729_RTP; break;
+             case SdpConstants.H263:
+-                return VideoFormat.H263_RTP;
++            	format = VideoFormat.H263_RTP; break;
+             case SdpConstants.JPEG:
+-                return VideoFormat.JPEG_RTP;
++            	format = VideoFormat.JPEG_RTP; break;
+             case SdpConstants.H261:
+-                return VideoFormat.H261_RTP;
++            	format = VideoFormat.H261_RTP; break;
+             default:
+                 return null;
+         }
++        int slash = format.indexOf(&quot;/&quot;);
++        if (slash == -1)
++        	return format;
++        else
++        	return format.substring(0, slash);
+     }
+ 
+     protected String findCorrespondingSdpFormat(String jmfFormat)
+@@ -1298,6 +1305,22 @@
+             return null;
+         }
+     }
++    
++    
++    // issued by Miguel Freitas //
++    protected String findCorrespondingClockRate(String sdpFormatStr)
++    {
++        int sdpFormat = -1;
++        try {
++            sdpFormat = Integer.parseInt(sdpFormatStr);
++        }
++        catch (NumberFormatException ex) {
++            return null;
++        }
++        return Integer.toString(SdpConstants.avpClockRates[sdpFormat]);
++    }
++    // end //
++    
+ 
+     /**
+      * @param sdpFormats
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/CallProcessing.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/CallProcessing.java	2007-04-30 15:55:37 UTC (rev 60)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/CallProcessing.java	2007-05-21 11:07:42 UTC (rev 61)
+@@ -2751,6 +2751,24 @@
+             console.logEntry();
+ 
+             //add any additional code here
++            
++            // issued by Miguel Freitas //
++            String method = 
++            	((CSeqHeader)response.getHeader(CSeqHeader.NAME)).getMethod();
++            if (method.equalsIgnoreCase(Request.INVITE))
++            {
++	            // find the call
++	            Call call = callDispatcher.findCall(clientTransaction.getDialog());
++	            if (call == null) {
++	                //sipManCallback.fireUnknownMessageReceived(response);
++	                //return;
++	            }
++	            //change status
++	            call.setState(Call.FAILED);
++            }
++            
++            // end //
++            
+         }
+         finally
+         {
+@@ -4250,7 +4268,68 @@
+         }
+ 
+     }
++    
++    
++    //DOES NOT EXIST ANYWHERE
++    void processDoesNotExistAnywhere(ClientTransaction clientTransaction, Response response)
++    {
++        try
++        {
++            console.logEntry();
+ 
++            if (!clientTransaction.getDialog().getFirstTransaction().getRequest().
++                getMethod().equals(Request.INVITE)) {
++                //Not for us
++                console.debug(&quot;ignoring does not exist anywhere response&quot;);
++                return;
++            }
++            //find the call
++            Call call = callDispatcher.findCall(clientTransaction.
++                                                getDialog());
++            call.setState(Call.DISCONNECTED);
++            sipManCallback.fireCallRejectedRemotely(
++                &quot;Server returned a DOES NOT EXIST ANYWHERE Response&quot;,
++                response
++                );
++        }
++        finally
++        {
++            console.logExit();
++        }
++
++    }
++    
++    // DECLINE
++    void processDecline(ClientTransaction clientTransaction, Response response)
++    {
++        try
++        {
++            console.logEntry();
++
++            if (!clientTransaction.getDialog().getFirstTransaction().getRequest().
++                getMethod().equals(Request.INVITE)) {
++                //Not for us
++                console.debug(&quot;ignoring decline response&quot;);
++                return;
++            }
++            //find the call
++            Call call = callDispatcher.findCall(clientTransaction.
++                                                getDialog());
++            call.setState(Call.DISCONNECTED);
++            sipManCallback.fireCallRejectedRemotely(
++                &quot;Server returned a DECLINE Response&quot;,
++                response
++                );
++        }
++        finally
++        {
++            console.logExit();
++        }
++
++    }
++    
++    
++
+ //-------------------------------- User Initiated processing ---------------------------------
+     Call invite(String callee, String sdpContent) throws
+         CommunicationsException
+@@ -4492,7 +4571,7 @@
+            
+             // Privacy - get property
+             String privacyToken = 
+-            	Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.PRIVACY&quot;);
++            	Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.PRIVACY&quot;);
+             if (privacyToken != null &amp;&amp; privacyToken.length() &gt; 0)
+             {
+             	PrivacyHeader privacy;
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/RegisterProcessing.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/RegisterProcessing.java	2007-04-30 15:55:37 UTC (rev 60)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/RegisterProcessing.java	2007-05-21 11:07:42 UTC (rev 61)
+@@ -552,7 +552,7 @@
+ 			
+ 			// Privacy header
+             PrivacyHeader privacyHeader = null;
+-            String privacy = Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.PRIVACY&quot;);
++            String privacy = Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.PRIVACY&quot;);
+             if (privacy != null &amp;&amp; privacy.length()&gt;0)
+             {
+             	privacyHeader = headerFactory.createPrivacyHeader(privacy);
+@@ -567,7 +567,7 @@
+ 	        {
+ 	            // Security Agreement
+ 	        	String secMechanism =
+-	        		Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.SECURITY_AGREEMENT&quot;);
++	        		Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.SECURITY_AGREEMENT&quot;);
+ 	        	
+ 	        	if (secMechanism != null &amp;&amp; secMechanism != &quot;&quot;)
+ 	        	{
+@@ -1077,13 +1077,33 @@
+         {
+             console.logEntry();
+ 
++            // issued by Miguel Freitas (IT) PT-Inovacao
++            // 3GPP TS 24.229 - UE shall reregister an already registered public 
++            // user identity either 600 seconds before the expiration time if the 
++            // previous registration was for greater than 1200 seconds, or when half 
++            // of the time has expired if the previous registration was for 1200 seconds or less
++            int delay; // delay before task is to be executed
++            if (expires &gt; 1200) {
++            	delay = expires - 600;
++            }
++            else {
++            	delay = expires / 2;
++            }
++            // end //
++            
+             ReRegisterTask reRegisterTask = new ReRegisterTask(
+                          registrarAddress, registrarPort,
+                          registrarTransport, expires);
+-
+-            //java.util.Timer thinks in miliseconds
++            
++            //  issued by Miguel Freitas //
++            // commented to express the delay
++            //reRegisterTimer.schedule(reRegisterTask, expires*1000);
++            
++            // java.util.Timer thinks in miliseconds
+             //bug report and fix by Willem Romijn (romijn at lucent.com)
+-            reRegisterTimer.schedule(reRegisterTask, expires*1000);
++            reRegisterTimer.schedule(reRegisterTask, delay*1000);
++            
++            // end //
+         }
+         finally
+         {
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/SipManager.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/SipManager.java	2007-04-30 15:55:37 UTC (rev 60)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/SipManager.java	2007-05-21 11:07:42 UTC (rev 61)
+@@ -107,7 +107,7 @@
+ {
+ 	
+ 	//  issued by Miguel Freitas
+-	static private String IMSCommUserAgent = &quot;IMS-Communicator 070427&quot;;
++	static private String IMSCommUserAgent = &quot;IMS-Communicator 070518&quot;;
+ 	// end //
+ 	
+ 	
+@@ -364,14 +364,14 @@
+     /** UA-IMS - Miguel Freitas (IT) PT-Inovacao
+      * 
+      * Security-Agree
+-     * net.java.sip.communicator.sip.ims.SECURITY_AGREEMENT (sec-mechanism)
+-     * net.java.sip.communicator.sip.ims.SECURITY_ALGORITHM
++     * net.java.sip.communicator.sip.ims.sec.SECURITY_AGREEMENT (sec-mechanism)
++     * net.java.sip.communicator.sip.ims.sec.SECURITY_ALGORITHM
+      * if security-mechanism == &quot;ipsec-3gpp&quot;
+-     *    net.java.sip.communicator.sip.ims.SECURITY_ENCRYPT_ALG
+-     *    net.java.sip.communicator.sip.ims.SECURITY_SPI_C
+-     *    net.java.sip.communicator.sip.ims.SECURITY_SPI_S
+-     *    net.java.sip.communicator.sip.ims.SECURITY_PORT_C
+-     *    net.java.sip.communicator.sip.ims.SECURITY_PORT_S
++     *    net.java.sip.communicator.sip.ims.sec.SECURITY_ENCRYPT_ALG
++     *    net.java.sip.communicator.sip.ims.sec.SECURITY_SPI_C
++     *    net.java.sip.communicator.sip.ims.sec.SECURITY_SPI_S
++     *    net.java.sip.communicator.sip.ims.sec.SECURITY_PORT_C
++     *    net.java.sip.communicator.sip.ims.sec.SECURITY_PORT_S
+      * 
+      */
+     public SecurityClientHeader getSecurityClientHeader()
+@@ -385,7 +385,7 @@
+             
+             // else, create header if SECURITY_AGREEMENT exists and isn't empty
+             String secMech = 
+-            	Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.SECURITY_AGREEMENT&quot;);
++            	Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.SECURITY_AGREEMENT&quot;);
+             if (secMech != null &amp;&amp; secMech.length() != 0)
+             {   
+             	String str = null;
+@@ -394,7 +394,7 @@
+             		securityClientHeader = headerFactoryImpl.createSecurityClientHeader();
+             		securityClientHeader.setSecurityMechanism(secMech);
+ 
+-            		str = Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.SECURITY_ALGORITHM&quot;);
++            		str = Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.SECURITY_ALGORITHM&quot;);
+             		securityClientHeader.setAlgorithm( (str!=null) ? str : &quot;hmac-md5-96&quot; );
+             		
+             	}
+@@ -407,29 +407,36 @@
+             	if (secMech.equalsIgnoreCase(&quot;ipsec-3gpp&quot;))
+                 {
+             		try {
+-                	str = Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.SECURITY_ENCRYPT_ALG&quot;);
+-                	securityClientHeader.setEncryptionAlgorithm( (str!=null) ? str : &quot;null&quot;);
++	                	str = Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.SECURITY_ENCRYPT_ALG&quot;);
++	                	securityClientHeader.setEncryptionAlgorithm( (str!=null) ? str : &quot;null&quot;);
+             		} catch (ParseException ex) {}
+ 
+                 	try {
+-	                	str = Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.SECURITY_SPI_C&quot;);
++	                	str = Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.SECURITY_SPI_C&quot;);
+ 	                	securityClientHeader.setSPIClient( (str!=null) ? Integer.parseInt(str) : 0);
+                 	} catch (InvalidArgumentException ex){}
+                 	
+                 	try {
+-	                	str = Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.SECURITY_SPI_S&quot;);
++	                	str = Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.SECURITY_SPI_S&quot;);
+ 	                	securityClientHeader.setSPIServer( (str!=null) ? Integer.parseInt(str) : 0);
+                 	} catch (InvalidArgumentException ex){}
+                 	
+                 	try {
+-                		PropertiesDepot.setProperty(&quot;net.java.sip.communicator.sip.ims.SECURITY_PORT_C&quot;, 
+-                				Integer.toString(this.localPort));
+-                		PropertiesDepot.storeProperties();
+-	                	securityClientHeader.setPortClient(this.localPort);
++                		str = Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.SECURITY_PORT_C&quot;);
++                		if (str == null || str.length() == 0)
++                		{
++                			//PropertiesDepot.setProperty(&quot;net.java.sip.communicator.sip.ims.sec.SECURITY_PORT_C&quot;, 
++                			//	Integer.toString(this.localPort));
++                			//PropertiesDepot.storeProperties();
++                			securityClientHeader.setPortClient(this.localPort);
++                		}
++                		else
++                			securityClientHeader.setPortClient(Integer.parseInt(str));
++                		
+                 	} catch (InvalidArgumentException ex){}
+                 	
+                 	try {
+-                		str = Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.SECURITY_PORT_S&quot;);
++                		str = Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.SECURITY_PORT_S&quot;);
+                 		securityClientHeader.setPortServer( (str!=null) ? Integer.parseInt(str) : 0);
+                 	} catch (InvalidArgumentException ex){}
+                 	
+@@ -2475,7 +2482,7 @@
+             /** 
+              * IMS Client
+              * 
+-             * @author Miguel Freitas (ITAV-PT) (PTinovacao)
++             * issued by Miguel Freitas (ITAV-PT) (PTinovacao)
+              */
+             
+             
+@@ -2690,6 +2697,7 @@
+             		// issued by Miguel Freitas //
+                      //|| response.getStatusCode() / 100 == 1
+             		|| response.getStatusCode() == Response.CALL_IS_BEING_FORWARDED
++            		|| response.getStatusCode() == Response.QUEUED
+             		// end //
+                      
+             		
+@@ -2709,6 +2717,7 @@
+                     fireUnknownMessageReceived(response);
+                 }
+             }
++            
+             //RINGING
+             else if (response.getStatusCode() == Response.RINGING) {
+                 if (method.equals(Request.INVITE)) {
+@@ -2805,6 +2814,16 @@
+                 else
+                     fireUnknownMessageReceived(response);
+             }
++            
++            // issued by Miguel Freitas //
++            else if (response.getStatusCode() == Response.DOES_NOT_EXIST_ANYWHERE) // 604
++            {
++
++            	
++            }
++            // end //
++            
++            
+             //Other Errors
+             else if ( //We'll handle all errors the same way so no individual handling
+                      //is needed
+@@ -2859,7 +2878,7 @@
+                 /** @todo add proper request handling */
+                 fireUnknownMessageReceived(response);
+             }
+-            else if (response.getStatusCode() == Response.BUSY_EVERYWHERE) {
++            else if (response.getStatusCode() == Response.BUSY_EVERYWHERE) { // 600
+                 /** @todo add proper request handling */
+                 fireUnknownMessageReceived(response);
+             }
+@@ -2873,15 +2892,29 @@
+                 /** @todo add proper request handling */
+                 fireUnknownMessageReceived(response);
+             }
++            // issued by Miguel Freitas //
+             else if (response.getStatusCode() == Response.DECLINE) {
+-                /** @todo add proper request handling */
+-                fireUnknownMessageReceived(response);
++            	if (method.equals(Request.INVITE)) {
++                    callProcessing.processDecline(clientTransaction, response);
++                }
++            	else {
++                    fireUnknownMessageReceived(response);
++                }
+             }
+             else if (response.getStatusCode() ==
+-                     Response.DOES_NOT_EXIST_ANYWHERE) {
+-                /** @todo add proper request handling */
+-                fireUnknownMessageReceived(response);
++                     Response.DOES_NOT_EXIST_ANYWHERE) { // 604
++
++            	if (method.equals(Request.INVITE)) {
++                    callProcessing.processDoesNotExistAnywhere(clientTransaction, response);
++                }
++                if (method.equals(Request.SUBSCRIBE)) {
++                    watcher.processDoesNotExistAnywhere(clientTransaction, response);
++                }
++                else {
++                    fireUnknownMessageReceived(response);
++                }
+             }
++            // end //
+             else if (response.getStatusCode() == Response.EXTENSION_REQUIRED) {
+                 /** @todo add proper request handling */
+                 fireUnknownMessageReceived(response);
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/reg/RegEventSubscription.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/reg/RegEventSubscription.java	2007-04-30 15:55:37 UTC (rev 60)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/reg/RegEventSubscription.java	2007-05-21 11:07:42 UTC (rev 61)
+@@ -333,7 +333,7 @@
+             HeaderFactoryImpl headerFactoryImpl = 
+             	(HeaderFactoryImpl) sipManCallback.headerFactory;
+             String privacyToken = 
+-            	Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.PRIVACY&quot;);
++            	Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.PRIVACY&quot;);
+             if (privacyToken != null &amp;&amp; privacyToken.length() &gt; 0)
+             {
+             	PrivacyHeader privacy = headerFactoryImpl.createPrivacyHeader(privacyToken);
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/security/AKADigest.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/security/AKADigest.java	2007-04-30 15:55:37 UTC (rev 60)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/security/AKADigest.java	2007-05-21 11:07:42 UTC (rev 61)
+@@ -114,8 +114,11 @@
+ 	    		autnBytes[i] = nonceBytes[k];
+ 	    	
+             // DATA TEST (TS 35.208)
+-	    	//randBytes = codec.decode(&quot;23553cbe9637a89d218ae64dae47bf35&quot;);
++	    	//randBytes = MessageDigestAlgorithm.decode(&quot;ce83dbc54ac0274a157c17f80d017bd6&quot;);
+ 	    	
++	    	console.debug(&quot;randBytes RAND = &quot; 
++            		+ MessageDigestAlgorithm.toHexString(randBytes)
++            		+ &quot; (&quot;+randBytes.length+&quot;bytes)&quot;);
+ 	    	
+ 	    	console.debug(&quot;nonce64 = &quot; + nonce64);
+ 	    	console.debug(&quot;nonce = &quot; + MessageDigestAlgorithm.toHexString(nonce.getBytes()));
+@@ -145,7 +148,7 @@
+             	sharedSecret16[i] = 0;
+             	
+             // DATA TEST (TS 35.208)
+-            //sharedSecret16 = codec.decode(&quot;465b5ce8b199b49faa5f0a2ee238a6bc&quot;);
++            //sharedSecret16 = MessageDigestAlgorithm.decode(&quot;9e5944aea94b81165c82fbf9f32db751&quot;);
+             
+             
+             console.debug(&quot;shared secret K = &quot; 
+@@ -154,13 +157,13 @@
+ 
+             
+             String operatorID = 
+-            	Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.OPERATOR_ID&quot;);
++            	Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.OPERATOR_ID&quot;);
+             if (operatorID == null || operatorID.equals(&quot;&quot;)
+             		|| operatorID.length()!=32)
+             {
+             	console.debug(&quot;IMS OPERATOR_ID not defined! Set to default - 16bytes (32 hex char) of zeros&quot;);
+ 	    		//throw new SecurityException(&quot;Error getting IMS OPERATOR_ID! Must be 16bytes (32 hex char)&quot;);
+-            	Utils.setProperty(&quot;net.java.sip.communicator.sip.ims.OPERATOR_ID&quot;,
++            	Utils.setProperty(&quot;net.java.sip.communicator.sip.ims.sec.OPERATOR_ID&quot;,
+             			&quot;00000000000000000000000000000000&quot;);
+             	PropertiesDepot.storeProperties();
+             	operatorID = &quot;00000000000000000000000000000000&quot;;
+@@ -171,7 +174,7 @@
+             byte[] operator16 = MessageDigestAlgorithm.decode(operatorID);
+             
+             // DATA TEST (TS 35.208)
+-            //operator16 = codec.decode(&quot;cdc202d5123e20f62b6d676ac72cb318&quot;);
++            //operator16 = MessageDigestAlgorithm.decode(&quot;223014c5806694c007ca1eeef57f004f&quot;);
+             
+             console.debug(&quot;operator hex = &quot;
+             		+ MessageDigestAlgorithm.toHexString(operator16) 
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/security/SipSecurityManager.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/security/SipSecurityManager.java	2007-04-30 15:55:37 UTC (rev 60)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/security/SipSecurityManager.java	2007-05-21 11:07:42 UTC (rev 61)
+@@ -582,6 +582,12 @@
+             throw new SecurityException(&quot;The authenticate header was malformatted&quot;);
+         }
+         
++        // //
++        console.debug(&quot;response RES = &quot; 
++        		+ response
++        		+ &quot; (&quot;+response.getBytes().length+&quot;bytes)&quot;);
++        
++        
+         AuthorizationHeader authorization = null;
+         try {
+             if (authHeader instanceof ProxyAuthenticateHeader) {
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/simple/Watcher.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/simple/Watcher.java	2007-04-30 15:55:37 UTC (rev 60)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/simple/Watcher.java	2007-05-21 11:07:42 UTC (rev 61)
+@@ -202,6 +202,17 @@
+                     presentity = presentity + &quot;@&quot; + defaultDomainName;
+             }
+ 
++            // issued by Miguel Freitas //
++            // remove &quot;pres:&quot; scheme if present
++            // noticed by Kedar P Bhise
++            presentity.trim();
++            if (presentity.startsWith(&quot;pres:&quot;) 
++            	 || presentity.startsWith(&quot;tel:&quot;) // also remove &quot;tel:&quot;?
++            		)
++            	presentity = presentity.substring(presentity.indexOf(&quot;:&quot;) + 1);
++            // end //
++            
++            
+             //Let's be uri fault tolerant
+             if (presentity.toLowerCase().indexOf(&quot;sip:&quot;) == -1 //no sip scheme
+                 &amp;&amp; presentity.indexOf('@') != -1 //most probably a sip uri
+@@ -309,43 +320,30 @@
+ 
+             /** ===========================================================
+              *  IMS headers
+-             *  @author Miguel Freitas (<A HREF="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">jfreitas at av.it.pt</A>)
++             *  issued by Miguel Freitas 
+              * =========================================================== */
+ 
+-            // P-Access-Network-Info header
+-            
+-            // gets property for access type (the default value)
+-            String accessType = 
+-            	Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.ACCESS_TYPE&quot;);  
+-            if (console.isDebugEnabled())
+-            	console.debug(&quot;P-Access-Network-Info access type: &quot; + accessType);
+-            
+-            if(accessType == null || accessType == &quot;&quot;)
+-            {
+-            	// default value
+-            	accessType = PAccessNetworkInfoHeader.GGGPP_UTRAN_TDD;
+-            }
+-
+-            
+             // work-around =(
+             HeaderFactoryImpl headerFactory = 
+             	(HeaderFactoryImpl) sipManCallback.headerFactory;
+             
++            // P-Access-Network-Info header
+             PAccessNetworkInfoHeader accessNetworkInfoHeader = null;
+-            accessNetworkInfoHeader = headerFactory.createPAccessNetworkInfoHeader();
+- 
+-            try
+-            {
+-            	sipManCallback.setAccessNetworkInfo(accessNetworkInfoHeader);
+-            	
++            try {
++            	accessNetworkInfoHeader = 
++            		sipManCallback.getPAccessNetworkInfoHeader();
++
++            	subscribe.addHeader(accessNetworkInfoHeader);
+             }
+-            catch (ParseException ex)
+-            {
++            catch (Exception ex) {
+             	console.error(
+-                        &quot;Invalid accessNetworkInfoHeader (parse exception) -  &quot;,
+-                        ex);
++            			&quot;Failed to create P-Access-Network-Info header!&quot;, ex);
++            	//throw new CommunicationsException(
++                //        &quot;Failed to create P-Access-Network-Info header!&quot;, ex);
++            	
++            	// silently inform the user
++            	System.out.println(&quot;Failed to create P-Access-Network-Info header! &quot; + ex);
+             }
+-
+             subscribe.addHeader(accessNetworkInfoHeader);
+             
+             
+@@ -361,12 +359,28 @@
+             			sipManCallback.getCurrentlyUsedURI());
+             
+             
+-            /* =========================================================== */
++            // Accept header
++            AcceptHeader acceptHeader = null;
++            try {
++            	acceptHeader = sipManCallback.headerFactory
++            		.createAcceptHeader(&quot;application&quot;, &quot;pidf+xml&quot;);
++            	subscribe.addHeader(acceptHeader);
++            }
++            catch (ParseException ex)
++            {
++            	console.error(
++                        &quot;ParseException creating Accept header!&quot;, ex);
++            }
+             
++            // User-Agent header
++	        UserAgentHeader userAgentHeader = null;
++	        userAgentHeader = sipManCallback.getUserAgentHeader();
++	        if (userAgentHeader != null)
++	        	subscribe.setHeader(userAgentHeader);
+             
+             
++            /* =========================================================== */
+             
+-            
+ 
+             subscribe.addHeader(contactHeader);
+             subscribe.addHeader(eventHeader);
+@@ -741,6 +755,23 @@
+            console.debug(&quot;Received a NOT_FOUND response for a previous subscribe&quot;);
+    }
+ 
++   
++   // issued by Miguel Freitas //
++   /**
++    * @todo handle properly DOES_NOT_EXIST_ANYWHERE messages
++    *
++    * @param clientTransaction ClientTransaction
++    * @param doesNotExistAnywhere Response
++    */
++   public void processDoesNotExistAnywhere(ClientTransaction clientTransaction, Response notFound)
++   {
++       if(console.isDebugEnabled())
++           console.debug(&quot;Received a DOES_NOT_EXIST_ANYWHERE response for a previous subscribe&quot;);
++   }
++   // end //
++   
++   
++   
+ 
+     /**
+      * Registers a WatcherEventsDispatcher instance with this watcher. The WatcherEventsDispatcher is
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000035.html">[Imscommunicator-dev] (no subject)
+</A></li>
+	<LI>Next message: <A HREF="000037.html">[Imscommunicator-dev] r62 - trunk/lib
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#36">[ date ]</a>
+              <a href="thread.html#36">[ thread ]</a>
+              <a href="subject.html#36">[ subject ]</a>
+              <a href="author.html#36">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">More information about the Imscommunicator-dev
+mailing list</a><br>
+</body></html>

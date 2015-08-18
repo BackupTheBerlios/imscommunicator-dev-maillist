@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Imscommunicator-dev] r67 - in trunk/ims-communicator: . lib	src/net/java/sip/communicator/gui/config/xml	src/net/java/sip/communicator/sip
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/imscommunicator-dev/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:imscommunicator-dev%40lists.berlios.de?Subject=Re%3A%20%5BImscommunicator-dev%5D%20r67%20-%20in%20trunk/ims-communicator%3A%20.%20lib%0A%09src/net/java/sip/communicator/gui/config/xml%0A%09src/net/java/sip/communicator/sip&In-Reply-To=%3C200705251532.l4PFWWOR000775%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000041.html">
+   <LINK REL="Next"  HREF="000043.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Imscommunicator-dev] r67 - in trunk/ims-communicator: . lib	src/net/java/sip/communicator/gui/config/xml	src/net/java/sip/communicator/sip</H1>
+    <B>jmfreitas at mail.berlios.de</B> 
+    <A HREF="mailto:imscommunicator-dev%40lists.berlios.de?Subject=Re%3A%20%5BImscommunicator-dev%5D%20r67%20-%20in%20trunk/ims-communicator%3A%20.%20lib%0A%09src/net/java/sip/communicator/gui/config/xml%0A%09src/net/java/sip/communicator/sip&In-Reply-To=%3C200705251532.l4PFWWOR000775%40sheep.berlios.de%3E"
+       TITLE="[Imscommunicator-dev] r67 - in trunk/ims-communicator: . lib	src/net/java/sip/communicator/gui/config/xml	src/net/java/sip/communicator/sip">jmfreitas at mail.berlios.de
+       </A><BR>
+    <I>Fri May 25 17:32:32 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000041.html">[Imscommunicator-dev] r66 - trunk/releases
+</A></li>
+        <LI>Next message: <A HREF="000043.html">[Imscommunicator-dev] r68 - in	trunk/ims-communicator/src/net/java/sip/communicator: gui	media sip sip/security
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#42">[ date ]</a>
+              <a href="thread.html#42">[ thread ]</a>
+              <a href="subject.html#42">[ subject ]</a>
+              <a href="author.html#42">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: jmfreitas
+Date: 2007-05-25 17:32:20 +0200 (Fri, 25 May 2007)
+New Revision: 67
+
+Modified:
+   trunk/ims-communicator/ims-communicator.xml
+   trunk/ims-communicator/lib/nist-sdp-1.0-ims.jar
+   trunk/ims-communicator/src/net/java/sip/communicator/gui/config/xml/gui-config.xml
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/RegisterProcessing.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/SipManager.java
+Log:
+NIST-SDP patch and AUTH_ALGORITHM property (for first REGISTER)
+
+Modified: trunk/ims-communicator/ims-communicator.xml
+===================================================================
+--- trunk/ims-communicator/ims-communicator.xml	2007-05-21 13:41:20 UTC (rev 66)
++++ trunk/ims-communicator/ims-communicator.xml	2007-05-25 15:32:20 UTC (rev 67)
+@@ -69,6 +69,7 @@
+               
+                 &lt;sec&gt;
+ 	                &lt;PRIVACY value=&quot;&quot;/&gt;
++	                &lt;AUTH_ALGORITHM value=&quot;&quot;/&gt;
+ 	                &lt;!-- operator ID : 16 bytes (32 hex char) --&gt;
+ 	                &lt;OPERATOR_ID value=&quot;00000000000000000000000000000000&quot;/&gt;
+ 	                &lt;!-- if SECURITY_AGREEMENT value is empty, Security-Client header is not sent and IPSec not setup --&gt;
+
+Modified: trunk/ims-communicator/lib/nist-sdp-1.0-ims.jar
+===================================================================
+(Binary files differ)
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/gui/config/xml/gui-config.xml
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/gui/config/xml/gui-config.xml	2007-05-21 13:41:20 UTC (rev 66)
++++ trunk/ims-communicator/src/net/java/sip/communicator/gui/config/xml/gui-config.xml	2007-05-25 15:32:20 UTC (rev 67)
+@@ -167,6 +167,15 @@
+ 					]]&gt;&lt;/description&gt;
+            &lt;/property&gt;
+            
++           &lt;property name=&quot;net.java.sip.communicator.sip.ims.sec.AUTH_ALGORITHM&quot;&gt;
++                &lt;labelname&gt;Authorization Algorithm&lt;/labelname&gt;
++                &lt;description&gt;&lt;![CDATA[
++					Value of the Authorization header algorithm parameter. 
++					IMS-Communicator supports MD5 and AKAv1-MD5.
++					If value empty, the algorithm parameter is not sent in the first REGISTER.
++					]]&gt;&lt;/description&gt;
++           &lt;/property&gt;
++           
+            &lt;property name=&quot;net.java.sip.communicator.sip.ims.sec.OPERATOR_ID&quot;&gt;
+                 &lt;labelname&gt;Operator ID&lt;/labelname&gt;
+                 &lt;description&gt;&lt;![CDATA[
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/RegisterProcessing.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/RegisterProcessing.java	2007-05-21 13:41:20 UTC (rev 66)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/RegisterProcessing.java	2007-05-25 15:32:20 UTC (rev 67)
+@@ -635,7 +635,27 @@
+ 	            }
+ 	            
+ 	            
++
++	            // Algorithm parameter
++	            String algParam = null;
++	            String algProp = 
++	            	Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.AUTH_ALGORITHM&quot;);
++	            if (algProp != null &amp;&amp; algProp.length() &gt; 0)
++	            {
++	            	if (algProp.equalsIgnoreCase(&quot;MD5&quot;)
++	            			|| algProp.equalsIgnoreCase(&quot;AKAv1-MD5&quot;))
++	            		algParam = new String(algProp);
++	            	else
++	            		console.error(&quot;Could not set Authorization Algorithm parameter. &quot; +
++	            				&quot;The values supported are MD5 and AKAv1-MD5.&quot;);
++	            }
++	            else if (algProp == null)
++	            {
++	            	Utils.setProperty(&quot;net.java.sip.communicator.sip.ims.sec.AUTH_ALGORITHM&quot;, &quot;&quot;);
++	            	PropertiesDepot.storeProperties();
++	            }
+ 	            
++	            
+ 	            // if this is a re-register, send last Authorization sent
+ 	            // and add Security-Verify header (if any)
+ 	            AuthorizationHeader auth = null;
+@@ -671,6 +691,9 @@
+ 		            	
+ 		            	authorization.setResponse(&quot;&quot;);
+ 		            	
++		            	if (algParam != null)
++		            		authorization.setAlgorithm(algParam);
++		            	
+ 		            	request.addHeader(authorization);
+ 		            }
+ 		            catch (ParseException ex)
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/SipManager.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/SipManager.java	2007-05-21 13:41:20 UTC (rev 66)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/SipManager.java	2007-05-25 15:32:20 UTC (rev 67)
+@@ -107,7 +107,7 @@
+ {
+ 	
+ 	//  issued by Miguel Freitas
+-	static private String IMSCommUserAgent = &quot;IMS-Communicator 070518&quot;;
++	static private String IMSCommUserAgent = &quot;IMS-Communicator 070525&quot;;
+ 	// end //
+ 	
+ 	
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000041.html">[Imscommunicator-dev] r66 - trunk/releases
+</A></li>
+	<LI>Next message: <A HREF="000043.html">[Imscommunicator-dev] r68 - in	trunk/ims-communicator/src/net/java/sip/communicator: gui	media sip sip/security
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#42">[ date ]</a>
+              <a href="thread.html#42">[ thread ]</a>
+              <a href="subject.html#42">[ subject ]</a>
+              <a href="author.html#42">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">More information about the Imscommunicator-dev
+mailing list</a><br>
+</body></html>

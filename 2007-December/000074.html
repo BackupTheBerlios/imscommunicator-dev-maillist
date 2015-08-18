@@ -1,0 +1,516 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Imscommunicator-dev] r86 - in trunk/ims-communicator: .	src/net/java/sip/communicator/sip	src/net/java/sip/communicator/sip/reg	src/net/java/sip/communicator/sip/security
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/imscommunicator-dev/2007-December/index.html" >
+   <LINK REL="made" HREF="mailto:imscommunicator-dev%40lists.berlios.de?Subject=Re%3A%20%5BImscommunicator-dev%5D%20r86%20-%20in%20trunk/ims-communicator%3A%20.%0A%09src/net/java/sip/communicator/sip%0A%09src/net/java/sip/communicator/sip/reg%0A%09src/net/java/sip/communicator/sip/security&In-Reply-To=%3C200712051102.lB5B22f0025767%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000073.html">
+   <LINK REL="Next"  HREF="000075.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Imscommunicator-dev] r86 - in trunk/ims-communicator: .	src/net/java/sip/communicator/sip	src/net/java/sip/communicator/sip/reg	src/net/java/sip/communicator/sip/security</H1>
+    <B>jmfreitas at mail.berlios.de</B> 
+    <A HREF="mailto:imscommunicator-dev%40lists.berlios.de?Subject=Re%3A%20%5BImscommunicator-dev%5D%20r86%20-%20in%20trunk/ims-communicator%3A%20.%0A%09src/net/java/sip/communicator/sip%0A%09src/net/java/sip/communicator/sip/reg%0A%09src/net/java/sip/communicator/sip/security&In-Reply-To=%3C200712051102.lB5B22f0025767%40sheep.berlios.de%3E"
+       TITLE="[Imscommunicator-dev] r86 - in trunk/ims-communicator: .	src/net/java/sip/communicator/sip	src/net/java/sip/communicator/sip/reg	src/net/java/sip/communicator/sip/security">jmfreitas at mail.berlios.de
+       </A><BR>
+    <I>Wed Dec  5 12:02:02 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000073.html">[Imscommunicator-dev] r84 - trunk
+</A></li>
+        <LI>Next message: <A HREF="000075.html">[Imscommunicator-dev] r87 - trunk/releases
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#74">[ date ]</a>
+              <a href="thread.html#74">[ thread ]</a>
+              <a href="subject.html#74">[ subject ]</a>
+              <a href="author.html#74">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: jmfreitas
+Date: 2007-12-05 12:01:38 +0100 (Wed, 05 Dec 2007)
+New Revision: 86
+
+Modified:
+   trunk/ims-communicator/ims-communicator.xml
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/RegisterProcessing.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/SipManager.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/reg/RegEventSubscription.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/security/AKADigest.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/security/Base64.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/security/MessageDigestAlgorithm.java
+   trunk/ims-communicator/src/net/java/sip/communicator/sip/security/SipSecurityManager.java
+Log:
+- base64 decoded to byte array instead of converting for String. 
+- Registration terminated (RTR): process NOTIFY's XML
+
+
+Modified: trunk/ims-communicator/ims-communicator.xml
+===================================================================
+--- trunk/ims-communicator/ims-communicator.xml	2007-12-03 18:53:26 UTC (rev 85)
++++ trunk/ims-communicator/ims-communicator.xml	2007-12-05 11:01:38 UTC (rev 86)
+@@ -100,7 +100,7 @@
+         &lt;gui&gt;
+             &lt;AUTH_WIN_TITLE value=&quot;SIP Authentication!&quot;/&gt;
+             &lt;AUTHENTICATION_PROMPT value=&quot;Please enter login name and password for the specified realm:&quot;/&gt;
+-            &lt;USER_NAME_LABEL value=&quot;UserName:&quot;/&gt;
++            &lt;USER_NAME_LABEL value=&quot;User Name:&quot;/&gt;
+             &lt;USER_NAME_EXAMPLE value=&quot;Example: testes1&quot;/&gt;
+             &lt;PASSWORD_LABEL value=&quot;Password:&quot;/&gt;
+             &lt;!--GUI_MODE value=&quot;PhoneUiMode&quot;/--&gt;
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/RegisterProcessing.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/RegisterProcessing.java	2007-12-03 18:53:26 UTC (rev 85)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/RegisterProcessing.java	2007-12-05 11:01:38 UTC (rev 86)
+@@ -213,19 +213,6 @@
+ 	            sipManCallback.fireUnregistered(address.toString());
+ 	            isRegistered = false;
+ 	            
+-	            // issued by Miguel Freitas
+-	            // flush IPSec SA
+-	            if (isUAIMS != null &amp;&amp; isUAIMS.equalsIgnoreCase(&quot;true&quot;))
+-	            {
+-	            	String useIPSec = 
+-	                	Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.USE_IPSEC&quot;);
+-	            	if (useIPSec != null &amp;&amp; useIPSec.equalsIgnoreCase(&quot;true&quot;))
+-	            	{
+-	            		sipManCallback.sipSecurityManager.flushSA();
+-	            	}
+-	            }
+-	            // end //
+-	            
+ 	        }
+ 	        else {
+ 	            isRegistered = true;
+@@ -879,14 +866,17 @@
+             	((AuthorizationHeader)unregisterRequest.getHeader(AuthorizationHeader.NAME))
+             		.getRealm();
+             
+-            
+-            // add Security-Verify header
+-            SecurityVerifyList secVerify = null; 
+-            if (realm != null)
+-            	secVerify = sipManCallback.sipSecurityManager.getSecurityServer(realm);
+-            if (secVerify != null)
+-            	unregisterRequest.addHeader(secVerify);
+-            
++            String useIPSec =
++            	Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.USE_IPSEC&quot;);
++            if (useIPSec != null &amp;&amp; useIPSec.equalsIgnoreCase(&quot;true&quot;))
++            {
++	            // add Security-Verify header
++	            SecurityVerifyList secVerify = null; 
++	            if (realm != null)
++	            	secVerify = sipManCallback.sipSecurityManager.getSecurityServer(realm);
++	            if (secVerify != null)
++	            	unregisterRequest.addHeader(secVerify);
++            }
+             // end //
+             
+             
+@@ -922,7 +912,31 @@
+ 
+     
+     
++    // issued by Miguel Freitas //
++    /**
++     * 
++     */
++    public void unregistered()
++    {
++    	try
++        {
++            console.logEntry();
++            
++	        isRegistered = false;
+ 
++        }
++        finally
++        {
++            console.logExit();
++        }
++        
++    }
++    // end //
++    
++    
++    
++    
++
+     //INICIO CAMBIO
+     /**
+      * Synchronize because of timer tasks
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/SipManager.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/SipManager.java	2007-12-03 18:53:26 UTC (rev 85)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/SipManager.java	2007-12-05 11:01:38 UTC (rev 86)
+@@ -107,7 +107,7 @@
+ {
+ 	
+ 	//  issued by Miguel Freitas
+-	static private String IMSCommUserAgent = &quot;IMS-Communicator 071203&quot;;
++	static private String IMSCommUserAgent = &quot;IMS-Communicator 071204&quot;;
+ 	// end //
+ 	
+ 	
+@@ -2055,9 +2055,22 @@
+             // UA-IMS - Miguel Freitas (IT) PT-Inovacao
+             callProcessing.resetServiceRoute(address);
+             sipSecurityManager.resetSecurityServer(address);
+-            // end
+             
++	        String isUAIMS = Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.IMS_CLIENT&quot;);
++	        // flush IPSec SA
++	        if (isUAIMS != null &amp;&amp; isUAIMS.equalsIgnoreCase(&quot;true&quot;))
++	        {
++	        	String useIPSec = 
++	            	Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.USE_IPSEC&quot;);
++	        	if (useIPSec != null &amp;&amp; useIPSec.equalsIgnoreCase(&quot;true&quot;))
++	        	{
++	        		sipSecurityManager.flushSA();
++	        	}
++	        }
++            registerProcessing.unregistered();
++            // end //
+             
++            
+             if (console.isDebugEnabled()) {
+                 console.debug(&quot;unregistered, address is &quot; + address);
+             }
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/reg/RegEventSubscription.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/reg/RegEventSubscription.java	2007-12-03 18:53:26 UTC (rev 85)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/reg/RegEventSubscription.java	2007-12-05 11:01:38 UTC (rev 86)
+@@ -515,7 +515,7 @@
+      * @param transaction the transaction associated with the received NOTIFY request.
+      * @return the status code (200 or 481) of the response sent by this method.
+      */
+-    public int processNotification(Request notification, ServerTransaction transaction)
++    public void processNotification(Request notification, ServerTransaction transaction)
+     {
+         try
+         {
+@@ -538,7 +538,7 @@
+                     console.error(&quot;Failed to create an 200 response to a NOTIFY request.&quot;, ex);
+                     sipManCallback.fireCommunicationsError(
+                                 new CommunicationsException(&quot;Failed to create an 200 response to a NOTIFY request.&quot;, ex));
+-                    return -1;
++                    return;
+                 }
+ 
+                 returnedResponse = Response.OK;
+@@ -564,12 +564,21 @@
+                 		expiresRegSubscription = expiresVal;
+                 }
+                 
++                sipManCallback.attachToTag(responseMsg, transaction.getDialog());
+                 
++                // send response
++                try {
++                    transaction.sendResponse(responseMsg);
++                }
++                catch (SipException ex) {
++                    console.error(&quot;Failed to send a response to a notify request!&quot;, ex);
++                        sipManCallback.fireCommunicationsError(
++                                    new CommunicationsException(&quot;Failed to send a response to a notify request!&quot;, ex));
++                        return;
++                }
+                 
+                 
+-                /** manage notification.getRawContent() ! */
+-                
+-                // extrair informacao do corpo XML 
++                // extract XML 
+                 try
+                 {
+                 	reginfo = XmlRegInfoFactory.decodeRegInfoData(
+@@ -581,7 +590,7 @@
+ 	                sipManCallback.fireCommunicationsError(
+ 	                		new CommunicationsException(
+ 	                           		&quot;Failed to decode the content of the NOTIFY request.&quot;, ex));
+-	                return -1;
++	                return;
+             	}
+                 
+                 
+@@ -589,28 +598,23 @@
+                 ListIterator terminated = reginfo.getTerminatedRegisteredAOR();
+                 if (terminated != null)
+                 {
+-                	System.out.println(&quot;terminated&quot;);
+-                	// TODO
+-                    // if &quot;terminated&quot;, shall we unregister() the public user identity ?!
++                    // if &quot;terminated&quot;, we must set the public user identity as unregistered 
+                 	while (terminated.hasNext())
+                 	{
+                 		String aor = ((RegisteredAOR)terminated.next()).getRegAOR();
+                 		
+-                		System.out.println(&quot;aor: &quot; + aor);
+-                		
+-                		
+-                		// to do this???
+-                    	// TODO: add param aor to unregister() 
+-                    	//sipManCallback.unregister();
+-                		// or this???
+-                		System.out.println(&quot;fireUnregistered&quot;);
+-                    	sipManCallback.fireUnregistered(aor);
+-                    		
++                		// only if still Registered
++                		if (sipManCallback.isRegistered())
++                		{
++	                		console.debug(&quot;Registration terminated by the network for &quot; + aor);
++	                		System.out.println(&quot;Registration terminated by the network for &quot; + aor);
++	                		
++                			sipManCallback.fireUnregistered(aor);
++                			sipManCallback.fireCommunicationsError(
++                                new CommunicationsException(&quot;Registration terminated by the network for &quot; + aor, null));
++                		}
+                 	}
+-                	
+                 }
+-                 
+-                
+             }
+             else {
+                 //Suscription does not exist
+@@ -622,30 +626,11 @@
+                     console.error(&quot;Failed to create a 481 response to a NOTIFY request.&quot;, ex);
+                     sipManCallback.fireCommunicationsError(
+                                 new CommunicationsException(&quot;Failed to create an 481 response to a NOTIFY request.&quot;, ex));
+-                    return -1;
++                    return;
+                 }
+                 returnedResponse = Response.CALL_OR_TRANSACTION_DOES_NOT_EXIST;
+             }
+-            sipManCallback.attachToTag(responseMsg, transaction.getDialog());
+-            try {
+-                transaction.sendResponse(responseMsg);
+-            }
+-            catch (SipException ex) {
+-                console.error(&quot;Failed to send a response to a notify request!&quot;, ex);
+-                    sipManCallback.fireCommunicationsError(
+-                                new CommunicationsException(&quot;Failed to send a response to a notify request!&quot;, ex));
+-                    return -1;
+-            }
+-            /*
+-            catch (InvalidArgumentException ex) {
+-                console.error(&quot;Failed to send a response to a notify request!&quot;, ex);
+-                    sipManCallback.fireCommunicationsError(
+-                                new CommunicationsException(&quot;Failed to send a response to a notify request!&quot;, ex));
+-                    return -1;
+-            }*/
+-
+-            return returnedResponse;
+-
++            
+         } finally {
+             console.logExit();
+         }
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/security/AKADigest.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/security/AKADigest.java	2007-12-03 18:53:26 UTC (rev 85)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/security/AKADigest.java	2007-12-05 11:01:38 UTC (rev 86)
+@@ -82,12 +82,10 @@
+ 	    				&quot;Null parameter in AKADigest.getAKARES()&quot;);
+ 	    	}
+ 	    	
+-	    	//akaRes = new AKARES();
+-            
+ 	    	// -&gt; nonce is in Base64 -&gt; decode it!
+-	    	String nonce = null;
++	    	byte[] nonceBytes;
+ 	    	try {
+-	    		nonce = Base64.decode(nonce64);
++	    		nonceBytes = Base64.decodeToByte(nonce64);
+ 	    	}
+ 	    	catch (Exception ex)
+ 	    	{
+@@ -95,14 +93,11 @@
+ 	    		throw new SecurityException(&quot;Unable to decode the nonce from Base64 : &quot; + ex);
+ 	    	}
+ 	    	
+-	    	byte[] nonceBytes = nonce.getBytes();
+ 	    	if (nonceBytes.length &lt; RANDLEN + AUTNLEN)
+ 	    	{
+ 	    		console.debug(&quot;Nonce received in authentication challenge is too short!&quot;);
+ 
+ 	    		// for now, don't abort authentication and send a &quot;dummy&quot; response
+-	    		//throw new SecurityException(&quot;Nonce received in authentication challenge is too short!&quot;);
+-	    		
+ 	    		String rejectNonce =
+ 	    			Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.REJECT_MALFORMED_NONCE&quot;);
+ 	    		if (rejectNonce != null)
+@@ -128,17 +123,10 @@
+             // DATA TEST (TS 35.208)
+ 	    	//randBytes = MessageDigestAlgorithm.decode(&quot;ce83dbc54ac0274a157c17f80d017bd6&quot;);
+ 	    	
+-	    	console.debug(&quot;randBytes RAND = &quot; 
+-            		+ MessageDigestAlgorithm.toHexString(randBytes)
+-            		+ &quot; (&quot;+randBytes.length+&quot;bytes)&quot;);
+-	    	
+-	    	console.debug(&quot;nonce64 = &quot; + nonce64);
+-	    	console.debug(&quot;nonce = &quot; + MessageDigestAlgorithm.toHexString(nonce.getBytes()));
+-	    	console.debug(&quot;nonce length = &quot; + nonce.length());
+-	    	console.debug(&quot;randBytes = &quot; + MessageDigestAlgorithm.toHexString(randBytes));
+-	    	console.debug(&quot;randBytes length = &quot; + randBytes.length); 
+-	    	console.debug(&quot;autnBytes = &quot; + MessageDigestAlgorithm.toHexString(autnBytes));
+-	    	console.debug(&quot;autnBytes length = &quot; + autnBytes.length);
++	    	console.debug(&quot;nonce64  = &quot; + nonce64);
++	    	console.debug(&quot;nonce hex= &quot; + MessageDigestAlgorithm.toHexString(nonceBytes) + &quot; (&quot; + nonceBytes.length + &quot;bytes)&quot;);
++	    	console.debug(&quot;RAND hex = &quot; + MessageDigestAlgorithm.toHexString(randBytes) + &quot; (&quot; + randBytes.length + &quot;bytes)&quot;);
++	    	console.debug(&quot;AUTN hex = &quot; + MessageDigestAlgorithm.toHexString(autnBytes) + &quot; (&quot; + autnBytes.length + &quot;bytes)&quot;);
+ 
+ 	    	
+ 	    	// Rijndael
+@@ -180,7 +168,7 @@
+             // DATA TEST (TS 35.208)
+             //operator16 = MessageDigestAlgorithm.decode(&quot;223014c5806694c007ca1eeef57f004f&quot;);
+             
+-            console.debug(&quot;operator hex = &quot;
++            console.debug(&quot;OP hex  = &quot;
+             		+ MessageDigestAlgorithm.toHexString(operator16) 
+             		+ &quot; (&quot;+operator16.length+&quot;bytes)&quot;);
+ 
+@@ -342,18 +330,27 @@
+ 		    		macBytes[i] = autnBytes[k];
+ 	    	}
+ 	    	catch (Exception ex) {
+-	    		
++	    		console.error(&quot;Exception authenticating the network!&quot;);
++	    		throw new SipSecurityException(&quot;Exception authenticating the network! : &quot; + ex);
+ 	    	}
+ 	    	
++	    	console.debug(&quot;AMF hex = &quot; + MessageDigestAlgorithm.toHexString(amfBytes) + &quot; (&quot; + amfBytes.length + &quot;bytes)&quot;);
++	    	console.debug(&quot;MAC hex = &quot; + MessageDigestAlgorithm.toHexString(macBytes) + &quot; (&quot; + macBytes.length + &quot;bytes)&quot;);
++	    	console.debug(&quot;SQNXorAK hex = &quot; + MessageDigestAlgorithm.toHexString(sqnXorAkBytes) + &quot; (&quot; + sqnXorAkBytes.length + &quot;bytes)&quot;);
++	    	
+ 	    	// XMAC = f1K (SQN || RAND || AMF)
+-	    	byte[] sqnBytes = sqnXorAkBytes;
++	    	byte[] sqnBytes = sqnXorAkBytes.clone();
+ 	    	try {
+ 	    		// AK = f5K(RAND)
+ 				byte[] akBytes = Milenage.f5(sharedSecret16, randBytes, opc);
++				console.debug(&quot;AK hex = &quot; + MessageDigestAlgorithm.toHexString(akBytes) + &quot; (&quot; + akBytes.length + &quot;bytes)&quot;);
++				
+ 				// SQN = (SQN xor AK) xor AK
+ 				sqnBytes = xorArray( xorArray(sqnBytes,akBytes), akBytes );
++				console.debug(&quot;SQN hex = &quot; + MessageDigestAlgorithm.toHexString(sqnBytes) + &quot; (&quot; + sqnBytes.length + &quot;bytes)&quot;);
+ 				
+ 				byte[] xmacBytes = Milenage.f1(sharedSecret16, randBytes, opc, sqnBytes, amfBytes);
++				console.debug(&quot;XMAC hex = &quot; + MessageDigestAlgorithm.toHexString(xmacBytes) + &quot; (&quot; + xmacBytes.length + &quot;bytes)&quot;);
+ 				
+ 				// MAC == XMAC?
+ 				if (xmacBytes == macBytes)
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/security/Base64.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/security/Base64.java	2007-12-03 18:53:26 UTC (rev 85)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/security/Base64.java	2007-12-05 11:01:38 UTC (rev 86)
+@@ -93,6 +93,27 @@
+     }
+ 
+ 
++    // issued by Miguel Freitas //
++    /**
++     * 
++     */
++    public static byte[] decodeToByte( String source ) {
++        if (source.length()%4 != 0) throw new RuntimeException( &quot;valid Base64 codes have a multiple of 4 characters&quot; );
++        int numGroups = source.length() / 4;
++        int numExtraBytes = source.endsWith( &quot;==&quot; ) ? 2 : (source.endsWith( &quot;=&quot; ) ? 1 : 0);
++        byte[] targetBytes = new byte[ 3*numGroups ];
++        byte[] sourceBytes = new byte[4];
++        for (int group = 0; group &lt; numGroups; group++) {
++            for (int i = 0; i &lt; sourceBytes.length; i++) {
++                sourceBytes[i] = (byte) Math.max( 0, encodingChar.indexOf( source.charAt( 4*group+i ) ) );
++            }
++            convert4To3( sourceBytes, targetBytes, group*3 );
++        }
++        return targetBytes;
++    }
++    // end // 
++    
++    
+     private static void convert4To3( byte[] source, byte[] target, int targetIndex ) {
+         target[ targetIndex  ]  = (byte) (( source[0] &lt;&lt; 2) | (source[1] &gt;&gt;&gt; 4));
+         target[ targetIndex+1 ] = (byte) (((source[1] &amp; 0x0f) &lt;&lt; 4) | (source[2] &gt;&gt;&gt; 2));
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/security/MessageDigestAlgorithm.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/security/MessageDigestAlgorithm.java	2007-12-03 18:53:26 UTC (rev 85)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/security/MessageDigestAlgorithm.java	2007-12-05 11:01:38 UTC (rev 86)
+@@ -242,14 +242,11 @@
+ 	    byte bArray[] = new byte[length];  
+ 	    int i = 0;
+ 	    for(i = 0; i &lt; (hexStr.length()/2); i++){
+-	    	byte firstNibble  = Byte.parseByte(hexStr.substring(2*i,2*i+1),16); // [x,y)
++	    	byte firstNibble  = Byte.parseByte(hexStr.substring(2*i,2*i+1),16); // [x,y]
+ 	    	byte secondNibble = Byte.parseByte(hexStr.substring(2*i+1,2*i+2),16);
+ 	    	int finalByte = (secondNibble) | (firstNibble &lt;&lt; 4 ); // bit-operations only with numbers, not bytes.
+ 	    	bArray[i] = (byte) finalByte;
+ 	    }
+-	    //for (int j = i; j &lt; length; j++){
+-	    //	bArray[j] = 0;
+-	    //}
+ 	    return bArray;
+ 	}
+ 
+
+Modified: trunk/ims-communicator/src/net/java/sip/communicator/sip/security/SipSecurityManager.java
+===================================================================
+--- trunk/ims-communicator/src/net/java/sip/communicator/sip/security/SipSecurityManager.java	2007-12-03 18:53:26 UTC (rev 85)
++++ trunk/ims-communicator/src/net/java/sip/communicator/sip/security/SipSecurityManager.java	2007-12-05 11:01:38 UTC (rev 86)
+@@ -864,13 +864,13 @@
+ 	    	
+ 	    	String sharedSecretHex = 
+ 	    		Utils.getProperty(&quot;net.java.sip.communicator.sip.ims.sec.SHARED_SECRET&quot;);
+-	    	byte[] sharedSecret = null; 
++	    	byte[] sharedSecret = null;
+ 	    	if (sharedSecretHex != null &amp;&amp; sharedSecretHex.length() &gt; 0)
+ 	    	{
+ 	    		 sharedSecret = 
+ 	    			 MessageDigestAlgorithm.toBinArray(sharedSecretHex, AKADigest.KLEN);
+-	    		 
+-	    		 console.debug(&quot;shared secret = &quot; + MessageDigestAlgorithm.toHexString(sharedSecret));
++
++	    		 console.debug(&quot;shared secret hex = &quot; + MessageDigestAlgorithm.toHexString(sharedSecret));
+ 	    	}
+ 	    	
+ 	    	// HTTP AKA implementation (RFC 3310)
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000073.html">[Imscommunicator-dev] r84 - trunk
+</A></li>
+	<LI>Next message: <A HREF="000075.html">[Imscommunicator-dev] r87 - trunk/releases
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#74">[ date ]</a>
+              <a href="thread.html#74">[ thread ]</a>
+              <a href="subject.html#74">[ subject ]</a>
+              <a href="author.html#74">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/imscommunicator-dev">More information about the Imscommunicator-dev
+mailing list</a><br>
+</body></html>
